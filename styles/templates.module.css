@@ -11,15 +11,18 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .headerTitle > h1 {
-  margin: 0;
+  margin: 0 0 0 0.33rem;
   padding: 0;
 }
 
 .headerTitle > svg {
-  font-size: 2rem;
+  width: 1.66rem;
+  height: 1.66rem;
+  padding-bottom: 0.1rem;
 }
 
 .navbarMain {
@@ -51,5 +54,21 @@
 }
 
 .footerMain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
+.footerMain > * {
+  padding: 0;
+  margin: 0;
+}
+
+.footerMain > button {
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  border-radius: 0.333rem 0.666rem;
+  padding: 0.333rem 0.8rem;
 }

@@ -1,7 +1,9 @@
+import Title from '@templates/Title'
+
 const Index = () => {
-  return (
-    <h2>group page</h2>
-  )
+  return (<>
+    <Title title='groups' />
+  </>)
 }
 
 export default Index

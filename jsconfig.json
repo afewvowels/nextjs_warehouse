@@ -3,11 +3,13 @@
         "baseUrl": ".",
         "paths": {
             "@components/*": ["./components/*"],
-            "@util/*": ["./util/*"],
+            "@db/*": ["./db/*"],
             "@styles/*": ["./styles/*"],
             "@public/*": ["./public/*"],
             "@templates/*": ["./components/templates/*"],
-            "@random/*": ["./components/modules/random/*"]
+            "@random/*": ["./components/modules/random/*"],
+            "@middlewares/*": ["./middlewares/*"],
+            "@lib/*": ["./lib/*"]
         }
     }
 }

@@ -1,0 +1,33 @@
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.titleWrapper > h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.55rem;
+  text-transform: capitalize;
+}
+
+.titleWrapper > * + * {
+  margin-left: 0.15rem;
+}
+
+.incrementWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.1rem;
+  cursor: pointer;
+}
+
+.incrementWrapper > svg {
+  width: auto;
+  height: 1.15rem;
+}
+
+.incrementWrapper > * + * {
+  margin-left: 0.15rem;
+}

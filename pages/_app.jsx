@@ -1,4 +1,7 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/pro-solid-svg-icons'
 import { far } from '@fortawesome/pro-regular-svg-icons'
@@ -12,6 +15,14 @@ import Layout from 'components/templates/Layout'
 library.add(fas,far,fad,fal,fab)
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    initialize()
+  }, [router.isReady])
+
+  if (router.pathname == '/') return (<Component {...pageProps}></Component>);
+
   return (
     <Layout>
       <Head>

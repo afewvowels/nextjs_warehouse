@@ -1,5 +1,9 @@
+import Title from '@templates/Title'
+
 const Index = () => {
-  return(<h2>prototype</h2>)
+  return(<>
+    <Title title='prototypes' />
+  </>)
 }
 
 export default Index

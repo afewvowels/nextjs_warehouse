@@ -1,12 +1,25 @@
-import { connectToDatabase } from 'util/mongodb';
+import nextConnect from 'next-connect'
+import middleware from '@middlewares/database'
+import { getBins, insertBin } from '@db/bins'
 
-export default async (req, res) => {
-  const { db } = await connectToDatabase();
+const handler = nextConnect()
 
-  const bins = await db
-    .collection('bins')
-    .find({})
-    .toArray();
+handler.use(middleware)
 
-  res.json(bins);
-}
+handler.get(async (req, res) => {
+  const bins = await getBins(req.db)
+
+  res.status(201).send({ bins })
+})
+
+handler.post(async (req, res) => {
+  if (!req.body.content) return res.status(400).send(`POST request body was empty`)
+
+  const bin = await insertBin(req.db, {
+    content: req.body.content
+  })
+
+  return res.status(201).json({ bin })
+})
+
+export default handler

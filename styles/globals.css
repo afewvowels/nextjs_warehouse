@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
+:root {
+  --background-color: #fff;
+  --foreground-color: #000;
+}
+
 html,
 body {
   padding: 0;
@@ -9,6 +14,8 @@ body {
   min-height: 100vh;
   min-width: 100%;
   cursor: default;
+  color: var(--foreground-color);
+  background-color: var(--background-color);
 }
 
 body {
@@ -30,6 +37,11 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: minmax(2rem, 4rem) auto minmax(2rem, 3rem);
+  grid-gap: 0.5rem;
   min-height: 100vh;
   max-width: 1280px;
+}
+
+#__next > main > * + * {
+  margin-top: 0.8rem;
 }

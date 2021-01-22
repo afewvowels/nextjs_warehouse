@@ -18,11 +18,22 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.2",
     "@fortawesome/pro-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "connect-mongo": "^3.2.0",
+    "dgram": "^1.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongodb": "^3.6.3",
+    "mongodb-core": "^3.2.7",
     "next": "10.0.5",
+    "next-connect": "^0.9.1",
     "next-images": "^1.7.0",
+    "next-session": "^3.4.0",
+    "node": "^15.4.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "sass": "^1.32.5"
+    "readable-url-names": "^1.1.2",
+    "sass": "^1.32.5",
+    "swr": "^0.4.0",
+    "uuid": "^8.3.2"
   }
 }
