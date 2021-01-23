@@ -23,12 +23,14 @@ export default function Home() {
           align-items: center;
           justify-content: center;
           width: 100%;
+          max-width: 12rem;
           height: 100%;
           cursor: pointer;
         }
         .contentWrapper > h1 {
-          font-size: 2.25rem;
+          font-size: 2.65rem;
           margin: 0.75rem 0 0 0;
+          font-weight: 500;
         }
       `}</style>
       <div className='wrapper'>

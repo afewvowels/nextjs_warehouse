@@ -10,11 +10,22 @@
   grid-gap: 0.666rem;
 }
 
+@media only screen and (max-width: 666px) {
+  .elementWrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
 .elementHeaderRow {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+}
+
+.elementHeaderRow > * {
+  margin: 0;
+  padding: 0;
 }
 
 .elementEntryRow, .elementInfoRow {
@@ -24,9 +35,14 @@
   grid-gap: 0.5rem;
 }
 
-.elementEntryRow > * {
+.elementEntryRow > *, .elementInfoRow > * {
   margin: 0;
   padding: 0;
+}
+
+.elementInfoRow > img {
+  width: 100%;
+  height: auto;
 }
 
 .elementEntryRow > svg {
@@ -57,6 +73,11 @@
   padding: 1rem;
 }
 
+.elementImageWrapper > img {
+  width: 100%;
+  height: auto;
+}
+
 .elementButtonsWrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -75,4 +96,5 @@
   border: 1px solid var(--foreground-color);
   border-radius: 0.5rem;
   padding: 0.333rem 0;
+  cursor: pointer;
 }

@@ -39,9 +39,21 @@ a {
   grid-template-rows: minmax(2rem, 4rem) auto minmax(2rem, 3rem);
   grid-gap: 0.5rem;
   min-height: 100vh;
-  max-width: 1280px;
+  width: 960px;
 }
 
 #__next > main > * + * {
   margin-top: 0.8rem;
+}
+
+@media only screen and (max-width: 960px) {
+  #__next {
+    width: 100%;
+    padding: 0 2rem;
+    grid-template-rows: 5rem auto minmax(2rem, 3rem);
+  }
+
+  #__next > * {
+    width: 100%;
+  }
 }

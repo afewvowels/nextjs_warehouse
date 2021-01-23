@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb'
-import nextConnect from 'next-connect'
+import nc from 'next-connect'
 
 global.mongo = global.mongo || {}
 
@@ -11,6 +11,7 @@ export async function createIndexes(db) {
     db.collection('items').createIndex({ _id: 1 }),
     db.collection('categories').createIndex({ _id: 1 }),
     db.collection('tags').createIndex({ _id: 1 }),
+    db.collection('images').createIndex({ _id: 1 })
   ])
   indexesCreated = true
 }
@@ -29,7 +30,7 @@ async function database(req, res, next) {
   return next()
 }
 
-const middleware = nextConnect()
+const middleware = nc()
 
 middleware.use(database)
 

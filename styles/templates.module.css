@@ -49,6 +49,36 @@
   cursor: pointer;
 }
 
+@media only screen and (max-width: 666px) {
+  .headerMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+  }
+
+  .headerTitle {
+    align-self: center;
+    justify-self: center;
+    padding-top: 0.5rem 0 0 0;
+  }
+
+  .navbarMain {
+    align-self: center;
+    justify-self: center;
+    height: 1.5rem;
+  }
+
+  .navbarMain > ul {
+    justify-self: center;
+  }
+
+  .navbarMain > ul > li {
+    padding: 0.25rem 0.65rem;
+  }
+}
+
 .layoutMain {
 
 }

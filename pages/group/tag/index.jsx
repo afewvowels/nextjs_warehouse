@@ -1,8 +1,8 @@
 import Title from '@templates/Title'
 
 const Index = () => {
-  return(<>
-    <Title title='groups' />
+  return (<>
+    <Title title='tag' />
   </>)
 }
 
