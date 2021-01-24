@@ -18,10 +18,12 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    initialize()
+    if (!router.pathname.includes('print')) {
+      initialize()
+    }
   }, [router.isReady])
 
-  if (router.pathname == '/') return (<Component {...pageProps}></Component>);
+  if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>);
 
   return (
     <Layout>

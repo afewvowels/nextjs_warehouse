@@ -71,9 +71,8 @@ const Index = () => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <input type='text'
-                  value={description}
-                  onChange={e => set_description(e.target.value)}/>
+          <textarea value={description}
+                    onChange={e => set_description(e.target.value)}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>

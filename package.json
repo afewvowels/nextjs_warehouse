@@ -33,6 +33,7 @@
     "next-images": "^1.7.0",
     "next-session": "^3.4.0",
     "node": "^15.4.0",
+    "qrcode.react": "^1.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "readable-url-names": "^1.1.2",

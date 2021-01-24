@@ -5,34 +5,30 @@ const handler = nc()
 handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const {
-    query: { uuid },
-  } = req
-
-  const prototype = await req.db
+  const prototypes = await req.db
     .collection('prototypes')
-    .findOne({ uuid: uuid })
-
-  if (prototype) {
-    res.status(201).json(prototype)
+    .find()
+    .toArray()
+  
+  if (prototypes) {
+    res.status(201).json(prototypes)
   } else {
-    res.status(401).send(`error finding prototype with uuid ${uuid}`)
+    res.status(401).send(`error finding prototypes`)
   }
 })
 
-handler.delete(async (req, res) => {
-  const {
-    query: { uuid },
-  } = req
+handler.post(async (req, res) => {
+  const { uuid, readable_name, name, description, traits, icon, image_uuid, category_uuid, tag_uuids } = req.body
 
   const prototype = await req.db
     .collection('prototypes')
-    .findOneAndDelete({ uuid: uuid })
-    
+    .insertOne({ uuid, readable_name, name, description, traits, icon, image_uuid, category_uuid, tag_uuids })
+    .then(({ops}) => ops[0])
+
   if (prototype) {
     res.status(201).json(prototype)
   } else {
-    res.status(401).send(`error deleting prototype with uuid ${uuid}`)
+    res.status(401).send(`error creating prototype ${name}`)
   }
 })
 

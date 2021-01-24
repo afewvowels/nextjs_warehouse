@@ -11,6 +11,10 @@
   text-transform: capitalize;
 }
 
+.titleHeadingLink {
+  cursor: pointer;
+}
+
 .titleWrapper > * + * {
   margin-left: 0.15rem;
 }

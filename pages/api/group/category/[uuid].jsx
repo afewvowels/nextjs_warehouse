@@ -17,6 +17,31 @@ handler.get(async (req, res) => {
   res.json(category)
 })
 
+handler.post(async (req, res) => {
+  const {
+    query: { uuid }
+  } = req
+
+  const update = {
+    $set: {
+    uuid: req.body.uuid,
+    name: req.body.name,
+    description: req.body.description,
+    icon: req.body.icon
+    }
+  }
+
+  let category = await req.db
+    .collection('categories')
+    .findOneAndUpdate({ uuid: uuid }, update)
+
+  if (category) {
+    res.status(201).json(category)
+  } else {
+    res.status(401).send('error updating category with uuid ' + uuid)
+  }
+})
+
 handler.delete(async (req, res) => {
   const {
     query: { uuid },

@@ -120,7 +120,7 @@ const Index = ({categories, tags}) => {
       body: JSON.stringify(image),
     })
 
-    if (imgRes.status == 201) {
+    if (imageRes.status == 201) {
       console.log(`image created successfully`)
     } else {
       console.error(`error while creating image`)
@@ -141,7 +141,7 @@ const Index = ({categories, tags}) => {
     const prototypeRes = await fetch(urls.home + 'api/prototype', {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json'},
-      body: JSON.stringify(image),
+      body: JSON.stringify(prototype),
     })
 
     if (prototypeRes.status == 201) {
@@ -181,7 +181,8 @@ const Index = ({categories, tags}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>Category</label>
-          <select ref={categoriesRef}
+          <select className={styles.elementSelectDropdown}
+                  ref={categoriesRef}
                   value={category_uuid}
                   onChange={e => set_category_uuid(e.target.value)}>
           </select>
@@ -194,36 +195,40 @@ const Index = ({categories, tags}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <input type='text'
-                  value={description}
-                  onChange={e => set_description(e.target.value)}/>
+          <textarea value={description}
+                    onChange={e => set_description(e.target.value)}/>
         </div>
-        <div className={styles.elementEntryRow}>
+        <div className={`${styles.elementEntryRow} ${styles.elementEntryWithDropdown}`}>
           <label>Traits</label>
-          <ul ref={traitsRef}></ul>
+          <ul ref={traitsRef} className={styles.elementListBullets}></ul>
           <input type='text'
                   value={new_trait}
                   onChange={e => set_new_trait(e.target.value)}/>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTrait}>Add Trait</button>
+          <span className={styles.elementButtonsWrapper}>
+            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTrait}>Add Trait</button>
+          </span>
         </div>
-        <div className={styles.elementEntryRow}>
+        <div className={`${styles.elementEntryRow} ${styles.elementEntryWithDropdown}`}>
           <label>Tags</label>
-          <ul ref={tagsRef}></ul>
-          <select ref={tagSelectRef}
+          <ul ref={tagsRef} className={styles.elementListCloud}></ul>
+          <select className={styles.elementSelectDropdown}
+                  ref={tagSelectRef}
                   value={new_tag}
                   onChange={e => set_new_tag(e.target.value)}/>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTag}>Add Tag</button>
+          <span className={styles.elementButtonsWrapper}>
+            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTag}>Add Tag</button>
+          </span>
         </div>
         <div className={styles.elementEntryRow}>
           <div ref={imageRef} className={styles.elementImageWrapper}></div>
           <label>Image</label>
           <input type='file'
                   multiple={false}
-                  accept='image/jpeg'
+                  accept='image/jpeg,image/webp,image/png'
                   onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <span className={styles.elementButtonsWrapper}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create Prototype</button>
+          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>
         </span>
       </div>
     </section>

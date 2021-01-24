@@ -20,8 +20,8 @@
 }
 
 .headerTitle > svg {
-  width: 1.66rem;
-  height: 1.66rem;
+  width: 1.8rem;
+  height: auto;
   padding-bottom: 0.1rem;
 }
 
@@ -88,6 +88,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .footerMain > * {
@@ -99,6 +100,78 @@
   color: var(--foreground-color);
   background-color: var(--background-color);
   border: 1px solid var(--foreground-color);
-  border-radius: 0.333rem 0.666rem;
-  padding: 0.333rem 0.8rem;
+  border-radius: 0.5rem 0.5rem;
+  padding: 0.5rem 0.8rem;
+  font-size: var(--font-size);
+}
+
+.fourohfourWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.fourohfourWrapper > *:first-child {
+  justify-self: flex-end;
+  align-self: center;
+  padding-right: 1.15rem;
+}
+
+.fourohfourWrapper > *:last-child {
+  justify-self: flex-start;
+  align-self: center;
+  border-left: 1px solid var(--foreground-color);
+  padding-left: 1.333rem;
+}
+
+.fourohfourCell {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fourohfourCell > * {
+  margin: 0;
+  padding: 0;
+}
+
+.fourohfourCell > svg {
+  width: 4rem;
+  height: auto;
+  margin-left: 0.7rem;
+}
+
+.fourohfourCell > * + * {
+  margin-top: 0.5rem;
+}
+
+.fourohfourGoHome {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.fourohfour404 {
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.fourohfourButton {
+  display: flex;
+  flex-direction: row;
+  width: 10rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.33rem 0.5rem;
+  border: 1px solid var(--foreground-color);
+  border-radius: 0.333rem;
+}
+
+.fourohfourButton > p {
+  margin: 0;
+  padding: 0;
 }

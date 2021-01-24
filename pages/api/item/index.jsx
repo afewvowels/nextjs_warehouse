@@ -19,11 +19,11 @@ handler.get(async (req, res) => {
 })
 
 handler.post(async (req, res) => {
-  const { uuid, readable_name, prototype_uuid, bin_uuid, in_bin } = req.body
+  const { uuid, prototype_uuid, bin_uuid, in_bin } = req.body
 
   const item = await req.db
     .collection('items')
-    .insertOne({ uuid, readable_name, prototype_uuid, bin_uuid, in_bin })
+    .insertOne({ uuid, prototype_uuid, bin_uuid, in_bin })
     .then(({ops}) => ops[0])
 
   if (item) {

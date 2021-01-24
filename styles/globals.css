@@ -3,6 +3,8 @@
 :root {
   --background-color: #fff;
   --foreground-color: #000;
+  --font-size: 1.05rem;
+  --font-size-small: 0.9rem;
 }
 
 html,
@@ -36,7 +38,7 @@ a {
 #__next {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(2rem, 4rem) auto minmax(2rem, 3rem);
+  grid-template-rows: minmax(2rem, 4rem) auto minmax(3.5rem, 4rem);
   grid-gap: 0.5rem;
   min-height: 100vh;
   width: 960px;
@@ -49,8 +51,8 @@ a {
 @media only screen and (max-width: 960px) {
   #__next {
     width: 100%;
-    padding: 0 2rem;
-    grid-template-rows: 5rem auto minmax(2rem, 3rem);
+    padding: 0 1.25rem;
+    grid-template-rows: 5rem auto minmax(3.5rem, 4rem);
   }
 
   #__next > * {
