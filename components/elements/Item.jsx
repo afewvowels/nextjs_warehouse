@@ -70,7 +70,7 @@ const Item = ({item}) => {
         <Link href={`/item/print/${item.uuid}`}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
         </Link>
-        <Link href={`/item/${item.uuid}`}>
+        <Link href={`/item/edit/${item.uuid}`}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
         </Link>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>

@@ -1,5 +1,5 @@
 import styles from '@styles/elements.module.css'
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import Link from 'next/link'
@@ -9,53 +9,39 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function useBin(uuid) {
   const { data, error } = useSWR(`/api/bin/${uuid}`, fetcher)
-
-  return {
-    bin: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { bin: data, binIsLoading: !error && !data, binIsError: error }
 }
 
 function usePrototype(uuid) {
   const { data, error } = useSWR(`/api/prototype/${uuid}`, fetcher)
-
-  return {
-    prototype: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { prototype: data, prototypeIsLoading: !error && !data, prototypeIsError: error }
 }
 
 function useImage(uuid) {
   const { data, error } = useSWR(`/api/image/base64/${uuid}`, fetcher)
-
-  return {
-    image: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { image: data, isLoading: !error && !data, isError: error }
 }
 
 function BinImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <p>...Loading image...</p>
-  if (isError) return <p>Error loading image...</p>
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
   return <img src={image.base64} alt={uuid} />
 }
 
 function PrototypeImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <p>...Loading image...</p>
-  if (isError) return <p>Error loading image...</p>
-  return <img src={image.base64} alt={uuid}/>
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+  return <img src={image.base64} alt={uuid} />
 }
 
 const ViewItem = ({item}) => {
   const { bin, binIsLoading, binIsError } = useBin(item.bin_uuid)
   const { prototype, prototypeIsLoading, prototypeIsError } = usePrototype(item.prototype_uuid)
+
 
   const [check_in_out, set_check_in_out] = useState(item.in_bin)
   const [error_msg, set_error_msg] = useState('')
@@ -121,9 +107,6 @@ const ViewItem = ({item}) => {
         <p>{check_in_out ? 'True' : 'False'}</p>
       </div>
       <div className={styles.elementButtonsWrapper}>
-        <Link href='/item'>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
-        </Link>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
       </div>
     </div>

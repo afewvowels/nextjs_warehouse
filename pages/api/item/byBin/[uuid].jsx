@@ -38,7 +38,7 @@ handler.get(async (req, res) => {
   prototype_names.forEach(function(i) { count[i] = (count[i] || 0 ) + 1})
   let outputArr = []
   for (const [key, value] of Object.entries(count)) {
-    outputArr.push(`${key} ${value}`)
+    outputArr.push(`${key} | ${value}`)
   }
 
   if (items) {
