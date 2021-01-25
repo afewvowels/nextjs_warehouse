@@ -9,7 +9,7 @@ const Tag = ({tag, categories}) => {
 
   useEffect(() => {
     categories.forEach(category => {
-      if (category.uuid = tag.category_uuid) {
+      if (category.uuid == tag.category_uuid) {
         set_category_name(category.name)
         return
       }
