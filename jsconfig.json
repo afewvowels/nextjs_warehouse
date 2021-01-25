@@ -1,15 +1,16 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
+        "baseUrl": "./",
+        "jsx": "react",
         "paths": {
-            "@components/*": ["./components/*"],
-            "@db/*": ["./db/*"],
-            "@styles/*": ["./styles/*"],
-            "@public/*": ["./public/*"],
-            "@templates/*": ["./components/templates/*"],
-            "@random/*": ["./components/modules/random/*"],
-            "@middlewares/*": ["./middlewares/*"],
-            "@lib/*": ["./lib/*"]
+            "@components/*": ["components/*"],
+            "@db/*": ["db/*"],
+            "@styles/*": ["styles/*"],
+            "@public/*": ["public/*"],
+            "@templates/*": ["components/templates/*"],
+            "@random/*": ["components/modules/random/*"],
+            "@middlewares/*": ["middlewares/*"],
+            "@lib/*": ["lib/*"]
         }
     }
 }

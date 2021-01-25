@@ -1,3 +1,5 @@
 {
-    "home": "http://inventory:3000/"
+    "home": "http://inventory:3000/",
+    "db_uri": "mongodb://inventory:27017/warehouse",
+    "db_select": "warehouse"
 }
