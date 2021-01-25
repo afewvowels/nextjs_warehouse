@@ -31,6 +31,7 @@ function PrototypeImage({uuid}) {
 const Item = ({item}) => {
   const [collapsed, set_collapsed] = useState(true)
   const [check_in_out, set_check_in_out] = useState(item.in_bin)
+  const [error_msg, set_error_msg] = useState('')
 
   
   const deleteItem = async () => {
@@ -86,6 +87,7 @@ const Item = ({item}) => {
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
+      {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={item.bin_icon}/>
         <h3>{item.bin_name}</h3>
