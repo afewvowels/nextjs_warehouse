@@ -20,9 +20,6 @@ const Navbar = () => {
         <Link href='/group/tag'>
           <li>Tags</li>
         </Link>
-        {/* <Link href='/group'>
-          <li>Groups</li>
-        </Link> */}
       </ul>
     </nav>)
 }

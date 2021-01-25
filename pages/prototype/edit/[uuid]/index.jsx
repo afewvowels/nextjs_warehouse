@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 import { v4 as uuidv4 } from 'uuid'
@@ -146,7 +145,7 @@ const Index = ({prototype, image, categories, tags}) => {
         base64: image_base64
       }
 
-      const imageRes = await fetch(urls.home + 'api/image', {
+      const imageRes = await fetch(process.env.URL + 'api/image', {
         method: 'POST',
         headers: { 'Content-Type' : 'application/json'},
         body: JSON.stringify(image),
@@ -171,7 +170,7 @@ const Index = ({prototype, image, categories, tags}) => {
       icon: icon
     }
 
-    const prototypeRes = await fetch(urls.home + 'api/prototype/' + prototype.uuid, {
+    const prototypeRes = await fetch(process.env.URL + 'api/prototype/' + prototype.uuid, {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json'},
       body: JSON.stringify(prototype),
@@ -270,16 +269,16 @@ const Index = ({prototype, image, categories, tags}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let prototypeRes = await fetch(urls.home + 'api/prototype/' + params.uuid)
+  let prototypeRes = await fetch(process.env.URL + 'api/prototype/' + params.uuid)
   let prototype = await prototypeRes.json()
 
-  let imageRes = await fetch(urls.home + 'api/image/' + prototype.image_uuid)
+  let imageRes = await fetch(process.env.URL + 'api/image/' + prototype.image_uuid)
   let image = await imageRes.json()
 
-  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
-  let tagsRes = await fetch(urls.home + 'api/group/tag')
+  let tagsRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagsRes.json()
 
   return { props: { prototype, image, categories, tags} }

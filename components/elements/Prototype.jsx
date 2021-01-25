@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 import styles from '@styles/elements.module.css'
 import Router from 'next/router'
 import Link from 'next/link'

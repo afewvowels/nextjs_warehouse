@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 const readable = require('readable-url-names')
@@ -114,7 +113,7 @@ const Index = ({categories, tags}) => {
       base64: image_base64
     }
 
-    const imageRes = await fetch(urls.home + 'api/image', {
+    const imageRes = await fetch('/api/image', {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json'},
       body: JSON.stringify(image),
@@ -124,6 +123,8 @@ const Index = ({categories, tags}) => {
       console.log(`image created successfully`)
     } else {
       console.error(`error while creating image`)
+      set_error_msg(await imageRes.text())
+      return
     }
 
     const prototype = {
@@ -138,7 +139,7 @@ const Index = ({categories, tags}) => {
       icon: icon
     }
 
-    const prototypeRes = await fetch(urls.home + 'api/prototype', {
+    const prototypeRes = await fetch('/api/prototype', {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json'},
       body: JSON.stringify(prototype),
@@ -236,10 +237,10 @@ const Index = ({categories, tags}) => {
 }
 
 export async function getServerSideProps() {
-  let categoryRes = await fetch(urls.home + 'api/group/category')
+  let categoryRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoryRes.json()
 
-  let tagRes = await fetch(urls.home + 'api/group/tag')
+  let tagRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagRes.json()
 
   return { props: { categories, tags } }

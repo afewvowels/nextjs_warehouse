@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react'
 import Title from '@templates/Title'
 import Tag from '@components/elements/Tag'
 import styles from '@styles/elements.module.css'
-import urls from '@public/urls.json'
 
 const Index = ({categories, tags}) => {
   const [category, set_category] = useState('all')
@@ -36,10 +35,10 @@ const Index = ({categories, tags}) => {
 }
 
 export async function getServerSideProps() {
-  let categoryRes = await fetch(urls.home + 'api/group/category')
+  let categoryRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoryRes.json()
 
-  let tagRes = await fetch(urls.home + 'api/group/tag')
+  let tagRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagRes.json()
 
   return { props: { categories, tags } }

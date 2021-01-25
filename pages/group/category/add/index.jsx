@@ -5,7 +5,6 @@ import randomIcon from '@components/modules/random/icon/randomIcon'
 import { v4 as uuidv4 } from 'uuid'
 
 import styles from '@styles/elements.module.css'
-import urls from '@public/urls.json'
 
 const Index = () => {
   const [uuid, set_uuid] = useState('')

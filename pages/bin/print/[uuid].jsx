@@ -1,4 +1,3 @@
-import urls from '@public/urls.json'
 import QRCode from 'qrcode.react'
 import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
@@ -12,7 +11,7 @@ const Index = ({bin}) => {
   const [icon_base64, set_icon_base64] = useState('')
 
   useEffect(() => {
-    set_qr_url(urls.home + 'bin/' + bin.uuid)
+    set_qr_url(process.env.URL + 'bin/' + bin.uuid)
   }, [bin])
 
   const iconRef = useCallback(node => {
@@ -61,7 +60,7 @@ const Index = ({bin}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let binRes = await fetch(urls.home + 'api/bin/' + params.uuid)
+  let binRes = await fetch(process.env.URL + 'api/bin/' + params.uuid)
   let bin = await binRes.json()
 
   return { props: { bin } }

@@ -3,7 +3,6 @@ import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { v4 as uuidv4 } from 'uuid'
 import randomIcon from '@components/modules/random/icon/randomIcon'
-import urls from '@public/urls.json'
 
 import styles from '@styles/elements.module.css'
 
@@ -103,7 +102,7 @@ const Index = ({categories}) => {
 }
 
 export async function getServerSideProps() {
-  let res = await fetch(urls.home + 'api/group/category')
+  let res = await fetch(process.env.URL + 'api/group/category')
   let categories = await res.json()
 
   return { props: { categories } }

@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 
@@ -112,10 +111,10 @@ const Index = ({tag, categories}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let tagRes = await fetch(urls.home + 'api/group/tag/' + params.uuid)
+  let tagRes = await fetch(process.env.URL + 'api/group/tag/' + params.uuid)
   let tag = await tagRes.json()
 
-  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
   return { props: { tag, categories } }

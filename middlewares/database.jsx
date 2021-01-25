@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb'
 import nc from 'next-connect'
-import urls from '@public/urls.json'
 
 global.mongo = global.mongo || {}
 
@@ -19,14 +18,14 @@ export async function createIndexes(db) {
 
 async function database(req, res, next) {
   if (!global.mongo.client) {
-    global.mongo.client = new MongoClient(urls.db_uri, {
+    global.mongo.client = new MongoClient(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
     await global.mongo.client.connect()
   }
   req.dbClient = global.mongo.client
-  req.db = global.mongo.client.db(urls.db_select)
+  req.db = global.mongo.client.db(process.env.MONGODB_DB)
   if (!indexesCreated) await createIndexes(req.db)
   return next()
 }
@@ -34,5 +33,6 @@ async function database(req, res, next) {
 const middleware = nc()
 
 middleware.use(database)
+
 
 export default middleware

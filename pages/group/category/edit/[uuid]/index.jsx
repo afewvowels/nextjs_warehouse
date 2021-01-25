@@ -1,11 +1,9 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import randomIcon from '@components/modules/random/icon/randomIcon'
-import { v4 as uuidv4 } from 'uuid'
 
 import styles from '@styles/elements.module.css'
-import urls from '@public/urls.json'
 
 const Index = ({category}) => {
   const [uuid, set_uuid] = useState('')
@@ -87,7 +85,7 @@ const Index = ({category}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let categoryRes = await fetch(urls.home + 'api/group/category/' + params.uuid)
+  let categoryRes = await fetch(process.env.URL + 'api/group/category/' + params.uuid)
   let category = await categoryRes.json()
 
   return { props : { category } }

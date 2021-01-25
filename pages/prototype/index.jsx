@@ -1,6 +1,5 @@
 import Title from '@templates/Title'
 import Prototype from '@components/elements/Prototype'
-import urls from '@public/urls.json'
 import styles from '@styles/elements.module.css'
 import { useState, useCallback } from 'react'
 
@@ -70,13 +69,13 @@ const Index = ({prototypes, categories, tags}) => {
 }
 
 export async function getServerSideProps() {
-  let prototypesRes = await fetch(urls.home + 'api/prototype')
+  let prototypesRes = await fetch(process.env.URL + 'api/prototype')
   let prototypes = await prototypesRes.json()
 
-  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
-  let tagsRes = await fetch(urls.home + 'api/group/tag')
+  let tagsRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagsRes.json()
 
   return { props: { prototypes, categories, tags } }

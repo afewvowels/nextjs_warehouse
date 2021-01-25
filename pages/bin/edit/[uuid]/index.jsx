@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 import Head from 'next/head'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
@@ -167,10 +166,10 @@ const Index = ({bin, image}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let binRes = await fetch(urls.home + 'api/bin/' + params.uuid)
+  let binRes = await fetch(process.env.URL + 'api/bin/' + params.uuid)
   let bin = await binRes.json()
 
-  let imageRes = await fetch(urls.home + 'api/image/' + bin.image_uuid)
+  let imageRes = await fetch(process.env.URL + 'api/image/' + bin.image_uuid)
   let image = await imageRes.json()
 
   return { props: { bin, image } }

@@ -26,7 +26,7 @@ handler.post(async (req, res) => {
     .then(({ops}) => ops[0])
 
   if (image) {
-    res.statusCode(201).send('added image successfully')
+    res.status(201).send('added image successfully')
   } else {
     res.status(401).send('error adding image')
   }

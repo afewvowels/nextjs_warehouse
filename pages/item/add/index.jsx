@@ -1,9 +1,6 @@
 import { useState, useCallback } from 'react'
 import Router from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { v4 as uuidv4 } from 'uuid'
-import randomIcon from '@components/modules/random/icon/randomIcon'
-import urls from '@public/urls.json'
 
 import styles from '@styles/elements.module.css'
 
@@ -128,13 +125,13 @@ const Index = ({prototypes, bins, categories}) => {
 }
 
 export async function getServerSideProps() {
-  let prototypeRes = await fetch(urls.home + 'api/prototype')
+  let prototypeRes = await fetch(process.env.URL + 'api/prototype')
   let prototypes = await prototypeRes.json()
 
-  let binsRes = await fetch(urls.home + 'api/bin')
+  let binsRes = await fetch(process.env.URL + 'api/bin')
   let bins = await binsRes.json()
 
-  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
   return { props: { prototypes, bins, categories } }

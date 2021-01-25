@@ -1,5 +1,3 @@
-import { connectToDatabase } from 'db/mongodb'
-import bins from 'pages/api/bins'
 import { v4 as uuidv4 } from 'uuid'
 const readable = require('readable-url-names')
 

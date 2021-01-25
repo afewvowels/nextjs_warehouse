@@ -1,5 +1,4 @@
 import Title from '@templates/Title'
-import urls from '@public/urls.json'
 import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
 import { useState, useCallback } from 'react'
@@ -36,16 +35,16 @@ const Index = ({items, categories}) => {
 }
 
 export async function getServerSideProps() {
-  let itemsRes = await fetch(urls.home + 'api/item')
+  let itemsRes = await fetch(process.env.URL + 'api/item')
   let items = await itemsRes.json()
 
-  let prototypesRes = await fetch(urls.home + 'api/prototype')
+  let prototypesRes = await fetch(process.env.URL + 'api/prototype')
   let prototypes = await prototypesRes.json()
 
-  let binsRes = await fetch(urls.home + 'api/bin')
+  let binsRes = await fetch(process.env.URL + 'api/bin')
   let bins = await binsRes.json()
 
-  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
   items.forEach((item) => {

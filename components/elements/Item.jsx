@@ -1,32 +1,10 @@
 import styles from '@styles/elements.module.css'
-import { useCallback, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import urls from '@public/urls.json'
 import useSWR from 'swr'
 import Link from 'next/link'
 import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-
-function useBin(uuid) {
-  const { data, error } = useSWR(`/api/bin/${uuid}`, fetcher)
-
-  return {
-    bin: data,
-    isLoading: !error && !data,
-    isError: error
-  }
-}
-
-function usePrototype(uuid) {
-  const { data, error } = useSWR(`/api/prototype/${uuid}`, fetcher)
-
-  return {
-    prototype: data,
-    isLoading: !error && !data,
-    isError: error
-  }
-}
 
 function useImage(uuid) {
   const { data, error } = useSWR(`/api/image/base64/${uuid}`, fetcher)

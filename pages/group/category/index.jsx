@@ -1,6 +1,5 @@
 import Title from '@templates/Title'
 import Category from '@components/elements/Category'
-import urls from '@public/urls.json'
 import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
@@ -20,10 +19,10 @@ const Index = ({categories, tags}) => {
 }
 
 export async function getServerSideProps() {
-  let categoryRes = await fetch(urls.home + 'api/group/category')
+  let categoryRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoryRes.json()
 
-  let tagRes = await fetch(urls.home + 'api/group/tag')
+  let tagRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagRes.json()
 
   return { props: { categories, tags } }

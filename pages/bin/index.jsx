@@ -1,6 +1,5 @@
 import Title from '@templates/Title'
 import Bin from '@components/elements/Bin'
-import urls from '@public/urls.json'
 import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
@@ -20,7 +19,7 @@ const Index = ({bins}) => {
 }
 
 export async function getServerSideProps() {
-  let res = await fetch(urls.home + 'api/bin')
+  let res = await fetch(process.env.URL + 'api/bin')
   let bins = await res.json()
 
   return { props: { bins } }
