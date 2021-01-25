@@ -175,6 +175,8 @@
   appearance: none;
   font-size: var(--font-size);
   outline: none;
+  border: 1px solid var(--foreground-color);
+  border-radius: 0.25rem;
 }
 
 .elementEntryWithDropdown {
