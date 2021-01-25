@@ -10,6 +10,7 @@ const Category = ({category, tags}) => {
   const [edit_url, set_edit_url] = useState('')
 
   useEffect(() => {
+    set_tag_names([])
     tags.forEach(tag => {
       if (tag.category_uuid == category.uuid) {
         set_tag_names(tag_names => [...tag_names, tag.name])
@@ -20,6 +21,7 @@ const Category = ({category, tags}) => {
 
   const tagNamesRef = useCallback(node => {
     if (node != null) {
+      node.innerHTML = ''
       while (node.children.length > 0) {
         node.removeChild()
       }
