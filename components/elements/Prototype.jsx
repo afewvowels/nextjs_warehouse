@@ -9,12 +9,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function useImage(uuid) {
   const { data, error } = useSWR(`/api/image/base64/${uuid}`, fetcher)
-
-  return {
-    image: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { image: data, isLoading: !error && !data, isError: error }
 }
 
 function PrototypeImage({uuid}) {
@@ -29,6 +24,7 @@ const Prototype = ({prototype, categories, tags}) => {
   const [tag_names, set_tag_names] = useState([]);
   const [category_name, set_category_name] = useState('')
   const [edit_url, set_edit_url] = useState('')
+  const [collapsed, set_collapsed] = useState(true)
 
   useEffect(() => {
     set_tag_names([])
@@ -88,11 +84,30 @@ const Prototype = ({prototype, categories, tags}) => {
     }
   }
 
+  const openItem = () => {
+    set_collapsed(false)
+  }
+
+  const closeItem = () => {
+    set_collapsed(true)
+  }
+
+  if (collapsed) {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={styles.elementHeaderRow}>
+          <FontAwesomeIcon icon={prototype.icon} />
+          <h3>{prototype.name}</h3>
+        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        </div>
+      </div>
+  )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={prototype.icon} />
-        <h3>{prototype.name}</h3>{}
+        <h3>{prototype.name}</h3>
+        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
       </div>
       {/* <div className={styles.elementInfoRow} ref={imageRef}>
       </div> */}
@@ -126,7 +141,7 @@ const Prototype = ({prototype, categories, tags}) => {
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deletePrototype}>Delete</button>
       </div>
     </div>
-  )
+  )}
 }
 
 export default Prototype

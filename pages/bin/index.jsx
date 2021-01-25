@@ -4,6 +4,8 @@ import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
 
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 const Index = ({bins}) => {
   return (<>
     <Head>

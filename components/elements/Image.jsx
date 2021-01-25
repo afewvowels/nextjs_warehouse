@@ -6,37 +6,27 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function useImage(uuid) {
   const { data, error } = useSWR(`/api/image/base64/${uuid}`, fetcher)
-
-  return {
-    image: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { image: data, isLoading: !error && !data, isError: error }
 }
 
 function FoundImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <p>...Loading image...</p>
-  if (isError) return <p>Error loading image...</p>
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
   return <img src={image.base64} alt={uuid} />
 }
 
 function useImageInUse(uuid) {
   const { data, error } = useSWR(`/api/image/inUse/${uuid}`, fetcher)
-
-  return {
-    inUse: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { inUse: data, isLoading: !error && !data, isError: error }
 }
 
 function ImageInUse({uuid}) {
   const { inUse, isLoading, isError } = useImageInUse(uuid)
 
-  if (isLoading) return <p>...Loading image in use status...</p>
-  if (isError) return <p>Error loading image in use status...</p>
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
   return (inUse.in_use) ? <p>In use</p> : <p>Not in use</p>
 }
 

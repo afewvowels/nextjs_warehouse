@@ -29,6 +29,7 @@
     "mongodb": "^3.6.3",
     "mongodb-core": "^3.2.7",
     "next": "10.0.5",
+    "next-absolute-url": "^1.2.2",
     "next-compose-plugins": "^2.2.1",
     "next-connect": "^0.9.1",
     "next-images": "^1.7.0",

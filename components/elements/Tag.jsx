@@ -6,6 +6,7 @@ import Link from 'next/link'
 const Tag = ({tag, categories}) => {
   const [category_name, set_category_name] = useState('')
   const [edit_url, set_edit_url] = useState('')
+  const [collapsed, set_collapsed] = useState(true)
 
   useEffect(() => {
     categories.forEach(category => {
@@ -30,11 +31,30 @@ const Tag = ({tag, categories}) => {
     }
   }
 
+  const openItem = () => {
+    set_collapsed(false)
+  }
+
+  const closeItem = () => {
+    set_collapsed(true)
+  }
+
+  if (collapsed) {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={styles.elementHeaderRow}>
+          <FontAwesomeIcon icon={tag.icon} />
+          <h3>{tag.name}</h3>
+          <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        </div>
+      </div>
+  )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={tag.icon} />
-        <h3>{tag.name}</h3>{}
+        <h3>{tag.name}</h3>
+        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
       </div>
       <div className={styles.elementInfoRow}>
         <p>Category</p>
@@ -51,7 +71,7 @@ const Tag = ({tag, categories}) => {
         </Link>
       </div>
     </div>
-  )
+  )}
 }
 
 export default Tag

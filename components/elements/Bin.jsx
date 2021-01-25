@@ -46,6 +46,7 @@ function ItemsList({uuid}) {
 const Bin = ({bin}) => {
   const [edit_url, set_edit_url] = useState('')
   const [print_url, set_print_url] = useState('')
+  const [collapsed, set_collapsed] = useState(true)
 
   useEffect(() => {
     let editUrl = '/bin/edit/' + bin.uuid
@@ -67,11 +68,34 @@ const Bin = ({bin}) => {
     }
   }
 
+  const openItem = () => {
+    set_collapsed(false)
+  }
+
+  const closeItem = () => {
+    set_collapsed(true)
+  }
+
+  if (collapsed) {
+    return(
+    <div className={styles.elementEntryRowsWrapper}>
+      <div className={styles.elementHeaderRow}>
+        <FontAwesomeIcon icon={bin.icon}/>
+        <h3>{bin.name}</h3>
+        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+      </div>
+      <div className={styles.elementInfoRow}>
+        <p>Items</p>
+        <ItemsList uuid={bin.uuid}/>
+      </div>
+    </div>
+  )} else {
   return(
   <div className={styles.elementEntryRowsWrapper}>
     <div className={styles.elementHeaderRow}>
       <FontAwesomeIcon icon={bin.icon}/>
       <h3>{bin.name}</h3>
+      <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
     </div>
     <div className={styles.elementInfoRow}>
       <BinImage uuid={bin.image_uuid}/>
@@ -108,6 +132,7 @@ const Bin = ({bin}) => {
       <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteBin}>Delete</button>
     </div>
   </div>)
+  }
 }
 
 export default Bin

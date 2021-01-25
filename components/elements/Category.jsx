@@ -7,6 +7,7 @@ import Link from 'next/link'
 const Category = ({category, tags}) => {
   const [tag_names, set_tag_names] = useState([])
   const [edit_url, set_edit_url] = useState('')
+  const [collapsed, set_collapsed] = useState(true)
 
   useEffect(() => {
     set_tag_names([])
@@ -42,12 +43,35 @@ const Category = ({category, tags}) => {
       console.error(`error while deleting category`)
     }
   }
-  
+
+  const openItem = () => {
+    set_collapsed(false)
+  }
+
+  const closeItem = () => {
+    set_collapsed(true)
+  }
+
+  if (collapsed) {
+    return(
+    <div className={styles.elementEntryRowsWrapper}>
+      <div className={styles.elementHeaderRow}>
+        <FontAwesomeIcon icon={category.icon} />
+        <h3>{category.name}</h3>
+        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+      </div>
+      <div className={styles.elementInfoRow}>
+        <p>Tag Names</p>
+        <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
+      </div>
+    </div>
+  )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={category.icon} />
-        <h3>{category.name}</h3>{}
+        <h3>{category.name}</h3>
+        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
       </div>
       <div className={styles.elementInfoRow}>
         <p>Description</p>
@@ -64,7 +88,7 @@ const Category = ({category, tags}) => {
         </Link>
       </div>
     </div>
-  )
+  )}
 }
 
 export default Category

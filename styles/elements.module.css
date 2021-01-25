@@ -17,11 +17,25 @@
 }
 
 .elementHeaderRow {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: flex-start; */
+  display: grid;
+  grid-template-columns: 1.5rem minmax(auto, 3fr) auto;
+  grid-template-rows: auto;
+  grid-gap: 0.15rem;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+}
+
+.elementHeaderRow > h3 {
+  justify-self: flex-start;
+}
+
+.elementHeaderRow > svg:last-child {
+  justify-self: flex-end;
 }
 
 .elementHeaderRow > * {
@@ -29,13 +43,9 @@
   padding: 0;
 }
 
-.elementHeaderRow > * + * {
-  margin-left: 0.5rem;
-}
-
 .elementHeaderRow > svg {
-  width: 1.1rem;
-  height: auto;
+  width: auto;
+  height: 1.1rem;
 }
 
 .elementEntryRow, .elementInfoRow {

@@ -86,7 +86,7 @@ const ViewItem = ({item}) => {
     <div className={styles.elementEntryRowsWrapper}>
       {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={checkInOut}>{(check_in_out ? 'Check out' : 'Check in')}</button>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
       </div>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={bin.icon}/>
