@@ -3,6 +3,7 @@ import QRCode from 'qrcode.react'
 import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 
 import styles from '@styles/print.module.css'
 
@@ -24,6 +25,8 @@ const Index = ({bin}) => {
     <Head>
       <title>Bin | Print</title>
     </Head>
+    <>
+    <section className={styles.printTopWrapper}>
     <div className={styles.printWrapper}>
       <div>
         <span className={styles.printIcon} ref={iconRef}>
@@ -43,6 +46,11 @@ const Index = ({bin}) => {
                 width:48
               }}/>
     </div>
+    <Link href='/'>
+      <p>Home</p>
+    </Link>
+    </section>
+    </>
     <style jsx>{`
     :root {
       --background-color: white !important;

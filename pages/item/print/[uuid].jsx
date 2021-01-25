@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
+import Link from 'next/link'
 
 import styles from '@styles/print.module.css'
 
@@ -48,6 +49,8 @@ const Index = ({item}) => {
     <Head>
       <title>Item | Print</title>
     </Head>
+    <>
+    <section className={styles.printTopWrapper}>
     <div className={styles.printWrapper}>
       <span className={styles.printIcon} ref={iconRef}>
         <FontAwesomeIcon icon={bin.icon}/>
@@ -64,6 +67,11 @@ const Index = ({item}) => {
                 width:48
               }}/>
     </div>
+    <Link href='/'>
+      <p>Home</p>
+    </Link>
+    </section>
+    </>
     <style jsx>{`
     :root {
       --background-color: white !important;
