@@ -9,18 +9,6 @@ export default function Home() {
   
   return (
     <>
-      <Head>
-        <title>Home | Inventory</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="MobileOptimized" content="width"/>
-
-        <link rel="apple-touch-icon" type="image/png" href={require('../public/icons/apple-touch-icon.png')}/>
-        <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} />
-        <link rel="manifest" href='/manifest.json'/>
-      </Head>
       <style jsx>{`
         .wrapper {
           display: grid;
@@ -51,7 +39,7 @@ export default function Home() {
         <Link href='/bin'>
           <div className='contentWrapper'>
             <animated.span style={iconProps}>
-              <FontAwesomeIcon icon={['fas', 'hand-receiving']} size='6x'/>
+              <FontAwesomeIcon icon={['fas', 'hand-receiving']} />
             </animated.span>
             <animated.h1 style={welcomeProps}>Welcome</animated.h1>
           </div>
