@@ -27,8 +27,6 @@ function PrototypeImage({uuid}) {
 }
 
 const Prototype = ({prototype, categories, tags}) => {
-  console.log('prototype')
-  console.log(prototype)
   const [tag_names, set_tag_names] = useState([]);
   const [category_name, set_category_name] = useState('')
   const [edit_url, set_edit_url] = useState('')
