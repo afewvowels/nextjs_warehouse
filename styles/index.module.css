@@ -1,0 +1,31 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 1fr;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 12rem;
+  height: 100%;
+  cursor: pointer;
+}
+
+.contentWrapper > h1 {
+  font-size: 2.65rem;
+  margin: 0.95rem 0 0 0.22rem;
+  font-weight: 500;
+}
+
+.iconWrapper > svg {
+  width: 8.3rem !important;
+  height: auto;
+}
