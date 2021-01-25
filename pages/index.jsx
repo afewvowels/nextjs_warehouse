@@ -10,8 +10,18 @@ export default function Home() {
   
   return (
     <>
-      <style jsx>{`
-      `}</style>
+      <Head>
+        <title>Launch | Inventory</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="MobileOptimized" content="width"/>
+
+        <link rel="apple-touch-icon" type="image/png" href={require('../public/icons/apple-touch-icon.png')}/>
+        <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} />
+        <link rel="manifest" href='/manifest.json'/>
+      </Head>
       <div className={styles.wrapper}>
         <Link href='/bin'>
           <div className={styles.contentWrapper}>
