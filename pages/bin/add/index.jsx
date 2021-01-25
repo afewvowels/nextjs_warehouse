@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Head from 'next/head'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 const readable = require('readable-url-names')
@@ -140,6 +141,9 @@ const Index = () => {
 
   return(
     <>
+      <Head>
+        <title>Add | Bin | Inventory</title>
+      </Head>
       <h2 className={styles.elementHeader}>Add Bin</h2>
       <section className={styles.elementWrapper}>
         <div className={styles.elementEntryRowsWrapper}>

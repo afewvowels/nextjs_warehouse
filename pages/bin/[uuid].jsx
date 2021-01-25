@@ -1,13 +1,15 @@
 import SimpleTitle from '@templates/SimpleTitle'
 import Bin from '@components/elements/Bin'
 import urls from '@public/urls.json'
-import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
 
 const Index = ({bin}) => {
   return (<>
+    <Head>
+      <title>${bin.name} | Bin | Inventory</title>
+    </Head>
     <SimpleTitle title={`View Bin`}/>
     <section className={styles.elementWrapper}>
         <Bin bin={bin}/>

@@ -110,6 +110,9 @@ const Index = ({bin, image}) => {
   }
 
   return(<>
+    <Head>
+      <title>${bin.name} | Edit Bin | Inventory</title>
+    </Head>
     <h2 className={styles.elementHeader}>Edit Bin</h2>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>

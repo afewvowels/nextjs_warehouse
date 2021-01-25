@@ -23,7 +23,7 @@ const Index = ({bin}) => {
 
   return(<>
     <Head>
-      <title>Bin | Print</title>
+      <title>Print | Bin | Inventory</title>
     </Head>
     <>
     <section className={styles.printTopWrapper}>

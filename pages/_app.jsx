@@ -35,11 +35,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="HandheldFriendly" content="true"/>
         <meta name="MobileOptimized" content="width"/>
 
-        <link rel="apple-touch-icon" type="image/svg" href={require('../public/ramp-loading-solid.svg')}/>
-        <link rel="apple-touch-icon" sizes="114x114" type="image/svg" href={require('../public/ramp-loading-solid.svg')}/>
-        <link rel="apple-touch-icon" type="image/svg" href={require('../public/ramp-loading-solid.svg')}/>
-        <link rel="apple-touch-startup-image" type="image/svg" href={require('../public/ramp-loading-solid.svg')}/>
-        <link rel="icon" type="image/svg" sizes="32x32" href={require('../public/ramp-loading-solid.svg')} />
+        <link rel="apple-touch-icon" type="image/png" href={require('../public/icons/apple-touch-icon.png')}/>
+        <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} />
         <link rel="manifest" href='/manifest.json'/>
       </Head>
       <Component {...pageProps} />

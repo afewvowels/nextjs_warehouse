@@ -1,11 +1,15 @@
 import Title from '@templates/Title'
 import Bin from '@components/elements/Bin'
 import urls from '@public/urls.json'
+import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
 
 const Index = ({bins}) => {
   return (<>
+    <Head>
+      <title>Bins | Inventory</title>
+    </Head>
     <Title title='bins' addUrl='/bin/add' />
     <section className={styles.elementWrapper}>
       {bins.map((bin, key) => (
