@@ -21,57 +21,39 @@ function useImage(uuid) {
 function BinImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
   return <img src={image.base64} alt={uuid} />
 }
 
-const Bin = ({bin}) => {
-  console.log('bin', bin)
-  const [edit_url, set_edit_url] = useState('')
-  const [bin_items, set_bin_items] = useState(null)
-  const [prototypes, set_prototypes] = useState(null)
-  const [prototype_names, set_prototype_names] = useState([])
-  const [prototype_counts, set_prototype_counts] = useState({})
+function useBinItems(uuid) {
+  const { data, error } = useSWR(`/api/item/byBin/${uuid}`, fetcher)
+  return { items: data, itemsLoading: !error && !data, itemsError: error }
+}
 
-  useEffect(async () => {
+function ItemsList({uuid}) {
+  const { items, itemsLoading, itemsError } = useBinItems(uuid)
+
+  if (itemsLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
+  if (itemsError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+
+  return (<>
+    {items.map((item, key) => {
+      return <p key={key}>{item}</p>
+    })}
+  </>)
+}
+
+const Bin = ({bin}) => {
+  const [edit_url, set_edit_url] = useState('')
+  const [print_url, set_print_url] = useState('')
+
+  useEffect(() => {
     let editUrl = '/bin/edit/' + bin.uuid
     set_edit_url(editUrl)
-    set_prototypes(null)
-    set_bin_items(null)
-    await fetch('/api/prototype')
-      .then(res => res.json())
-      .then(data => set_prototypes(data))
-    await fetch('/api/item/byBin/' + bin.uuid)
-      .then(res => res.json())
-      .then(data => set_bin_items(data))
-
-    bin_items.forEach(item => {
-      prototypes.forEach(prototype => {
-        if (item.prototype_uuid == prototype.uuid) {
-          set_prototype_names(prototype_names => [...prototype_names, prototype.name])
-          return
-        }
-      })
-    })
-
-    let count = {}
-    prototype_names.forEach(function(i) { count[i] = (count[i] || 0 ) + 1})
-    console.log('prototype count', count)
-    set_prototype_counts(count)
+    let printUrl = '/bin/print/' + bin.uuid
+    set_print_url(printUrl)
   }, [bin])
-
-  const itemsRef = useCallback(node => {
-    if (node != null && bin_items && prototypes) {
-      node.innerHTML = ''
-      // console.log('prototype_counts arr', prototype_counts)
-      if (prototype_counts.length > 0) {
-        prototype_counts.forEach(item => {
-          node.insertAdjacentHTML(`beforeend`, `<li>${item}</li>`)
-        })
-      }
-    }
-  }, [prototype_counts])
   
   const deleteBin = async () => {
     const delRes = await fetch('/api/bin/' + bin.uuid, {
@@ -102,8 +84,8 @@ const Bin = ({bin}) => {
     <div className={styles.elementButtonsWrapper}>
     </div>
     <div className={styles.elementInfoRow}>
-      <p>Item UUIDs</p>
-      <ul ref={itemsRef}></ul>
+      <p>Items</p>
+      <ItemsList uuid={bin.uuid}/>
     </div>
     {/* <div className={styles.elementInfoRow}>
       <p>UUID</p>
@@ -118,13 +100,15 @@ const Bin = ({bin}) => {
       <p>{bin.image_uuid}</p>
     </div> */}
     <div className={styles.elementButtonsWrapper}>
-      <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteBin}>Delete</button>
+      <Link href={print_url}>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
+      </Link>
       <Link href={edit_url}>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
       </Link>
+      <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteBin}>Delete</button>
     </div>
-  </div>
-  )
+  </div>)
 }
 
 export default Bin

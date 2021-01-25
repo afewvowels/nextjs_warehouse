@@ -4,7 +4,7 @@ export function initialize() {
   let palette
   palette = localStorage.getItem('palette')
   try {
-    palette.split(',')
+    palette = palette.split(',')
     palette.forEach(item => console.log('palette item: ' + item))
     let root = document.documentElement
     root.style.setProperty('--background-color', palette[0]);

@@ -131,9 +131,11 @@ const Index = () => {
 
   function generateIdentifiers() {
     let icon = randomIcon()
+    let bin_name = generator.generate()
     set_icon(icon)
     set_uuid(uuidv4())
-    set_readable_name(generator.generate())
+    set_readable_name(bin_name)
+    set_name(bin_name)
   }
 
   return(

@@ -38,7 +38,7 @@ a {
 #__next {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(2rem, 4rem) auto minmax(3.5rem, 4rem);
+  grid-template-rows: minmax(2rem, 4rem) auto minmax(4.5rem, 5.5rem);
   grid-gap: 0.5rem;
   min-height: 100vh;
   width: 960px;
@@ -52,7 +52,7 @@ a {
   #__next {
     width: 100%;
     padding: 0 1.25rem;
-    grid-template-rows: 5rem auto minmax(3.5rem, 4rem);
+    grid-template-rows: 5rem auto minmax(4.5rem, 5.5rem);
   }
 
   #__next > * {

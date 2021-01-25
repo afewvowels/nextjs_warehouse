@@ -65,6 +65,13 @@
   height: auto;
 }
 
+.elementInfoRow > svg {
+  width: 3.5rem;
+  height: auto;
+  align-self: center;
+  justify-self: center;
+}
+
 .elementEntryRow > svg {
   width: auto;
   height: 1.5rem;

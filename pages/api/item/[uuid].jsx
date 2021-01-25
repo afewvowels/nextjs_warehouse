@@ -47,7 +47,7 @@ handler.post(async (req, res) => {
 
 handler.delete(async (req, res) => {
   const {
-    query: uuid
+    query: { uuid }
   } = req
 
   const item = await req.db

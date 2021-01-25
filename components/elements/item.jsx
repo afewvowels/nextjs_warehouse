@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import urls from '@public/urls.json'
 import useSWR from 'swr'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 

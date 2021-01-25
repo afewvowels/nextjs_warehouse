@@ -54,7 +54,7 @@ handler.delete(async (req, res) => {
 
   const bin = await req.db
     .collection('bins')
-    .findOneAndDelete({uuid: uuid})
+    .findOneAndDelete({ uuid: uuid })
 
   return (bin) ? res.status(201).json(bin) : res.status(404).send('bin not found')
 })

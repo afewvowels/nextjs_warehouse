@@ -6,17 +6,23 @@ const Navbar = () => {
     <nav className={styles.navbarMain}>
       <ul>
         <Link href='/bin'>
-        <li>Bins</li>
+          <li>Bins</li>
         </Link>
         <Link href='/prototype'>
-        <li>Prototypes</li>
+          <li>Prototypes</li>
         </Link>
         <Link href='/item'>
-        <li>Items</li>
+          <li>Items</li>
         </Link>
-        <Link href='/group'>
-        <li>Groups</li>
+        <Link href='/group/category'>
+          <li>Categories</li>
         </Link>
+        <Link href='/group/tag'>
+          <li>Tags</li>
+        </Link>
+        {/* <Link href='/group'>
+          <li>Groups</li>
+        </Link> */}
       </ul>
     </nav>)
 }

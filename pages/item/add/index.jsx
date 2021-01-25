@@ -8,16 +8,12 @@ import urls from '@public/urls.json'
 import styles from '@styles/elements.module.css'
 
 const Index = ({prototypes, bins, categories}) => {
-  const [uuid, set_uuid] = useState('')
+  const [count, set_count] = useState(1)
   const [prototype_uuid, set_prototype_uuid] = useState('')
   const [bin_uuid, set_bin_uuid] = useState('')
-  const [in_bin, set_in_bin] = useState(false)
+  const [in_bin, set_in_bin] = useState(true)
   const [error, set_error] = useState('')
-  const [category, set_category] = useState('')
-
-  const generateUuid = () => {
-    set_uuid(uuidv4())
-  }
+  const [category_uuid, set_category_uuid] = useState('')
 
   const categoriesRef = useCallback(node => {
     if (node != null) {
@@ -25,8 +21,8 @@ const Index = ({prototypes, bins, categories}) => {
       while (node.childCount > 0) {
         node.removeChild()
       }
-      node.insertAdjacentHTML(`beforeend`, `<option value='-1
-      '>Select a category</option>`)
+      node.insertAdjacentHTML(`beforeend`, `<option value='all
+      '>All</option>`)
       categories.forEach(category => {
         node.insertAdjacentHTML(`beforeend`, `<option value=${category.uuid}>${category.name}</option>`)
       })
@@ -41,10 +37,12 @@ const Index = ({prototypes, bins, categories}) => {
       }
       node.insertAdjacentHTML(`beforeend`,`<option value='-1'>Select a prototype</option>`)
       prototypes.forEach(prototype => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${prototype.uuid}>${prototype.name}</option>`)
+        if (category_uuid == 'all' || category_uuid == prototype.category_uuid){
+          node.insertAdjacentHTML(`beforeend`,`<option value=${prototype.uuid}>${prototype.name}</option>`)
+        }
       })
     }
-  }, [categories])
+  }, [category_uuid])
 
   const binsRef = useCallback(node => {
     if (node != null) {
@@ -60,44 +58,44 @@ const Index = ({prototypes, bins, categories}) => {
   }, [bins])
 
   const handleCreate = async () => {
-    const item = {
-      uuid: uuid,
-      prototype_uuid: prototype_uuid,
-      bin_uuid: bin_uuid,
-      in_bin: in_bin
+    for (var i = 0; i <= count; i++) {
+      const item = {
+        uuid: uuidv4(),
+        prototype_uuid: prototype_uuid,
+        bin_uuid: bin_uuid,
+        in_bin: in_bin
+      }
+
+      const itemRes = await fetch('/api/item', {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify(item),
+      })
+
+      if (itemRes.status == 201) {
+        console.log('item created successfully')
+      } else {
+        console.error('error while creating item')
+        set_error(await itemRes.text())
+        return
+      }
     }
 
-    const itemRes = await fetch('/api/item', {
-      method: 'POST',
-      headers: { 'Content-Type' : 'application/json' },
-      body: JSON.stringify(item),
-    })
-
-    if (itemRes.status == 201) {
-      console.log('item created successfully')
-      Router.push('/item')
-    } else {
-      console.error('error while creating item')
-      set_error(await itemRes.text())
-    }
+    Router.push('/item')
   }
 
   return(<>
-    <h2 className={styles.elementHeader}>Create Category</h2>
+    <h2 className={styles.elementHeader}>Add Item</h2>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
         {error ? <p style={{color: 'red'}}>{error}</p> : null}
         <div className={styles.elementEntryRow}>
-          <span className={styles.elementButtonsWrapper}>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={generateUuid}>Generate</button>
-          </span>
-        </div>
-        <div className={styles.elementEntryRow}>
-          <label>UUID</label>
-          <input type='text'
-                  value={uuid}
-                  readOnly={true}
-                  onChange={e => set_uuid(e.target.value)}/>
+          <label>Category</label>
+          <select className={styles.elementSelectDropdown}
+                  ref={categoriesRef}
+                  value={category_uuid}
+                  onChange={e => set_category_uuid(e.target.value)}>
+          </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Prototype</label>
@@ -115,6 +113,12 @@ const Index = ({prototypes, bins, categories}) => {
                   onChange={e => set_bin_uuid(e.target.value)}>
           </select>
         </div>
+        <div className={styles.elementEntryRow}>
+          <label>Number to create</label>
+          <input type='number'
+                  value={count}
+                  onChange={e => set_count(e.target.value)}/>
+        </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>
         </div>
@@ -130,7 +134,10 @@ export async function getServerSideProps() {
   let binsRes = await fetch(urls.home + 'api/bin')
   let bins = await binsRes.json()
 
-  return { props: { prototypes, bins } }
+  let categoriesRes = await fetch(urls.home + 'api/group/category')
+  let categories = await categoriesRes.json()
+
+  return { props: { prototypes, bins, categories } }
 }
 
 export default Index

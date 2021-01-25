@@ -5,9 +5,6 @@ import urls from '@public/urls.json'
 import styles from '@styles/elements.module.css'
 
 const Index = ({categories, tags}) => {
-  console.log('categories count: ' + categories.length)
-  console.log('tags length: ' + tags.length)
-
   return(<>
     <Title title='categories' addUrl='/group/category/add' />
     <section className={styles.elementWrapper}>
@@ -24,11 +21,6 @@ export async function getServerSideProps() {
 
   let tagRes = await fetch(urls.home + 'api/group/tag')
   let tags = await tagRes.json()
-
-  console.log('categories:')
-  console.log(categories)
-  console.log('tags:')
-  console.log(tags)
 
   return { props: { categories, tags } }
 }

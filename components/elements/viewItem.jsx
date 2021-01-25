@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import urls from '@public/urls.json'
 import useSWR from 'swr'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -61,7 +62,7 @@ const ViewItem = ({item}) => {
   const [error_msg, set_error_msg] = useState('')
   
   const deleteItem = async () => {
-    const delRes = await fetch('/api/item/' + item.uuid, {
+    const delRes = await fetch(`/api/item/${item.uuid}`, {
       method: 'DELETE',
     })
 
@@ -101,10 +102,6 @@ const ViewItem = ({item}) => {
       {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
       <div className={styles.elementButtonsWrapper}>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={checkInOut}>{(check_in_out ? 'Check out' : 'Check in')}</button>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
-        <Link href='/item'>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
-        </Link>
       </div>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={bin.icon}/>
@@ -123,6 +120,12 @@ const ViewItem = ({item}) => {
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>
         <p>{check_in_out ? 'True' : 'False'}</p>
+      </div>
+      <div className={styles.elementButtonsWrapper}>
+        <Link href='/item'>
+          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
+        </Link>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
       </div>
     </div>
   )

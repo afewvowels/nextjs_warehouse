@@ -21,8 +21,8 @@ function useImage(uuid) {
 function PrototypeImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <p>...Loading image...</p>
-  if (isError) return <p>Error loading image...</p>
+  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
   return <img src={image.base64} alt={uuid}/>
 }
 
@@ -123,10 +123,10 @@ const Prototype = ({prototype, categories, tags}) => {
         <ul ref={tagsRef} className={styles.elementListCloud}></ul>
       </div>
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deletePrototype}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
         </Link>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deletePrototype}>Delete</button>
       </div>
     </div>
   )
