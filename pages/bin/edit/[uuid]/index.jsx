@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import urls from '@public/urls.json'
+import Head from 'next/head'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 const readable = require('readable-url-names')
