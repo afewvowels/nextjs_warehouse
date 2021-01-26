@@ -3,8 +3,9 @@ import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
 import { useState, useCallback } from 'react'
 
-const Index = ({items, categories}) => {
+const Index = ({items, categories, bins}) => {
   const [category, set_category] = useState('all')
+  const [bin, set_bin] = useState('all')
 
   const categoryRef = useCallback(node => {
     if (node != null) {
@@ -16,6 +17,16 @@ const Index = ({items, categories}) => {
     }
   }, [categories])
 
+  const binsRef = useCallback(node => {
+    if (node != null) {
+      node.innerHTML = ''
+      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      bins.forEach(bin => {
+        node.insertAdjacentHTML(`beforeend`,`<option value=${bin.uuid}>${bin.name}</option>`)
+      })
+    }
+  }, [bins])
+
   return(<>
     <Title title='items' addUrl='/item/add' />
     <section className={styles.elementSelectWrapper}>
@@ -25,11 +36,21 @@ const Index = ({items, categories}) => {
                 onChange={e => set_category(e.target.value)}
                 ref={categoryRef}></select>
       </span>
+      <span>
+        <h3>Bin Select</h3>
+        <select value={bin}
+                onChange={e => set_bin(e.target.value)}
+                ref={binsRef}></select>
+      </span>
     </section>
     <section className={styles.elementWrapper}>
-      {items.map((item, key) => (
-        (category == 'all' || item.category_uuid == category) ? <Item item={item} key={key}/> : null
-      ))}
+      {items.map((item, key) => {
+        if (category == 'all' && bin == 'all') {
+          return <Item item={item} key={key}/>
+        } else if (item.category_uuid == category || item.bin_uuid == bin) {
+          return <Item item={item} key={key}/>
+        }
+      })}
     </section>
   </>)
 }
@@ -68,7 +89,7 @@ export async function getServerSideProps() {
     })
   })
 
-  return { props: { items, categories } }
+  return { props: { items, categories, bins } }
 }
 
 export default Index

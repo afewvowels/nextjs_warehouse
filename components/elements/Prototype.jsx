@@ -57,7 +57,7 @@ const Prototype = ({prototype, categories, tags}) => {
         node.insertAdjacentHTML(`beforeend`, `<li>${name}</li>`)
       })
     }
-  }, [prototype])
+  }, [tag_names])
 
   const traitsRef = useCallback(node => {
     if (node != null) {

@@ -17,9 +17,6 @@ handler.get(async (req, res) => {
 handler.post(async (req, res) => {
   const { uuid, base64 }  = req.body
 
-  console.log('image uuid: ' + uuid)
-  console.log('image base64: ' + (base64.length > 10 ? 'true' : 'false'))
-
   const image = await req.db
     .collection('images')
     .insertOne({ uuid, base64 })

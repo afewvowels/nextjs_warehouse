@@ -17,17 +17,17 @@ const Index = ({prototypes, categories, tags}) => {
     }
   }, [categories])
 
-  // const tagsRef = useCallback(node => {
-  //   if (node != null) {
-  //     node.innerHTML = ''
-  //     node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
-  //     tags.map((tag, key) => {
-  //       if (category == 'all' || tag.category_uuid == category) {
-  //         node.insertAdjacentHTML(`beforeend`,`<option value=${tag.uuid}>${tag.name}</option>`)
-  //       }
-  //     })
-  //   }
-  // }, [category])
+  const tagsRef = useCallback(node => {
+    if (node != null) {
+      node.innerHTML = ''
+      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      tags.map((tag, key) => {
+        if (category == 'all' || tag.category_uuid == category) {
+          node.insertAdjacentHTML(`beforeend`,`<option value=${tag.uuid}>${tag.name}</option>`)
+        }
+      })
+    }
+  }, [category])
 
   return(<>
     <Title title='prototypes' addUrl='/prototype/add' />
@@ -57,9 +57,11 @@ const Index = ({prototypes, categories, tags}) => {
           }
         } else if (tag != 'all') {
           prototype.tag_uuids.forEach(uuid => {
-            console.log(uuid + ', ' + tag)
-            if (tag == uuid) {
-              return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+            // console.log('prototype tag uuid: ' + uuid)
+            // console.log('state uuid: ' + tag)
+            if (tag.toString() == uuid.toString()) {
+              // console.log('matched');
+              return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>;
             }
           })
         }

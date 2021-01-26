@@ -65,10 +65,10 @@ const Tag = ({tag, categories}) => {
         <p>{tag.description}</p>
       </div>
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteTag}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
         </Link>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteTag}>Delete</button>
       </div>
     </div>
   )}

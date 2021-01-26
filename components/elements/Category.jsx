@@ -82,10 +82,10 @@ const Category = ({category, tags}) => {
         <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
       </div>
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteCategory}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
         </Link>
+        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteCategory}>Delete</button>
       </div>
     </div>
   )}

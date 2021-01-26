@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import Link from 'next/link'
 import Router from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -30,8 +30,12 @@ function PrototypeImage({uuid}) {
 
 const Item = ({item}) => {
   const [collapsed, set_collapsed] = useState(true)
-  const [check_in_out, set_check_in_out] = useState(item.in_bin)
+  const [check_in_out, set_check_in_out] = useState()
   const [error_msg, set_error_msg] = useState('')
+
+  useEffect(() => {
+    set_check_in_out(item.in_bin)
+  }, [item])
 
   
   const deleteItem = async () => {
@@ -75,33 +79,36 @@ const Item = ({item}) => {
   const closeItem = () => {
     set_collapsed(true)
   }
+
   if (collapsed) {
     return(
       <div className={styles.elementEntryRowsWrapper}>
-        <div className={styles.elementHeaderRow}>
-          <FontAwesomeIcon icon={item.bin_icon}/>
-          <h3>{item.bin_name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        <div className={styles.elementHeaderRowItems}>
+          {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+          <FontAwesomeIcon icon={item.prototype_icon} />
+          <h3>{item.prototype_name}</h3>
+          <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
         </div>
       </div>
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
       {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
-      <div className={styles.elementHeaderRow}>
-        <FontAwesomeIcon icon={item.bin_icon}/>
-        <h3>{item.bin_name}</h3>
+      <div className={styles.elementHeaderRowItems}>
+        {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+        <FontAwesomeIcon icon={item.prototype_icon}/>
+        <h3>{item.prototype_name}</h3>
         <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
       </div>
       <div className={styles.elementInfoRow}>
-        <BinImage uuid={item.bin_image_uuid}/>
+        <PrototypeImage uuid={item.prototype_image_uuid}/>
       </div>
       <div className={styles.elementHeaderRow}>
-        <FontAwesomeIcon icon={item.prototype_icon}/>
-        <h3>{item.prototype_name}</h3>
+        <FontAwesomeIcon icon={item.bin_icon}/>
+        <h3>{item.bin_name}</h3>
       </div>
       <div className={styles.elementInfoRow}>
-        <PrototypeImage uuid={item.prototype_image_uuid}/>
+        <BinImage uuid={item.bin_image_uuid}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>

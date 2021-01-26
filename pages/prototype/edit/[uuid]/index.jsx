@@ -145,9 +145,9 @@ const Index = ({prototype, image, categories, tags}) => {
         base64: image_base64
       }
 
-      const imageRes = await fetch(process.env.URL + 'api/image', {
+      const imageRes = await fetch('/api/image', {
         method: 'POST',
-        headers: { 'Content-Type' : 'application/json'},
+        headers: { 'Content-Type' : 'application/json' },
         body: JSON.stringify(image),
       })
 
@@ -170,7 +170,7 @@ const Index = ({prototype, image, categories, tags}) => {
       icon: icon
     }
 
-    const prototypeRes = await fetch(process.env.URL + 'api/prototype/' + prototype.uuid, {
+    const prototypeRes = await fetch('/api/prototype/' + prototype.uuid, {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json'},
       body: JSON.stringify(prototype),

@@ -1,6 +1,7 @@
 import styles from '@styles/elements.module.css'
 import Router from 'next/router'
 import useSWR from 'swr'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -14,7 +15,7 @@ function FoundImage({uuid}) {
 
   if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
   if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
-  return <img src={image.base64} alt={uuid} />
+  return <><img src={image.base64} alt={uuid} /></>
 }
 
 function useImageInUse(uuid) {
@@ -23,11 +24,16 @@ function useImageInUse(uuid) {
 }
 
 function ImageInUse({uuid}) {
-  const { inUse, isLoading, isError } = useImageInUse(uuid)
+  const { inUse, inUseIsLoading, inUseIsError } = useImageInUse(uuid)
+  const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
-  return (inUse.in_use) ? <p>In use</p> : <p>Not in use</p>
+  if (isLoading || inUseIsLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
+  if (isError || inUseIsError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (inUse.in_use) {
+    return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+   } else {
+    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Not in use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+   }
 }
 
 const Image = ({image}) => {
@@ -46,12 +52,12 @@ const Image = ({image}) => {
   
   return(
     <div className={styles.elementEntryRowsWrapper}>
+      <div className={styles.elementImageRow}>
+        <ImageInUse uuid={image.uuid}/>
+        <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
+      </div>
       <div className={styles.elementInfoRow}>
         <FoundImage uuid={image.uuid}/>
-        <ImageInUse uuid={image.uuid}/>
-      </div>
-      <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteImage}>Delete</button>
       </div>
     </div>)
 }

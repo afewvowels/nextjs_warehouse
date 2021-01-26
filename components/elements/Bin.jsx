@@ -9,12 +9,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function useImage(uuid) {
   const { data, error } = useSWR(`/api/image/base64/${uuid}`, fetcher)
-
-  return {
-    image: data,
-    isLoading: !error && !data,
-    isError: error
-  }
+  return { image: data, isLoading: !error && !data, isError: error }
 }
 
 function BinImage({uuid}) {
