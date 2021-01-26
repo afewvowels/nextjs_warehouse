@@ -20,7 +20,11 @@ handler.get(async (req, res) => {
     })
   })
 
-  res.json(imgArr)
+  if (imgArr.length > 0) {
+    res.status(201).json(imgArr)
+  } else {
+    res.status(401).json({'error': 'no images found'})
+  }
 })
 
 export default handler

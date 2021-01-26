@@ -10,7 +10,11 @@ handler.get(async (req, res) => {
     .find()
     .toArray()
 
-  res.status(201).json(bins)
+  if (bins) {
+    res.status(201).json(bins)
+  } else {
+    res.status(401).json({'error': 'error getting bins'})
+  }
 })
 
 handler.post(async (req, res) => {
@@ -24,7 +28,7 @@ handler.post(async (req, res) => {
   if (bin) {
     res.status(201).json({ bin: bin })
   } else {
-    res.status(401).send('error adding bin')
+    res.status(401).json({'error': 'error adding bin'})
   }
 })
 

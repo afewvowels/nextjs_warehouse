@@ -16,7 +16,7 @@ handler.get(async (req, res) => {
   if (prototype) {
     res.status(201).json(prototype)
   } else {
-    res.status(401).send(`error finding prototype with uuid ${uuid}`)
+    res.status(401).json({'error': `error finding prototype with uuid ${uuid}`})
   }
 })
 
@@ -46,7 +46,7 @@ handler.post(async (req, res) => {
   if (prototype) {
     res.status(201).json(prototype)
   } else {
-    res.status(401).send(`error updating prototype ${uuid}`)
+    res.status(401).json({'error': `error updating prototype ${uuid}`})
   }
 })
 
@@ -62,7 +62,7 @@ handler.delete(async (req, res) => {
   if (prototype) {
     res.status(201).json(prototype)
   } else {
-    res.status(401).send(`error deleting prototype with uuid ${uuid}`)
+    res.status(401).json({'error': `error deleting prototype with uuid ${uuid}`})
   }
 })
 

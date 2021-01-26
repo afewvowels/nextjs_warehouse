@@ -14,7 +14,7 @@ handler.get(async (req, res) => {
     .collection('images')
     .findOne({ uuid: uuid })
 
-  return image ? res.status(201).json(image) : res.status(404).send(`error finding image with uuid: ${uuid}`)
+  return image ? res.status(201).json(image) : res.status(404).json({'error': `error finding image with uuid: ${uuid}`})
 })
 
 handler.post(async (req, res) => {
@@ -33,7 +33,7 @@ handler.post(async (req, res) => {
     .collection('images')
     .findOneAndUpdate({uuid: uuid}, update)
   
-  return image ? res.status(201).json(image) : res.status(404).send(`error updating image with uuid: ${uuid}`)
+  return image ? res.status(201).json(image) : res.status(404).json({'error': `error updating image with uuid: ${uuid}`})
 })
 
 handler.delete(async (req, res) => {
@@ -45,7 +45,7 @@ handler.delete(async (req, res) => {
     .collection('images')
     .findOneAndDelete({ uuid: uuid })
 
-  return image ? res.status(201).json(image) : res.status(404).send(`error deleting image with uuid: ${uuid}`)
+  return image ? res.status(201).json(image) : res.status(404).json({'error': `error deleting image with uuid: ${uuid}`})
 })
 
 export default handler

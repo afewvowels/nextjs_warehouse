@@ -17,7 +17,7 @@ handler.get(async (req, res) => {
   
   outImg.base64 = image.base64
 
-  return image ? res.status(201).json(outImg) : res.status(404).send(`error finding image with uuid ${uuid}`)
+  return image ? res.status(201).json(outImg) : res.status(404).json({'error': `error finding image with uuid ${uuid}`})
 })
 
 export default handler

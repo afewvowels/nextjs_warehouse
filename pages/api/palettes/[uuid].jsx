@@ -16,7 +16,7 @@ handler.get(async (req, res) => {
   if (palette) {
     res.status(201).json(palette)
   } else {
-    res.status(404).send(`error finding palette with uuid ${uuid}`)
+    res.status(404).json({'error': `error finding palette with uuid ${uuid}`})
   }
 })
 
@@ -42,7 +42,7 @@ handler.post(async (req, res) => {
   if (palette) {
     res.status(201).json(palette)
   } else {
-    res.status(404).send(`error updating palette with uuid ${uuid}`)
+    res.status(404).json({'error': `error updating palette with uuid ${uuid}`})
   }
 })
 
@@ -58,7 +58,7 @@ handler.delete(async (req, res) => {
   if (palette) {
     res.status(201).json(palette)
   } else {
-    res.status(404).send(`error deleting palette with uuid ${uuid}`)
+    res.status(404).json({'error': `error deleting palette with uuid ${uuid}`})
   }
 })
 

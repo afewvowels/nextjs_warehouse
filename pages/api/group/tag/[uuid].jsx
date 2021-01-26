@@ -14,7 +14,11 @@ handler.get(async (req, res) => {
     .collection('tags')
     .findOne({ uuid: uuid })
 
-  res.json(tag)
+  if (tag) {
+    res.status(201).json(tag)
+  } else {
+    res.status(401).json({'error': 'error getting tag with uuid: ' + uuid})
+  }
 })
 
 handler.post(async (req, res) => {
@@ -39,7 +43,7 @@ handler.post(async (req, res) => {
   if (tag) {
     res.status(201).json(tag)
   } else {
-    res.status(400).send(`error updating tag with uuid ${uuid}`)
+    res.status(400).json({'error': `error updating tag with uuid ${uuid}`})
   }
 })
 
@@ -55,7 +59,7 @@ handler.delete(async (req, res) => {
   if (tag) {
     res.status(201).json(tag)
   } else {
-    res.status(401).send(`error deleting tag with uuid ${uuid}`)
+    res.status(401).json({'error': `error deleting tag with uuid ${uuid}`})
   }
 })
 

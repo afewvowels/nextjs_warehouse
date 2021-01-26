@@ -14,7 +14,11 @@ handler.get(async (req, res) => {
     .collection('categories')
     .findOne({ uuid: uuid })
 
-  res.json(category)
+  if (category) {
+    res.status(201).json(category)
+  } else {
+    res.status(401).send('error updating category with uuid ' + uuid)
+  }
 })
 
 handler.post(async (req, res) => {
@@ -54,7 +58,7 @@ handler.delete(async (req, res) => {
   if (category) {
     res.status(201).json(category)
   } else {
-    res.status(401).send('error deleting category with uuid: ' + uuid)
+    res.status(401).json({'error': 'error deleting category with uuid: ' + uuid})
   }
 })
 

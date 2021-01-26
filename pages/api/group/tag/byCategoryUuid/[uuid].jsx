@@ -18,7 +18,7 @@ handler.get(async (req, res) =>{
   if (tags) {
     res.status(201).json(tags)
   } else {
-    res.status(401).send(`error finding tags by category uuid ${uuid}`)
+    res.status(401).json({'error': `error finding tags by category uuid ${uuid}`})
   }
 })
 
@@ -34,7 +34,7 @@ handler.delete(async (req, res) => {
   if (tags) {
     res.status(201).json(tags)
   } else {
-    res.status(401).send(`error deleting tags by category uuid ${uuid}`)
+    res.status(401).json({'error': `error deleting tags by category uuid ${uuid}`})
   }
 })
 

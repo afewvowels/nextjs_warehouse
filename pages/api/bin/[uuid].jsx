@@ -16,7 +16,7 @@ handler.get(async (req, res) => {
   if (bin) {
     res.status(201).json(bin)
   } else {
-    res.status(404).send(`error finding bin with uuid ${uuid}`)
+    res.status(404).json({'error': `error finding bin with uuid ${uuid}`})
   }
 })
 
@@ -43,7 +43,7 @@ handler.post(async (req, res) => {
   if (bin) {
     res.status(201).json(bin)
   } else {
-    res.status(401).send(`error updating bin with uuid ${uuid}`)
+    res.status(401).json({'error': `error updating bin with uuid ${uuid}`})
   }
 })
 
@@ -56,7 +56,7 @@ handler.delete(async (req, res) => {
     .collection('bins')
     .findOneAndDelete({ uuid: uuid })
 
-  return (bin) ? res.status(201).json(bin) : res.status(404).send('bin not found')
+  return (bin) ? res.status(201).json(bin) : res.status(404).json({'error': 'bin not found'})
 })
 
 export default handler

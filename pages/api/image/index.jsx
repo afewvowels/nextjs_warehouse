@@ -11,7 +11,11 @@ handler.get(async (req, res) => {
     .find()
     .toArray()
 
-  res.json(images)
+  if (images) {
+    res.status(201).json(images)
+  } else {
+    res.status(401).json({'error': 'error getting images'})
+  }
 })
 
 handler.post(async (req, res) => {
@@ -23,9 +27,9 @@ handler.post(async (req, res) => {
     .then(({ops}) => ops[0])
 
   if (image) {
-    res.status(201).send('added image successfully')
+    res.status(201).json({'success': 'added image successfully'})
   } else {
-    res.status(401).send('error adding image')
+    res.status(401).json({'error': 'error adding image'})
   }
 })
 

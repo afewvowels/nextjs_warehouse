@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
   if (prototypes) {
     res.status(201).json(prototypes)
   } else {
-    res.status(401).send(`error finding prototypes`)
+    res.status(401).json({'error': `error finding prototypes`})
   }
 })
 
@@ -28,7 +28,7 @@ handler.post(async (req, res) => {
   if (prototype) {
     res.status(201).json(prototype)
   } else {
-    res.status(401).send(`error creating prototype ${name}`)
+    res.status(401).json({'error': `error creating prototype ${name}`})
   }
 })
 

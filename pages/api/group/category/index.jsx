@@ -10,7 +10,11 @@ handler.get(async (req, res) => {
     .find()
     .toArray()
 
-  res.status(201).json(categories)
+  if (categories) {
+    res.status(201).json(categories)
+  } else {
+    res.status(201).json({'error': 'error getting categories'})
+  }
 })
 
 handler.post(async (req, res) => {
@@ -24,7 +28,7 @@ handler.post(async (req, res) => {
   if (category) {
     res.status(201).json(category)
   } else {
-    res.status(401).send('error adding category')
+    res.status(401).json({'error': 'error adding category'})
   }
 })
 

@@ -16,7 +16,7 @@ handler.get(async (req, res) => {
   if (item) {
     res.status(201).json(item)
   } else {
-    res.status(404).send(`error finding item with uuid ${uuid}`)
+    res.status(404).json({'error': `error finding item with uuid ${uuid}`})
   }
 })
 
@@ -41,7 +41,7 @@ handler.post(async (req, res) => {
   if (item) {
     res.status(201).json(item)
   } else {
-    res.status(401).send(`error updating item with uuid ${uuid}`)
+    res.status(401).json({'error': `error updating item with uuid ${uuid}`})
   }
 })
 
@@ -57,7 +57,7 @@ handler.delete(async (req, res) => {
   if (item) {
     res.status(201).json(item)
   } else {
-    res.status(401).send(`error deleting item with uuid ${uuid}`)
+    res.status(401).json({'error': `error deleting item with uuid ${uuid}`})
   }
 })
 

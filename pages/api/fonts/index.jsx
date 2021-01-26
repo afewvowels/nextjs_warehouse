@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
   if (fonts) {
     res.status(201).json(fonts)
   } else {
-    res.status(401).send(`error getting fonts`)
+    res.status(401).json({'error': `error getting fonts`})
   }
 })
 
@@ -28,7 +28,7 @@ handler.post(async (req, res) => {
     if (font) {
       res.status(201).json(font)
     } else {
-      res.status(401).send(`error inserting new font`)
+      res.status(401).json({'error': `error inserting new font`})
     }
 })
 

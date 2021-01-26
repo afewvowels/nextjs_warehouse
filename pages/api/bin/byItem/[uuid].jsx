@@ -16,6 +16,6 @@ handler.get(async (req, res) => {
   if (bin) {
     res.status(201).json(bin)
   } else {
-    res.status(404).send(`error finding bin with uuid ${uuid}`)
+    res.status(404).json({'error': `error finding bin with uuid ${uuid}`})
   }
 })

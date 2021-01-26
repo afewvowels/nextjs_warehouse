@@ -11,7 +11,11 @@ handler.get(async (req, res) => {
     .find()
     .toArray()
 
-  res.json(tags)
+  if (tags) {
+    res.status(201).json(tags)
+  } else {
+    res.status(401).json({'error': 'error getting tags'})
+  }
 })
 
 handler.post(async (req, res) => {
@@ -25,7 +29,7 @@ handler.post(async (req, res) => {
   if (tag) {
     res.status(201).json(tag)
   } else {
-    res.status(400).send(`error adding tag ${name}`)
+    res.status(400).json({'error': `error adding tag ${name}`})
   }
 })
 

@@ -13,7 +13,7 @@ handler.get(async (req, res) => {
   if (palettes) {
     res.status(201).json(palettes)
   } else {
-    res.status(401).send(`error finding palettes`)
+    res.status(401).json({'error': `error finding palettes`})
   }
 })
 
@@ -28,7 +28,7 @@ handler.post(async (req, res) => {
     if (palette) {
       res.status(201).json(palette)
     } else {
-      res.status(401).send(`error inserting new palette`)
+      res.status(401).json({'error': `error inserting new palette`})
     }
 })
 

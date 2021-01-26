@@ -44,7 +44,7 @@ handler.get(async (req, res) => {
   if (items) {
     res.status(201).json(outputArr)
   } else {
-    res.status(401).send(`error finding items with bin uuid ${uuid}`)
+    res.status(401).json({'error': `error finding items with bin uuid ${uuid}`})
   }
 })
 
@@ -60,7 +60,7 @@ handler.delete(async (req, res) => {
   if (items) {
     res.status(201).json(items)
   } else {
-    res.status(401).send(`error deleting items with bin uuid ${uuid}`)
+    res.status(401).json({'error': `error deleting items with bin uuid ${uuid}`})
   }
 })
 

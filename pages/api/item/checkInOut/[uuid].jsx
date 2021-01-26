@@ -22,7 +22,7 @@ handler.post(async (req, res) => {
   if (item) {
     res.status(201).json(item)
   } else {
-    res.status(401).send(`error updating item with uuid ${uuid}`)
+    res.status(401).json({'error': `error updating item with uuid ${uuid}`})
   }
 })
 
