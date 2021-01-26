@@ -11,7 +11,7 @@ const Index = ({bin}) => {
   const [icon_base64, set_icon_base64] = useState('')
 
   useEffect(() => {
-    set_qr_url('https://nextjs-warehouse.afewvowels.vercel.app/bin/' + bin.uuid)
+    set_qr_url('https://home-warehouse-inventory.vercel.app/bin/' + bin.uuid)
   }, [bin])
 
   const iconRef = useCallback(node => {

@@ -26,6 +26,8 @@ body {
   cursor: default;
   color: var(--foreground-color);
   background-color: var(--background-color);
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
 }
 
 body {
@@ -60,7 +62,7 @@ a {
   #__next {
     width: 100%;
     padding: 0 1.25rem;
-    grid-template-rows: 5rem auto 9rem;
+    grid-template-rows: auto auto 9rem;
   }
 
   #__next > * {

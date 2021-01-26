@@ -59,7 +59,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    margin-top: 0.5rem;
+    margin: 0.75rem 0 0.5rem 0;
+    height: fit-content;
   }
 
   .headerTitle {
@@ -71,11 +72,13 @@
   .navbarMain {
     align-self: center;
     justify-self: center;
-    height: 1.5rem;
+    height: fit-content;
+    margin-top: 0.5rem;
   }
 
   .navbarMain > ul {
     justify-self: center;
+    flex-wrap: wrap;
   }
 
   .navbarMain > ul > li {
