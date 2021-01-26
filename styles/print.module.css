@@ -7,7 +7,7 @@
 
 .printTopWrapper > p {
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-heavy);
 }
 
 .printTopWrapper > * + * {
@@ -41,7 +41,7 @@
 }
 
 .printName {
-  font-weight: 500;
+  font-weight: var(--font-weight-heavy);
   font-size: 2.25rem;
   margin: 0;
   padding: 0;

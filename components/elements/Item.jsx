@@ -84,10 +84,10 @@ const Item = ({item}) => {
     return(
       <div className={styles.elementEntryRowsWrapper}>
         <div className={styles.elementHeaderRowItems}>
-          {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+          {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
           <FontAwesomeIcon icon={item.prototype_icon} />
           <h3>{item.prototype_name}</h3>
-          <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+          <FontAwesomeIcon icon={['far', 'plus-square']} />
         </div>
       </div>
   )} else {

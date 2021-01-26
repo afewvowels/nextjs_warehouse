@@ -49,6 +49,10 @@
   cursor: pointer;
 }
 
+.navbarMain > ul > li:hover, .navbarMain > ul > li:active {
+  font-weight: var(--font-weight-heavy);
+}
+
 @media only screen and (max-width: 666px) {
   .headerMain {
     display: flex;
@@ -85,9 +89,9 @@
 
 .footerMain {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -96,27 +100,58 @@
   margin: 0;
 }
 
-.footerMain > p {
-  font-size: 0.8rem;
-}
-
-.footerMain > * + * {
-  margin-top: 0.45rem;
-}
-
-.footerMain > button {
+.footerMain > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--foreground-color);
   background-color: var(--background-color);
   border: 1px solid var(--foreground-color);
   border-radius: 0.5rem 0.5rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0.1rem 0.8rem;
   font-size: var(--font-size);
   cursor: pointer;
 }
 
-.footerMain > button:hover {
+.footerMain > span:first-of-type:hover {
   color: var(--background-color);
   background-color: var(--foreground-color);
+}
+
+.footerMain > span > * + * {
+  margin-left: 0.5rem;
+}
+
+.footerMain > span > svg {
+  width: 1.5rem;
+  height: auto;
+}
+
+.footerFontSelectWrapper {
+  width: 12.8rem;
+  height: 61.7812px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerFontSelectWrapper > p {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-heavy)
+}
+
+.footerFontSelect {
+  width: 100%;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  padding: 0.5rem;
+  --webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: var(--font-size);
+  outline: none;
+  border: 1px solid var(--foreground-color);
+  border-radius: 0.25rem;
 }
 
 .fourohfourWrapper {
@@ -165,12 +200,12 @@
 }
 
 .fourohfourGoHome {
-  font-weight: 500;
+  font-weight: var(--font-weight-heavy);
   font-size: 1.25rem;
 }
 
 .fourohfour404 {
-  font-weight: 500;
+  font-weight: var(--font-weight-heavy);
   font-size: 2rem;
 }
 

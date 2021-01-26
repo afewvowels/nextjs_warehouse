@@ -1,18 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
 
 :root {
   --background-color: #fff;
   --foreground-color: #000;
   --font-size: 1.05rem;
   --font-size-small: 0.9rem;
+  --font-family: 'Roboto', sans-serif;
+  --font-weight-light: 300;
+  --font-weight-heavy: 500;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-light);
   min-height: 100vh;
   min-width: 100%;
   cursor: default;
