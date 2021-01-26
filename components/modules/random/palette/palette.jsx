@@ -41,7 +41,7 @@ export async function randomSet() {
     })
     palettesArr = tempPalettesArr
   } catch {
-    console.error(`palettes not found in localStorage`)
+    localStorage.setItem('palettes', undefined)
     let palettesRes
     await fetch('/api/palettes')
       .then(res => res.json())

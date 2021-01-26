@@ -15,6 +15,8 @@ const Index = ({palettes}) => {
   const [error_msg, set_error_msg] = useState('')
 
   const handleCreate = async () => {
+    localStorage.setItem('palettes', undefined)
+    
     const newPalette = {
       uuid: uuidv4(),
       hex0: hex0,
