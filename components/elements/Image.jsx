@@ -20,7 +20,7 @@ function FoundImage({uuid}) {
 
 function useImageInUse(uuid) {
   const { data, error } = useSWR(`/api/image/inUse/${uuid}`, fetcher)
-  return { inUse: data, isLoading: !error && !data, isError: error }
+  return { inUse: data, inUseIsLoading: !error && !data, inUseIsError: error }
 }
 
 function ImageInUse({uuid}) {
