@@ -3,6 +3,7 @@ import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
 import { useState, useCallback } from 'react'
 
+
 const Items1 = ({items, category, bin}) => {
   return(<div className={styles.elementWrapperColumn}>
     {items.map((item, key) => {

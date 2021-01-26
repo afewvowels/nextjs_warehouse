@@ -21,6 +21,11 @@
   height: fit-content;
 }
 
+.elementRowWrapperAnimated {
+  width: 100%;
+  height: fit-content;
+}
+
 @media only screen and (max-width: 666px) {
   .elementWrapper {
     grid-template-columns: 1fr;
