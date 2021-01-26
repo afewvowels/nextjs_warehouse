@@ -19,6 +19,10 @@ export async function randomSet() {
   try {
     palettesArr = localStorage.getItem('palettes')
     palettesArr = palettesArr.split(',')
+    if (palettesArr.length < 4) {
+      palettesArr = []
+      throw new Error(`palettes array susiciously short`)
+    }
     let tempPalettesArr = []
     let tempPal = new Array(4)
     palettesArr.forEach((item, index) => {
@@ -50,6 +54,7 @@ export async function randomSet() {
       }
       palettesArr.push(pArr)
     })
+    console.log('new palettesArr', palettesArr)
     localStorage.setItem('palettes', palettesArr)  
   }
 

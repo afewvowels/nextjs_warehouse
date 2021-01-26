@@ -55,7 +55,7 @@ const Index = ({prototypes, bins, categories}) => {
   }, [bins])
 
   const handleCreate = async () => {
-    for (var i = 0; i <= count; i++) {
+    for (var i = 0; i < count; i++) {
       const item = {
         uuid: uuidv4(),
         prototype_uuid: prototype_uuid,
