@@ -95,19 +95,19 @@ const Prototype = ({prototype, categories, tags}) => {
   if (collapsed) {
     return(
       <div className={styles.elementEntryRowsWrapper}>
-        <div className={styles.elementHeaderRow}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
           <FontAwesomeIcon icon={prototype.icon} />
           <h3>{prototype.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        <FontAwesomeIcon icon={['far', 'plus-square']}/>
         </div>
       </div>
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementHeaderRow}>
+      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
         <FontAwesomeIcon icon={prototype.icon} />
         <h3>{prototype.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+        <FontAwesomeIcon icon={['far', 'minus-square']}/>
       </div>
       {/* <div className={styles.elementInfoRow} ref={imageRef}>
       </div> */}

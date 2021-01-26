@@ -74,10 +74,10 @@ const Bin = ({bin}) => {
   if (collapsed) {
     return(
     <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementHeaderRow}>
+      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
         <FontAwesomeIcon icon={bin.icon}/>
         <h3>{bin.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        <FontAwesomeIcon icon={['far', 'plus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Items</p>
@@ -87,10 +87,10 @@ const Bin = ({bin}) => {
   )} else {
   return(
   <div className={styles.elementEntryRowsWrapper}>
-    <div className={styles.elementHeaderRow}>
+    <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
       <FontAwesomeIcon icon={bin.icon}/>
       <h3>{bin.name}</h3>
-      <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+      <FontAwesomeIcon icon={['far', 'minus-square']}/>
     </div>
     <div className={styles.elementInfoRow}>
       <BinImage uuid={bin.image_uuid}/>

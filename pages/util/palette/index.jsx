@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
-import useSWR from 'swr'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Palette from '@components/elements/Palette'
 import Head from 'next/head'
@@ -47,10 +46,8 @@ const Index = ({palettes}) => {
     <Head>
       <title>Palette | Inventory</title>
     </Head>
-    <div className={`${styles.titleWrapper} ${styles.titleHeadingLink}`}>
-      <h2>Palettes</h2>
-    </div>
-    <section className={styles.elementWrapper}>
+    <h2 className={styles.elementTitle}>Palettes</h2>
+    <section className={`${styles.elementWrapper} ${styles.elementWrapperPalettes}`}>
       <div className={styles.elementEntryRowsWrapper}>
         <div className={styles.elementEntryRow}>
           <label>Hex 0</label>
@@ -81,7 +78,7 @@ const Index = ({palettes}) => {
         </span>
       </div>
     </section>
-    <section className={styles.elementWrapper}>
+    <section  className={`${styles.elementWrapper} ${styles.elementWrapperPalettes}`}>
       {palettes.map((palette, key) => (
         <Palette palette={palette} key={key}/>
       ))}

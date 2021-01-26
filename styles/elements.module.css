@@ -10,6 +10,10 @@
   grid-gap: 0.666rem;
 }
 
+.elementWrapperPalettes {
+  grid-template-columns: 1fr;
+}
+
 .elementWrapperWide {
   grid-template-columns: 1fr;
 }
@@ -36,6 +40,14 @@
   }
 }
 
+.elementHeaderRowCollapsible {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+
 .elementHeaderRow, .elementHeaderRowItems {
   /* display: flex;
   flex-direction: row;
@@ -51,29 +63,47 @@
 }
 
 .elementHeaderRowItems {
-  grid-template-columns: 1.5rem 1.5rem minmax(auto, 3fr) auto;
+  grid-template-columns: 3.5rem minmax(auto, 3fr);
+  grid-gap: 0.5rem;
+  cursor: pointer;
 }
 
-.elementHeaderRow > h3, .elementHeaderRowItems > h3 {
+.elementHeaderRowItems > span:first-of-type {
+  display: grid;
+  grid-template-columns: repeat(2, 1.5rem);
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  grid-gap: 0.5rem;
+}
+
+.elementHeaderRowItems > span:last-of-type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elementHeaderRow > h3, .elementHeaderRowItems > span > h3 {
   justify-self: flex-start;
 }
 
-.elementHeaderRow > svg:last-child, .elementHeaderRowItems > svg:last-child {
+.elementHeaderRow > svg:last-child, .elementHeaderRowItems > span > svg:last-child {
   justify-self: flex-end;
   cursor: pointer;
 }
 
-.elementHeaderRow > *, .elementHeaderRowItems > * {
+.elementHeaderRow > *, .elementHeaderRowItems > span > * {
   margin: 0;
   padding: 0;
 }
 
-.elementHeaderRow > svg, .elementHeaderRowItems > svg {
+.elementHeaderRow > svg, .elementHeaderRowItems > span > svg {
   width: auto;
   height: 1.25rem;
 }
 
-.elementHeaderRowItems > svg:first-of-type {
+.elementHeaderRowItems > span > svg:first-of-type {
   width: auto;
   height: 1.0rem;
   cursor: pointer;
@@ -345,4 +375,19 @@
 
 .elementPaletteSwatch > p:last-of-type {
   grid-area: color;
+}
+
+.elementTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+}
+
+.elementTitle {
+  margin: 0;
+  padding: 0;
+  font-size: 1.55rem;
+  text-transform: capitalize;
+  width: 10rem;
 }

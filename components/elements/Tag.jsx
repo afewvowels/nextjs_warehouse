@@ -42,19 +42,19 @@ const Tag = ({tag, categories}) => {
   if (collapsed) {
     return(
       <div className={styles.elementEntryRowsWrapper}>
-        <div className={styles.elementHeaderRow}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
           <FontAwesomeIcon icon={tag.icon} />
           <h3>{tag.name}</h3>
-          <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+          <FontAwesomeIcon icon={['far', 'plus-square']}/>
         </div>
       </div>
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementHeaderRow}>
+      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
         <FontAwesomeIcon icon={tag.icon} />
         <h3>{tag.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+        <FontAwesomeIcon icon={['far', 'minus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Category</p>

@@ -55,10 +55,10 @@ const Category = ({category, tags}) => {
   if (collapsed) {
     return(
     <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementHeaderRow}>
+      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
         <FontAwesomeIcon icon={category.icon} />
         <h3>{category.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']} onClick={openItem} />
+        <FontAwesomeIcon icon={['far', 'plus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Tag Names</p>
@@ -68,10 +68,10 @@ const Category = ({category, tags}) => {
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementHeaderRow}>
+      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
         <FontAwesomeIcon icon={category.icon} />
         <h3>{category.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+        <FontAwesomeIcon icon={['far', 'minus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Description</p>

@@ -83,22 +83,30 @@ const Item = ({item}) => {
   if (collapsed) {
     return(
       <div className={styles.elementEntryRowsWrapper}>
-        <div className={styles.elementHeaderRowItems}>
+        <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
+          <span onClick={checkInOut}>
           {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
           <FontAwesomeIcon icon={item.prototype_icon} />
+          </span>
+          <span onClick={openItem}>
           <h3>{item.prototype_name}</h3>
           <FontAwesomeIcon icon={['far', 'plus-square']} />
+          </span>
         </div>
       </div>
   )} else {
   return(
     <div className={styles.elementEntryRowsWrapper}>
       {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
-      <div className={styles.elementHeaderRowItems}>
+      <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
+        <span onClick={checkInOut}>
         {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
         <FontAwesomeIcon icon={item.prototype_icon}/>
+        </span>
+        <span onClick={closeItem}>
         <h3>{item.prototype_name}</h3>
         <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+        </span>
       </div>
       <div className={styles.elementInfoRow}>
         <PrototypeImage uuid={item.prototype_image_uuid}/>
