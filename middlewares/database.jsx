@@ -6,12 +6,14 @@ global.mongo = global.mongo || {}
 let indexesCreated = false
 export async function createIndexes(db) {
   await Promise.all([
-    db.collection('bins').createIndex({ _id: 1 }),
-    db.collection('prototypes').createIndex({ _id: 1 }),
-    db.collection('items').createIndex({ _id: 1 }),
-    db.collection('categories').createIndex({ _id: 1 }),
-    db.collection('tags').createIndex({ _id: 1 }),
-    db.collection('images').createIndex({ _id: 1 })
+    db.collection('bins').createIndex({ name: -1 }),
+    db.collection('prototypes').createIndex({ name: -1 }),
+    db.collection('items').createIndex({ name: -1 }),
+    db.collection('categories').createIndex({ name: -1 }),
+    db.collection('tags').createIndex({ name: -1 }),
+    db.collection('images').createIndex({ name: -1 }),
+    db.collection('palettes').createIndex({ _id: -1 }),
+    db.collection('fonts').createIndex({ _id: -1 })
   ])
   indexesCreated = true
 }
