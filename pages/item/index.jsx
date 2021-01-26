@@ -3,6 +3,34 @@ import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
 import { useState, useCallback } from 'react'
 
+const Items1 = ({items, category, bin}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {items.map((item, key) => {
+      if (key % 2 == 0){
+        if (category == 'all' && bin == 'all') {
+          return <Item item={item} key={key}/>
+        } else if (item.category_uuid == category || item.bin_uuid == bin) {
+          return <Item item={item} key={key}/>
+        }
+      }
+    })}
+  </div>)
+}
+
+const Items2 = ({items, category, bin}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {items.map((item, key) => {
+      if (key % 2 == 1){
+        if (category == 'all' && bin == 'all') {
+          return <Item item={item} key={key}/>
+        } else if (item.category_uuid == category || item.bin_uuid == bin) {
+          return <Item item={item} key={key}/>
+        }
+      }
+    })}
+  </div>)
+}
+
 const Index = ({items, categories, bins}) => {
   const [category, set_category] = useState('all')
   const [bin, set_bin] = useState('all')
@@ -44,13 +72,8 @@ const Index = ({items, categories, bins}) => {
       </span>
     </section>
     <section className={styles.elementWrapper}>
-      {items.map((item, key) => {
-        if (category == 'all' && bin == 'all') {
-          return <Item item={item} key={key}/>
-        } else if (item.category_uuid == category || item.bin_uuid == bin) {
-          return <Item item={item} key={key}/>
-        }
-      })}
+      <Items1 items={items} category={category} bin={bin}/>
+      <Items2 items={items} category={category} bin={bin}/>
     </section>
   </>)
 }

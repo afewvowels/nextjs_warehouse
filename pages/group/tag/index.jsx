@@ -3,6 +3,30 @@ import Title from '@templates/Title'
 import Tag from '@components/elements/Tag'
 import styles from '@styles/elements.module.css'
 
+const Tags1 = ({tags, categories, category}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {tags.map((tag, key) => {
+      if (key % 2 == 0) {
+        if (category == 'all' || tag.category_uuid == category) {
+          return <Tag tag={tag} categories={categories} key={key} />
+        }
+      }
+    })}
+  </div>)
+}
+
+const Tags2 = ({tags, categories, category}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {tags.map((tag, key) => {
+      if (key % 2 == 1) {
+        if (category == 'all' || tag.category_uuid == category) {
+          return <Tag tag={tag} categories={categories} key={key} />
+        }
+      }
+    })}
+  </div>)
+}
+
 const Index = ({categories, tags}) => {
   const [category, set_category] = useState('all')
 
@@ -27,9 +51,8 @@ const Index = ({categories, tags}) => {
       </span>
     </section>
     <section className={styles.elementWrapper}>
-      {tags.map((tag, key) => (
-        (category == 'all' || tag.category_uuid == category) ? <Tag tag={tag} categories={categories} key={key} /> : null
-      ))}
+      <Tags1 tags={tags} categories={categories} category={category} />
+      <Tags2 tags={tags} categories={categories} category={category} />
     </section>
   </>)
 }

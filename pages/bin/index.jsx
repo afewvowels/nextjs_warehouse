@@ -4,7 +4,23 @@ import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const Bins1 = ({bins}) => {
+  return(<div className={styles.elementWrapperColumn}>
+  {bins.map((bin, key) => {
+    if (key % 2 == 0) {
+      return <Bin bin={bin} key={key}/>
+    }
+  })}</div>)
+}
+
+const Bins2 = ({bins}) => {
+  return(<div className={styles.elementWrapperColumn}>
+  {bins.map((bin, key) => {
+    if (key % 2 == 1) {
+      return <Bin bin={bin} key={key}/>
+    }
+  })}</div>)
+}
 
 const Index = ({bins}) => {
   return (<>
@@ -13,9 +29,8 @@ const Index = ({bins}) => {
     </Head>
     <Title title='bins' addUrl='/bin/add' />
     <section className={styles.elementWrapper}>
-      {bins.map((bin, key) => (
-        <Bin bin={bin} key={key}/>
-      ))}
+      <Bins1 bins={bins} />
+      <Bins2 bins={bins} />
     </section>
   </>)
 }

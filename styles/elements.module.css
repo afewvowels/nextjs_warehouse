@@ -10,6 +10,17 @@
   grid-gap: 0.666rem;
 }
 
+.elementWrapperColumn {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-row-gap: 0.666rem;
+  align-items: flex-start;
+  justify-items: center;
+  width: 100%;
+  height: fit-content;
+}
+
 @media only screen and (max-width: 666px) {
   .elementWrapper {
     grid-template-columns: 1fr;
@@ -124,6 +135,7 @@
 }
 
 .elementEntryRowsWrapper {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;

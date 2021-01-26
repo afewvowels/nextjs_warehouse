@@ -4,6 +4,22 @@ import Head from 'next/head'
 
 import styles from '@styles/elements.module.css'
 
+const Categories1 = ({categories, tags}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {categories.map((category, key) => (
+      (key % 2 == 0) ? <Category category={category} tags={tags} key={key} /> : null
+    ))}
+  </div>)
+}
+
+const Categories2 = ({categories, tags}) => {
+  return(<div className={styles.elementWrapperColumn}>
+    {categories.map((category, key) => (
+      (key % 2 == 1) ? <Category category={category} tags={tags} key={key} /> : null
+    ))}
+  </div>)
+}
+
 const Index = ({categories, tags}) => {
   return(<>
     <Head>
@@ -11,9 +27,8 @@ const Index = ({categories, tags}) => {
     </Head>
     <Title title='categories' addUrl='/group/category/add' />
     <section className={styles.elementWrapper}>
-      {categories.map((category, key) => (
-        <Category category={category} tags={tags} key={key} />
-      ))}
+      <Categories1 categories={categories} tags={tags} />
+      <Categories2 categories={categories} tags={tags} />
     </section>
   </>)
 }
