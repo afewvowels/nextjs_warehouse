@@ -33,7 +33,7 @@ const Index = ({item}) => {
   const { bin, isLoading, isError } = useBin(item.bin_uuid)
 
   useEffect(() => {
-    set_qr_url(process.env.URL + 'item/' + item.uuid)
+    set_qr_url('https://nextjs-warehouse.afewvowels.vercel.app/item/' + item.uuid)
   }, [item])
 
   const iconRef = useCallback(node => {
