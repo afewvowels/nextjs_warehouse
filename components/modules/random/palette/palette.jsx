@@ -5,8 +5,8 @@ export function initialize() {
     palette = palette.split(',')
     // palette.forEach(item => console.log('palette item: ' + item))
     let root = document.documentElement
-    root.style.setProperty('--background-color', palette[0]);
-    root.style.setProperty('--foreground-color', palette[1]);
+    root.style.setProperty('--background-color', palette[0])
+    root.style.setProperty('--foreground-color', palette[1])
     // console.log('updated css vars: ' + palette[0] + ', ' + palette[1])
   } catch {
     // console.error('could not split palette array from localStorage')
@@ -58,12 +58,12 @@ export async function randomSet() {
     localStorage.setItem('palettes', palettesArr)  
   }
 
-  let palette = new Array(4);
-  let bgIndex, fgIndex;
+  let palette = new Array(4)
+  let bgIndex, fgIndex
   let index = Math.floor(Math.random() * palettesArr.length)
 
-  bgIndex = (Math.random() > 0.5) ? 0 : 1;
-  fgIndex = 1 - bgIndex;
+  bgIndex = (Math.random() > 0.5) ? 0 : 1
+  fgIndex = 1 - bgIndex
 
   palette[0] = '#' + palettesArr[index][fgIndex]
   palette[1] = '#' + palettesArr[index][bgIndex]
@@ -72,6 +72,6 @@ export async function randomSet() {
   localStorage.setItem('palette', palette)
   
   let root = document.documentElement
-  root.style.setProperty('--background-color', palette[0]);
-  root.style.setProperty('--foreground-color', palette[1]);
+  root.style.setProperty('--background-color', palette[0])
+  root.style.setProperty('--foreground-color', palette[1])
 }
