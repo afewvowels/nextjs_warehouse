@@ -95,6 +95,13 @@
   height: 100%;
 }
 
+@media only screen and (max-width: 666px) {
+  .footerMain {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
 .footerMain > * {
   padding: 0;
   margin: 0;
