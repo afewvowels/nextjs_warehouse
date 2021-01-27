@@ -67,8 +67,6 @@ const Index = ({prototypes, bins, categories}) => {
         tinyurl: tUrl
       }
 
-      console.log('adding item', item)
-
       const itemRes = await fetch('/api/item', {
         method: 'POST',
         headers: { 'Content-Type' : 'application/json' },
