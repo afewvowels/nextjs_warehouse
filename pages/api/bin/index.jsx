@@ -13,7 +13,8 @@ handler.get(async (req, res) => {
   if (bins) {
     res.status(201).json(bins)
   } else {
-    res.status(401).json({'error': 'error getting bins'})
+    res.status(404).json({error: 'error getting bins'})
+    // res.status(404).send('error getting bins')
   }
 })
 
@@ -28,7 +29,7 @@ handler.post(async (req, res) => {
   if (bin) {
     res.status(201).json({ bin: bin })
   } else {
-    res.status(401).json({'error': 'error adding bin'})
+    res.status(404).json({error: 'error adding bin'})
   }
 })
 

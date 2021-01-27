@@ -19,3 +19,5 @@ handler.get(async (req, res) => {
     res.status(404).json({'error': `error finding bin with uuid ${uuid}`})
   }
 })
+
+export default handler

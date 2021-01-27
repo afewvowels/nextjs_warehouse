@@ -9,8 +9,8 @@ import { fad } from '@fortawesome/pro-duotone-svg-icons'
 import { fal } from '@fortawesome/pro-light-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
-import 'styles/globals.css'
-import Layout from 'components/templates/Layout'
+import '@styles/globals.css'
+import Layout from '@components/templates/Layout'
 
 library.add(fas,far,fad,fal,fab)
 

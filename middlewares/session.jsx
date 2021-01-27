@@ -10,6 +10,8 @@ export default function sessionMiddleware(req, res, next) {
   })
   return session({
     secret: 'keyboard',
+    resave: false,
+    saveUninitialized: false,
     store: mongoStore
   })(req, res, next)
 }

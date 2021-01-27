@@ -36,5 +36,4 @@ const middleware = nc()
 
 middleware.use(database)
 
-
 export default middleware
