@@ -21,6 +21,7 @@ const Index = ({bin, image}) => {
   const [item_uuids, set_item_uuids] = useState([])
   const [image_base64, set_image_base64] = useState('')
   const [icon, set_icon] = useState(null)
+  const [tinyurl, set_tinyurl] = useState('')
   const [error_msg, set_error_msg] = useState('')
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const Index = ({bin, image}) => {
     set_item_uuids(bin.item_uuids)
     set_image_base64(image.base64)
     set_icon(bin.icon)
+    set_tinyurl(bin.tinyurl)
   }, [bin])
 
   const imageRef = useCallback(node => {
@@ -92,7 +94,8 @@ const Index = ({bin, image}) => {
       description: description,
       item_uuids: item_uuids,
       image_uuid: imageUuid,
-      icon: icon
+      icon: icon,
+      tinyurl: tinyurl
     }
 
     const binRes = await fetch('/api/bin/' + bin.uuid, {
@@ -125,6 +128,13 @@ const Index = ({bin, image}) => {
           <span className={styles.elementButtonsWrapper}>
             <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={generateIcon}>Generate Icon</button>
           </span>
+        </div>
+        <div className={styles.elementEntryRow}>
+          <label>TinyURL</label>
+          <input type='text'
+                  value={tinyurl}
+                  readOnly={true}
+                  onChange={e => set_tinyurl(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>UUID</label>

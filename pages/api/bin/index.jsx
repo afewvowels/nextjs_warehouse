@@ -25,7 +25,8 @@ handler.post(async (req, res) => {
     description: req.body.description,
     item_uuids: req.body.item_uuids,
     icon: req.body.icon,
-    image_uuid: req.body.image_uuid
+    image_uuid: req.body.image_uuid,
+    tinyurl: req.body.tinyurl
   }
 
   await db

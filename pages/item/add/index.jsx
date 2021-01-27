@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { v4 as uuidv4 } from 'uuid'
+var TinyURL = require('tinyurl')
 
 import styles from '@styles/elements.module.css'
 
@@ -56,12 +57,17 @@ const Index = ({prototypes, bins, categories}) => {
 
   const handleCreate = async () => {
     for (var i = 0; i < count; i++) {
+      let newUuid = uuidv4()
+      let tUrl = await TinyURL.shorten(`https://home-warehouse-inventory.afewvowels.vercel.app/item/${newUuid}`)
       const item = {
-        uuid: uuidv4(),
+        uuid: newUuid,
         prototype_uuid: prototype_uuid,
         bin_uuid: bin_uuid,
-        in_bin: in_bin
+        in_bin: in_bin,
+        tinyurl: tUrl
       }
+
+      console.log('adding item', item)
 
       const itemRes = await fetch('/api/item', {
         method: 'POST',

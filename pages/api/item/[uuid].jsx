@@ -31,7 +31,8 @@ handler.post(async (req, res) => {
     uuid: req.body.uuid,
     prototype_uuid: req.body.prototype_uuid,
     bin_uuid: req.body.bin_uuid,
-    in_bin: req.body.in_bin
+    in_bin: req.body.in_bin,
+    tinyurl: req.body.tinyurl
   }
 
   await db

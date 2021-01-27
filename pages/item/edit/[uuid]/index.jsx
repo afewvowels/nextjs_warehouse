@@ -51,6 +51,7 @@ const ViewItem = ({item, bins}) => {
   const [check_in_out, set_check_in_out] = useState(item.in_bin)
   const [error_msg, set_error_msg] = useState('')
   const [bin_uuid, set_bin_uuid] = useState(item.bin_uuid)
+  const [tinyurl, set_tinyurl] = useState(item.tinyurl)
   
   const deleteItem = async () => {
     const delRes = await fetch(`/api/item/${item.uuid}`, {
@@ -154,6 +155,13 @@ const ViewItem = ({item, bins}) => {
                   value={bin_uuid}
                   onChange={e => set_bin_uuid(e.target.value)}>
           </select>
+        </div>
+        <div className={styles.elementEntryRow}>
+          <label>TinyURL</label>
+          <input type='text'
+                  value={tinyurl}
+                  readOnly={true}
+                  onChange={e => set_tinyurl(e.target.value)}/>
         </div>
         <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>

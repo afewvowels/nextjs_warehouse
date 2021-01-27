@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
+var TinyURL = require('tinyurl')
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 const readable = require('readable-url-names')
@@ -23,6 +24,7 @@ const Index = () => {
   const [item_uuids, set_item_uuids] = useState([])
   const [image_base64, set_image_base64] = useState('')
   const [icon, set_icon] = useState(null)
+  const [tinyurl, set_tinyurl] = useState('')
   const [error_msg, set_error_msg] = useState('')
 
   const imageRef = useCallback(node => {
@@ -56,6 +58,7 @@ const Index = () => {
 
     console.log('after image submission attempt')
 
+    
     const bin = {
       uuid: uuid,
       readable_name: readable_name,
@@ -63,7 +66,8 @@ const Index = () => {
       description: description,
       item_uuids: [],
       image_uuid: imageUuid,
-      icon: icon
+      icon: icon,
+      tinyurl: tinyurl
     }
 
     console.log('before bin submission attempt')
@@ -130,13 +134,17 @@ const Index = () => {
     }
   }
 
-  function generateIdentifiers() {
+  async function generateIdentifiers() {
+    let newUuid = uuidv4()
     let icon = randomIcon()
     let bin_name = generator.generate()
     set_icon(icon)
-    set_uuid(uuidv4())
+    set_uuid(newUuid)
     set_readable_name(bin_name)
     set_name(bin_name)
+    await TinyURL.shorten(`https://home-warehouse-inventory.afewvowels.vercel.app/bin/${newUuid}`, function(res,err) {
+      set_tinyurl(res)
+    })
   }
 
   return(
@@ -156,6 +164,13 @@ const Index = () => {
           <div className={styles.elementEntryRow}>
             <label>Icon</label>
             {icon ? <FontAwesomeIcon icon={icon}/> : <></>}
+          </div>
+          <div className={styles.elementEntryRow}>
+            <label>TinyURL</label>
+            <input type='text'
+                    value={tinyurl}
+                    readOnly={true}
+                    onChange={e => set_tinyurl(e.target.value)}/>
           </div>
           <div className={styles.elementEntryRow}>
             <label>UUID</label>
