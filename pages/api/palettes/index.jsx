@@ -1,35 +1,37 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const palettes = await req.db
+  await db
     .collection('palettes')
-    .find()
-    .toArray()
-
-  if (palettes) {
-    res.status(201).json(palettes)
-  } else {
-    res.status(401).json({'error': `error finding palettes`})
-  }
+    .get()
+    .then((palettes) => {
+      let palettesArr = []
+      palettes.forEach(palette => {
+        palettesArr.push(palette.data())
+      })
+      res.status(201).json(palettesArr)
+    })
+    .catch((err) => res.status(401).send(`error getting palettes ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, hex0, hex1, color0, color1 } = req.body
+  const palette = {
+    uuid: req.body.uuid,
+    hex0: req.body.hex0,
+    hex1: req.body.hex1,
+    color0: req.body.color0,
+    color1: req.body.color1
+  }
 
-  const palette = await req.db
+  await db
     .collection('palettes')
-    .insertOne({ uuid, hex0, hex1, color0, color1 })
-    .then(({ops}) => ops[0])
-
-    if (palette) {
-      res.status(201).json(palette)
-    } else {
-      res.status(401).json({'error': `error inserting new palette`})
-    }
+    .doc(palette.uuid)
+    .set(palette)
+    .then(() => res.status(201).send(`successfully added pallete ${palette.uuid}`))
+    .catch((err) => res.status(401).send(`error adding palettes ${err.message}`))
 })
 
 export default handler

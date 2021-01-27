@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from 'react'
-import useSWR from 'swr'
+import { useState } from 'react'
+import Router from 'next/router'
 import { v4 as uuidv4 } from 'uuid'
 import Font from '@components/elements/Font'
 import Head from 'next/head'
@@ -35,12 +35,7 @@ const Index = ({fonts}) => {
 
     if (fontRes.status == 201) {
       console.log(`font added successfully`)
-      set_name('')
-      set_link('')
-      set_css('')
-      set_category('')
-      set_weight0('')
-      set_weight1('')
+      Router.push('/util/font')
     } else {
       console.error(`error while adding font`)
       set_error_msg(await fontRes.text())
@@ -56,6 +51,7 @@ const Index = ({fonts}) => {
     </div>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
+        {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
         <div className={styles.elementEntryRow}>
           <label>Font Name</label>
           <input type='text'

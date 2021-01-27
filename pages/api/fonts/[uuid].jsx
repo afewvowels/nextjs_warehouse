@@ -1,23 +1,25 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
     query: { uuid }
   } = req
 
-  const font = await req.db
+  await db
     .collection('fonts')
-    .findOne({ uuid: uuid })
-
-  if (font) {
-    res.status(201).json(font)
-  } else {
-    res.status(404).send(`error finding font with uuid ${uuid}`)
-  }
+    .where('uuid', '==', uuid)
+    .get()
+    .then((fonts) => {
+      let fontsArr = []
+      fonts.forEach(font => {
+        fontsArr.push(font.data())
+      })
+      res.status(201).json(fontsArr[0])
+    })
+    .catch((err) => res.status(401).send(`error getting fonts ${err.message}`))
 })
 
 handler.post(async (req, res) => {
@@ -25,43 +27,35 @@ handler.post(async (req, res) => {
     query: { uuid }
   } = req
 
-  const update = {
-    $set: {
-      uuid: req.body.uuid,
-      name: req.body.name,
-      link: req.body.link,
-      css: req.body.css,
-      category: req.body.category,
-      weight0: req.body.weight0,
-      weight1: req.body.weight1
-    }
+  const font = {
+    uuid: req.body.uuid,
+    name: req.body.name,
+    link: req.body.link,
+    css: req.body.css,
+    category: req.body.category,
+    weight0: req.body.weight0,
+    weight1: req.body.weight1
   }
 
-  let font = await req.db
+  await db
     .collection('fonts')
-    .findOneAndUpdate({uuid: uuid}, update)
-
-  if (font) {
-    res.status(201).json(font)
-  } else {
-    res.status(404).send(`error updating font with uuid ${uuid}`)
-  }
+    .doc(font.uuid)
+    .update(font)
+    .then(() => res.status(201).send(`successfully added font ${uuid}`))
+    .catch((err) => res.status(401).send(`error adding font ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
   const {
-    query: { uuid }
+    query: { uuid },
   } = req
 
-  let font = await req.db
+  await db
     .collection('fonts')
-    .findOneAndDelete({uuid: uuid})
-
-  if (font) {
-    res.status(201).json(font)
-  } else {
-    res.status(404).send(`error deleting font with uuid ${uuid}`)
-  }
+    .doc(uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted font ${uuid}`))
+    .catch((err) => res.status(401).send(`error deleting font ${uuid} ${err.message}`))
 })
 
 export default handler

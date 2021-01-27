@@ -1,25 +1,25 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
     query: { uuid }
   } = req
 
-  const items = await req.db
-    .collection('items')
-    .aggregate([
-    { $match: { bin_uuid: uuid} }])
-
-  if (items) {
-    res.status(201).json(items)
-  } else {
-    res.status(401).json({'error': `error deleting items with bin uuid ${uuid}`})
-  }
-
+  await db
+    .collection('prototypes')
+    .where('bin_uuid', '==', uuid)
+    .get()
+    .then((prototypes) => {
+      let prototypesArr = []
+      prototypes.forEach(prototype => {
+        prototypesArr.push(prototype.data())
+      })
+      res.status(201).json(prototypesArr)
+    })
+    .catch((err) => res.status(401).send(`error getting prototypes with bin_uuid ${uuid} ${err.message}`))
 })
 
 export default handler

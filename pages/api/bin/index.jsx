@@ -1,36 +1,39 @@
+import db from '@db/firebase'
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const bins = await req.db
+  await db
     .collection('bins')
-    .find()
-    .toArray()
-
-  if (bins) {
-    res.status(201).json(bins)
-  } else {
-    res.status(404).json({error: 'error getting bins'})
-    // res.status(404).send('error getting bins')
-  }
+    .get()
+    .then((bins) => {
+      let binsArr = []
+      bins.forEach(bin => {
+        binsArr.push(bin.data())
+      })
+      res.status(201).json(binsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting bins ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, readable_name, name, description, item_uuids, icon, image_uuid  } = req.body
-
-  const bin = await req.db
-    .collection('bins')
-    .insertOne({ uuid, readable_name, name, description, item_uuids, icon, image_uuid })
-    .then(({ops}) => ops[0])
-
-  if (bin) {
-    res.status(201).json({ bin: bin })
-  } else {
-    res.status(404).json({error: 'error adding bin'})
+  const bin = {
+    uuid: req.body.uuid,
+    readable_name: req.body.readable_name,
+    name: req.body.name,
+    description: req.body.description,
+    item_uuids: req.body.item_uuids,
+    icon: req.body.icon,
+    image_uuid: req.body.image_uuid
   }
+
+  await db
+    .collection('bins')
+    .doc(bin.uuid)
+    .set(bin)
+    .then(() => res.status(201).send(`successfully added bin ${bin.readable_name}`))
+    .catch((err) => res.status(401).send(`error adding bin ${bin.readable_name} ${err.message}`))
 })
 
 export default handler

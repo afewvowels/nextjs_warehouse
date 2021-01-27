@@ -26,6 +26,7 @@
     "dgram": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "firebase-admin": "^9.4.2",
     "is-promise": "^2.2.2",
     "mongodb": "^3.6.3",
     "mongodb-core": "^3.2.7",

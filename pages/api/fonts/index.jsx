@@ -1,35 +1,39 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const fonts = await req.db
+  await db
     .collection('fonts')
-    .find()
-    .toArray()
-
-  if (fonts) {
-    res.status(201).json(fonts)
-  } else {
-    res.status(401).json({'error': `error getting fonts`})
-  }
+    .get()
+    .then((fonts) => {
+      let fontsArr = []
+      fonts.forEach(font => {
+        fontsArr.push(font.data())
+      })
+      res.status(201).json(fontsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting fonts ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, name, link, css, category, weight0, weight1 } = req.body
+  const font = {
+    uuid: req.body.uuid,
+    name: req.body.name,
+    link: req.body.link,
+    css: req.body.css,
+    category: req.body.category,
+    weight0: req.body.weight0,
+    weight1: req.body.weight1
+  }
 
-  const font = await req.db
+  await db
     .collection('fonts')
-    .insertOne({ uuid, name, link, css, category, weight0, weight1 })
-    .then(({ops}) => ops[0])
-
-    if (font) {
-      res.status(201).json(font)
-    } else {
-      res.status(401).json({'error': `error inserting new font`})
-    }
+    .doc(font.uuid)
+    .set(font)
+    .then(() => res.status(201).send(`successfully added font ${font.uuid}`))
+    .catch((err) => res.status(401).send(`error adding font ${err.message}`))
 })
 
 export default handler

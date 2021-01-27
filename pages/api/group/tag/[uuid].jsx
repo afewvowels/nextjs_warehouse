@@ -1,50 +1,46 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const tag = await req.db
+  await db
     .collection('tags')
-    .findOne({ uuid: uuid })
-
-  if (tag) {
-    res.status(201).json(tag)
-  } else {
-    res.status(401).json({'error': 'error getting tag with uuid: ' + uuid})
-  }
+    .where('uuid', '==', uuid)
+    .get()
+    .then((tags) => {
+      let tagsArr = []
+      tags.forEach(tag => {
+        tagsArr.push(tag.data())
+      })
+      res.status(201).json(tagsArr[0])
+    })
+    .catch((err) => res.status(401).send(`error getting tags ${err.message}`))
 })
 
 handler.post(async (req, res) => {
   const {
     query: { uuid }
   } = req
-
-  const update = {
-    $set: {
-      uuid: req.body.uuid,
-      category_uuid: req.body.category_uuid,
-      name: req.body.name,
-      description: req.body.description,
-      icon: req.body.icon
-    }
+  
+  const tag = {
+    category_uuid: req.body.category_uuid,
+    uuid: req.body.uuid,
+    name: req.body.name,
+    description: req.body.description,
+    icon: req.body.icon
   }
 
-  const tag = await req.db
+  await db
     .collection('tags')
-    .findOneAndUpdate({ uuid: uuid }, update)
-
-  if (tag) {
-    res.status(201).json(tag)
-  } else {
-    res.status(400).json({'error': `error updating tag with uuid ${uuid}`})
-  }
+    .doc(tag.uuid)
+    .set(tag)
+    .then(() => res.status(201).send(`successfully added tag ${uuid}`))
+    .catch((err) => res.status(401).send(`error adding tag ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
@@ -52,15 +48,12 @@ handler.delete(async (req, res) => {
     query: { uuid },
   } = req
 
-  const tag = await req.db
+  await db
     .collection('tags')
-    .findOneAndDelete({ uuid: uuid })
-
-  if (tag) {
-    res.status(201).json(tag)
-  } else {
-    res.status(401).json({'error': `error deleting tag with uuid ${uuid}`})
-  }
+    .doc(uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted tag ${uuid}`))
+    .catch((err) => res.status(401).send(`error deleting tag ${uuid} ${err.message}`))
 })
 
 export default handler

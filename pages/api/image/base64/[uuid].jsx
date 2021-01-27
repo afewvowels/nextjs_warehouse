@@ -1,23 +1,25 @@
+import db from '@db/firebase'
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
     query: { uuid }
   } = req
-
-  let outImg = { base64: null }
-
-  const image = await req.db
-    .collection('images')
-    .findOne({ uuid: uuid })
   
-  outImg.base64 = image.base64
-
-  return image ? res.status(201).json(outImg) : res.status(404).json({'error': `error finding image with uuid ${uuid}`})
+  await db
+    .collection('images')
+    .where('uuid', '==', uuid)
+    .get()
+    .then(results => {
+      let resArr = []
+      results.forEach(result => {
+        resArr.push(result.data().base64)
+      })
+      res.status(201).json({'base64': resArr[0]})
+    })
+    .catch(err => res.status(401).send(`error getting image base64 for image with uuid ${uuid} ${err.message}`))
 })
 
 export default handler

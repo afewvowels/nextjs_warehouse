@@ -1,44 +1,34 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
-  const images = await req.db
+  await db
     .collection('images')
-    .find()
-    .toArray()
-
-  if (images) {
-    res.status(201).json(images)
-  } else {
-    res.status(401).json({'error': 'error getting images'})
-  }
+    .get()
+    .then((images) => {
+      let imagesArr = []
+      images.forEach(image => {
+        imagesArr.push(image.data())
+      })
+      res.status(201).json(imagesArr)
+    })
+    .catch((err) => res.status(401).send(`error getting images ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, base64 }  = req.body
-
-  const image = await req.db
-    .collection('images')
-    .insertOne({ uuid, base64 })
-    .then(({ops}) => ops[0])
-
-  if (image) {
-    res.status(201).json({'success': 'added image successfully'})
-  } else {
-    res.status(401).json({'error': 'error adding image'})
+  const image = {
+    uuid: req.body.uuid,
+    base64: req.body.base64
   }
+
+  await db
+    .collection('images')
+    .doc(image.uuid)
+    .set(image)
+    .then(() => res.status(201).send(`successfully added image ${image.uuid}`))
+    .catch((err) => res.status(401).send(`error adding image ${err.message}`))
 })
 
 export default handler
-
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '5120kb',
-    },
-  },
-}

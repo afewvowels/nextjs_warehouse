@@ -38,7 +38,7 @@ const Category = ({category, tags}) => {
 
     if (delRes.status == 201) {
       console.log(`delete sucessful`)
-      Router.push('/group')
+      Router.push('/group/category')
     } else {
       console.error(`error while deleting category`)
     }

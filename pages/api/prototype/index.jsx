@@ -1,35 +1,41 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
-  const prototypes = await req.db
+  await db
     .collection('prototypes')
-    .find()
-    .toArray()
-  
-  if (prototypes) {
-    res.status(201).json(prototypes)
-  } else {
-    res.status(401).json({'error': `error finding prototypes`})
-  }
+    .get()
+    .then((prototypes) => {
+      let prototypesArr = []
+      prototypes.forEach(prototype => {
+        prototypesArr.push(prototype.data())
+      })
+      res.status(201).json(prototypesArr)
+    })
+    .catch((err) => res.status(401).send(`error getting prototypes ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, readable_name, name, description, traits, icon, image_uuid, category_uuid, tag_uuids } = req.body
-
-  const prototype = await req.db
-    .collection('prototypes')
-    .insertOne({ uuid, readable_name, name, description, traits, icon, image_uuid, category_uuid, tag_uuids })
-    .then(({ops}) => ops[0])
-
-  if (prototype) {
-    res.status(201).json(prototype)
-  } else {
-    res.status(401).json({'error': `error creating prototype ${name}`})
+  const prototype = {
+    uuid: req.body.uuid,
+    readable_name: req.body.readable_name,
+    name: req.body.name,
+    description: req.body.description,
+    traits: req.body.traits,
+    icon: req.body.icon,
+    image_uuid: req.body.image_uuid,
+    category_uuid: req.body.category_uuid,
+    tag_uuids: req.body.tag_uuids
   }
+
+  await db
+    .collection('prototypes')
+    .doc(prototype.uuid)
+    .set(prototype)
+    .then(() => res.status(201).send(`successfully added prototype ${prototype.uuid}`))
+    .catch((err) => res.status(401).send(`error adding prototype ${err.message}`))
 })
 
 export default handler

@@ -1,67 +1,59 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const items = await req.db
+  let itemsArr = []
+  await db
     .collection('items')
-    .find({ bin_uuid: uuid })
-    .toArray()
+    .where('bin_uuid', '==', uuid)
+    .get()
+    .then((items) => {
+      items.forEach(item => {
+        itemsArr.push(item.data())
+      })
+    })
+    .catch((err) => res.status(401).send(`error getting items by bin with bin_uuid ${uuid} ${err.message}`))
 
-  const prototypes = await req.db
+  let prototypesArr = []
+  let prototypesNamesArr = []
+  await db
     .collection('prototypes')
-    .find()
-    .toArray()
-
-  let prototype_names = []
-
-  items.map(item => {
-    if (item.in_bin && item.bin_uuid == uuid) {
+    .get()
+    .then((prototypes) => {
       prototypes.forEach(prototype => {
+        prototypesArr.push(prototype.data())
+      })
+    })
+    .catch((err) => res.status(401).send(`error getting prototype names ${err.message}`))
+
+  itemsArr.forEach(item => {
+    if (item.in_bin && item.bin_uuid == uuid) {
+      prototypesArr.forEach(prototype => {
         if (prototype.uuid == item.prototype_uuid) {
-          item.prototype_name = prototype.name
-          prototype_names.push(prototype.name)
-          return
+          prototypesNamesArr.push(prototype.name)
         }
       })
     }
   })
 
   let count = {}
-  prototype_names.forEach(function(i) { count[i] = (count[i] || 0 ) + 1})
+  prototypesNamesArr.forEach(function(i) { count[i] = (count[i] || 0 ) + 1})
   let outputArr = []
   for (const [key, value] of Object.entries(count)) {
     outputArr.push(`${key} | ${value}`)
   }
 
-  if (items) {
-    res.status(201).json(outputArr)
-  } else {
-    res.status(401).json({'error': `error finding items with bin uuid ${uuid}`})
+  if (outputArr.length < 1) {
+    outputArr.push('Bin is empty')
   }
-})
 
-handler.delete(async (req, res) => {
-  const {
-    query: { uuid },
-  } = req
-
-  const items = await req.db
-    .collection('items')
-    .deleteMany({ bin_uuid: uuid })
-
-  if (items) {
-    res.status(201).json(items)
-  } else {
-    res.status(401).json({'error': `error deleting items with bin uuid ${uuid}`})
-  }
+  res.status(201).json(outputArr)
 })
 
 export default handler

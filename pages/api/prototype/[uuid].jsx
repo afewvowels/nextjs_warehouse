@@ -1,53 +1,50 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const prototype = await req.db
+  await db
     .collection('prototypes')
-    .findOne({ uuid: uuid })
-
-  if (prototype) {
-    res.status(201).json(prototype)
-  } else {
-    res.status(401).json({'error': `error finding prototype with uuid ${uuid}`})
-  }
+    .where('uuid', '==', uuid)
+    .get()
+    .then((prototypes) => {
+      let prototypesArr = []
+      prototypes.forEach(prototype => {
+        prototypesArr.push(prototype.data())
+      })
+      res.status(201).json(prototypesArr[0])
+    })
+    .catch((err) => res.status(401).send(`error getting prototypes ${err.message}`))
 })
 
 handler.post(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
-
-  const update = {
-    $set: {
-      uuid: req.body.uuid,
-      readable_name: req.body.readable_name,
-      name: req.body.name,
-      description: req.body.description,
-      traits: req.body.traits,
-      icon: req.body.icon,
-      image_uuid: req.body.image_uuid,
-      category_uuid: req.body.category_uuid,
-      tag_uuids: req.body.tag_uuids
-    }
+  
+  const prototype = {
+    uuid: req.body.uuid,
+    readable_name: req.body.readable_name,
+    name: req.body.name,
+    description: req.body.description,
+    traits: req.body.traits,
+    icon: req.body.icon,
+    image_uuid: req.body.image_uuid,
+    category_uuid: req.body.category_uuid,
+    tag_uuids: req.body.tag_uuids
   }
 
-  const prototype = await req.db
+  await db
     .collection('prototypes')
-    .findOneAndUpdate({ uuid: uuid }, update)
-
-  if (prototype) {
-    res.status(201).json(prototype)
-  } else {
-    res.status(401).json({'error': `error updating prototype ${uuid}`})
-  }
+    .doc(uuid)
+    .update(prototype)
+    .then(() => res.status(201).send(`successfully added prototype ${uuid}`))
+    .catch((err) => res.status(401).send(`error adding prototype ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
@@ -55,15 +52,12 @@ handler.delete(async (req, res) => {
     query: { uuid },
   } = req
 
-  const prototype = await req.db
+  await db
     .collection('prototypes')
-    .findOneAndDelete({ uuid: uuid })
-    
-  if (prototype) {
-    res.status(201).json(prototype)
-  } else {
-    res.status(401).json({'error': `error deleting prototype with uuid ${uuid}`})
-  }
+    .doc(uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted prototype ${uuid}`))
+    .catch((err) => res.status(401).send(`error deleting prototype ${uuid} ${err.message}`))
 })
 
 export default handler

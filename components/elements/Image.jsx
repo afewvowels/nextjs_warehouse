@@ -44,7 +44,7 @@ const Image = ({image}) => {
 
     if (delRes.status == 201) {
       console.log(`delete sucessful`)
-      Router.push('/image')
+      Router.push('/util/image')
     } else {
       console.error(`error while deleting image`)
     }

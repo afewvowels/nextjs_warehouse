@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Tag = ({tag, categories}) => {
   const [category_name, set_category_name] = useState('')
@@ -25,7 +26,7 @@ const Tag = ({tag, categories}) => {
 
     if (delRes.status == 201) {
       console.log(`delete sucessful`)
-      Router.push('/group')
+      Router.push('/group/tag')
     } else {
       console.error(`error while deleting tag`)
     }

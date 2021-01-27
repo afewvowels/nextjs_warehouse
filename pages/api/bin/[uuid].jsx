@@ -1,23 +1,25 @@
+import db from '@db/firebase'
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const bin = await req.db
+  await db
     .collection('bins')
-    .findOne({uuid: uuid})
-
-  if (bin) {
-    res.status(201).json(bin)
-  } else {
-    res.status(404).json({'error': `error finding bin with uuid ${uuid}`})
-  }
+    .where('uuid', '==', uuid)
+    .get()
+    .then((bins) => {
+      let binsArr = []
+      bins.forEach(bin => {
+        binsArr.push(bin.data())
+      })
+      res.status(201).json(binsArr[0])
+    })
+    .catch((err) => res.status(401).send(`error getting bins ${err.message}`))
 })
 
 handler.post(async (req, res) => {
@@ -25,8 +27,7 @@ handler.post(async (req, res) => {
     query: { uuid }
   } = req
 
-  const update = {
-    $set: {
+  const bin = {
     uuid: req.body.uuid,
     readable_name: req.body.readable_name,
     name: req.body.name,
@@ -34,29 +35,27 @@ handler.post(async (req, res) => {
     item_uuids: req.body.item_uuids,
     icon: req.body.icon,
     image_uuid: req.body.image_uuid
-  }}
-
-  let bin = await req.db
-    .collection('bins')
-    .findOneAndUpdate({uuid: uuid}, update)
-  
-  if (bin) {
-    res.status(201).json(bin)
-  } else {
-    res.status(401).json({'error': `error updating bin with uuid ${uuid}`})
   }
+
+  await db
+    .collection('bins')
+    .doc(uuid)
+    .update(bin)
+    .then(() => res.status(201).send(`successfully added bin ${bin.readable_name}`))
+    .catch((err) => res.status(401).send(`error adding bin ${bin.readable_name} ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
-  const { 
-    query: { uuid }
-   } = req
+  const {
+    query: { uuid },
+  } = req
 
-  const bin = await req.db
+  await db
     .collection('bins')
-    .findOneAndDelete({ uuid: uuid })
-
-  return (bin) ? res.status(201).json(bin) : res.status(404).json({'error': 'bin not found'})
+    .doc(uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted bin ${uuid}`))
+    .catch((err) => res.status(401).send(`error deleting bin ${uuid} ${err.message}`))
 })
 
 export default handler

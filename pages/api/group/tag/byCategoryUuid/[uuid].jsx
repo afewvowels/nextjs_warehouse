@@ -1,41 +1,25 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
-handler.get(async (req, res) =>{
+handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const tags = await req.db
+  await db
     .collection('tags')
-    .find({ category_uuid: uuid })
-    .then(({ops}) => ops[0])
-  
-  if (tags) {
-    res.status(201).json(tags)
-  } else {
-    res.status(401).json({'error': `error finding tags by category uuid ${uuid}`})
-  }
-})
-
-handler.delete(async (req, res) => {
-  const {
-    query: { uuid },
-  } = req
-  
-  const tags = await req.db
-    .collection('tags')
-    .deleteMany({ category_uuid: uuid })
-
-  if (tags) {
-    res.status(201).json(tags)
-  } else {
-    res.status(401).json({'error': `error deleting tags by category uuid ${uuid}`})
-  }
+    .where('category_uuid', '==', uuid)
+    .get()
+    .then((tags) => {
+      let tagsArr = []
+      tags.forEach(tag => {
+        tagsArr.push(tag.data())
+      })
+      res.status(201).json(tagsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting tags with category uuid ${uuid} ${err.message}`))
 })
 
 export default handler

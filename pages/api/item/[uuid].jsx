@@ -1,64 +1,58 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const item = await req.db 
+  await db
     .collection('items')
-    .findOne({ uuid: uuid })
-
-  if (item) {
-    res.status(201).json(item)
-  } else {
-    res.status(404).json({'error': `error finding item with uuid ${uuid}`})
-  }
+    .where('uuid', '==', uuid)
+    .get()
+    .then((items) => {
+      let itemsArr = []
+      items.forEach(item => {
+        itemsArr.push(item.data())
+      })
+      res.status(201).json(itemsArr[0])
+    })
+    .catch((err) => res.status(401).send(`error getting items ${err.message}`))
 })
 
 handler.post(async (req, res) => {
   const {
     query: { uuid }
   } = req
-
-  const update = {
-    $set: {
+  
+  const item = {
     uuid: req.body.uuid,
     prototype_uuid: req.body.prototype_uuid,
     bin_uuid: req.body.bin_uuid,
     in_bin: req.body.in_bin
-    }
   }
 
-  const item = await req.db
+  await db
     .collection('items')
-    .findOneAndUpdate({uuid: uuid}, update)
-
-  if (item) {
-    res.status(201).json(item)
-  } else {
-    res.status(401).json({'error': `error updating item with uuid ${uuid}`})
-  }
+    .doc(item.uuid)
+    .update(item)
+    .then(() => res.status(201).send(`successfully added item ${uuid}`))
+    .catch((err) => res.status(401).send(`error adding item ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
   const {
-    query: { uuid }
+    query: { uuid },
   } = req
 
-  const item = await req.db
+  await db
     .collection('items')
-    .findOneAndDelete({ uuid: uuid })
-
-  if (item) {
-    res.status(201).json(item)
-  } else {
-    res.status(401).json({'error': `error deleting item with uuid ${uuid}`})
-  }
+    .doc(uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted item ${uuid}`))
+    .catch((err) => res.status(401).send(`error deleting item ${uuid} ${err.message}`))
 })
 
 export default handler

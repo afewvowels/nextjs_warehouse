@@ -1,29 +1,22 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
-handler.use(middleware)
 
 handler.post(async (req, res) => {
   const {
     query: { uuid }
   } = req
-
+  
   const update = {
-    $set: {
-      in_bin: req.body.in_bin
-    }
+    in_bin: req.body.in_bin
   }
 
-  const item = await req.db
-    .collection('items')
-    .findOneAndUpdate({uuid: uuid}, update)
-
-  if (item) {
-    res.status(201).json(item)
-  } else {
-    res.status(401).json({'error': `error updating item with uuid ${uuid}`})
-  }
+  await db.collection('items')
+    .doc(uuid)
+    .update(update)
+    .then(() => res.status(201).send(`successfully checked in/out item with uuid ${uuid}`))
+    .catch((err) => res.status(401).send(`error checking item in/out with uuid ${uuid} ${err.message}`))
 })
 
 export default handler

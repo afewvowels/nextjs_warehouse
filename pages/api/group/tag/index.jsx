@@ -1,36 +1,37 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
-  const tags = await req.db
+  await db
     .collection('tags')
-    .find()
-    .toArray()
-
-  if (tags) {
-    res.status(201).json(tags)
-  } else {
-    res.status(401).json({'error': 'error getting tags'})
-  }
+    .get()
+    .then((tags) => {
+      let tagsArr = []
+      tags.forEach(tag => {
+        tagsArr.push(tag.data())
+      })
+      res.status(201).json(tagsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting tags ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, category_uuid, name, description, icon } = req.body
-
-  const tag = await req.db
-    .collection('tags')
-    .insertOne({ uuid, category_uuid, name, description, icon })
-    .then(({ops}) => ops[0])
-
-  if (tag) {
-    res.status(201).json(tag)
-  } else {
-    res.status(400).json({'error': `error adding tag ${name}`})
+  const tag = {
+    category_uuid: req.body.category_uuid,
+    uuid: req.body.uuid,
+    name: req.body.name,
+    description: req.body.description,
+    icon: req.body.icon
   }
+
+  await db
+    .collection('tags')
+    .doc(tag.uuid)
+    .set(tag)
+    .then(() => res.status(201).send(`successfully added tag ${tag.uuid}`))
+    .catch((err) => res.status(401).send(`error adding tag ${err.message}`))
 })
 
 export default handler

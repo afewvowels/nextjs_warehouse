@@ -1,25 +1,25 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
   const {
-    query: { uuid },
+    query: { uuid }
   } = req
 
-  const items = await req.db
+  await db
     .collection('items')
-    .find({ prototype_uuid: uuid })
-    .toArray()
-
-  if (items) {
-    res.status(201).json(items)
-  } else {
-    res.status(401).json({'error': `error finding items with prototype_uuid ${uuid}`})
-  }
+    .where('prototype_uuid', '==', uuid)
+    .get()
+    .then((items) => {
+      let itemsArr = []
+      items.forEach(item => {
+        itemsArr.push(item.data())
+      })
+      res.status(201).json(itemsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting items ${err.message}`))
 })
 
 handler.delete(async (req, res) => {
@@ -27,16 +27,12 @@ handler.delete(async (req, res) => {
     query: { uuid },
   } = req
 
-  const items = await req.db
+  await req.db
     .collection('items')
-    .deleteMany({ prototype_uuid: uuid })
-    .then(({ops}) => ops[0])
-
-  if (items) {
-    res.status(201).json(items)
-  } else {
-    res.status(401).json({'error': `error deleting items with prototype_uuid ${uuid}`})
-  }
+    .where('prototype_uuid', '==', uuid)
+    .delete()
+    .then(() => res.status(201).send(`successfully deleted all items with prototype_uuid ${uuid}`))
+    .catch(err => res.status(401).send(`error deleting items with prototype_uuid ${uuid} ${err.message}`))
 })
 
 export default handler

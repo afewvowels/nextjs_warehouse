@@ -48,13 +48,15 @@ export async function randomSet() {
       .then(data => palettesRes = data)
   
     palettesRes.map(palette => {
+      // console.log('obj', palette)
       let pArr = new Array(4)
-      for (let i = 0; i < 4; i++) {
-        pArr[i] = Object.values(palette)[i + 2]
-      }
+      pArr[0] = palette.hex0
+      pArr[1] = palette.hex1
+      pArr[2] = palette.color0
+      pArr[3] = palette.color1
       palettesArr.push(pArr)
     })
-    console.log('new palettesArr', palettesArr)
+    // console.log('new palettesArr', palettesArr)
     localStorage.setItem('palettes', palettesArr)  
   }
 

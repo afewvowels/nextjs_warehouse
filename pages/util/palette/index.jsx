@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Palette from '@components/elements/Palette'
 import Head from 'next/head'
 import styles from '@styles/elements.module.css'
+import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -31,11 +32,8 @@ const Index = ({palettes}) => {
     })
 
     if (paletteRes.status == 201) {
-      console.log(`palette created successfully`)
-      set_hex0('')
-      set_hex1('')
-      set_color0('')
-      set_color1('')
+      set_error_msg(`palette created successfully`)
+      Router.push('/util/palette')
     } else {
       console.error(`error while creating palette`)
       set_error_msg(await paletteRes.text())
@@ -47,6 +45,7 @@ const Index = ({palettes}) => {
       <title>Palette | Inventory</title>
     </Head>
     <h2 className={styles.elementTitle}>Palettes</h2>
+    {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
     <section className={`${styles.elementWrapper} ${styles.elementWrapperPalettes}`}>
       <div className={styles.elementEntryRowsWrapper}>
         <div className={styles.elementEntryRow}>

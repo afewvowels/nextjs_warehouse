@@ -7,7 +7,7 @@ const Prototypes1 = ({prototypes, categories, tags, category}) => {
   return(<div className={styles.elementWrapperColumn}>
     {prototypes.map((prototype, key) => {
       if (key % 2 == 0) {
-        if (category == 'all' && tag == 'all') {
+        if (category == 'all') {
           return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
         } else if (category == prototype.category_uuid) {
           return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
@@ -33,7 +33,7 @@ const Prototypes2 = ({prototypes, categories, tags, category}) => {
 
 const Index = ({prototypes, categories, tags}) => {
   const [category, set_category] = useState('all')
-  const [tag, set_tag] = useState('all')
+  // const [tag, set_tag] = useState('all')
 
   const categoryRef = useCallback(node => {
     if (node != null) {
@@ -45,17 +45,17 @@ const Index = ({prototypes, categories, tags}) => {
     }
   }, [categories])
 
-  const tagsRef = useCallback(node => {
-    if (node != null) {
-      node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
-      tags.map((tag, key) => {
-        if (category == 'all' || tag.category_uuid == category) {
-          node.insertAdjacentHTML(`beforeend`,`<option value=${tag.uuid}>${tag.name}</option>`)
-        }
-      })
-    }
-  }, [category])
+  // const tagsRef = useCallback(node => {
+  //   if (node != null) {
+  //     node.innerHTML = ''
+  //     node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+  //     tags.map((tag, key) => {
+  //       if (category == 'all' || tag.category_uuid == category) {
+  //         node.insertAdjacentHTML(`beforeend`,`<option value=${tag.uuid}>${tag.name}</option>`)
+  //       }
+  //     })
+  //   }
+  // }, [category])
 
   return(<>
     <Title title='prototypes' addUrl='/prototype/add' />
@@ -67,14 +67,14 @@ const Index = ({prototypes, categories, tags}) => {
                 ref={categoryRef}></select>
       </span>
     </section>
-    <section className={styles.elementSelectWrapper}>
+    {/* <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Tag Select</h3>
         <select value={tag}
                 onChange={e => set_tag(e.target.value)}
                 ref={tagsRef}></select>
       </span>
-    </section>
+    </section> */}
     <section className={styles.elementWrapper}>
       <Prototypes1 prototypes={prototypes} categories={categories} tags={tags} category={category} />
       <Prototypes2 prototypes={prototypes} categories={categories} tags={tags} category={category} />

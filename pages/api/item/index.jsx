@@ -1,36 +1,36 @@
 import nc from 'next-connect'
-import middleware from '@middlewares/middleware'
+import db from '@db/firebase'
 
 const handler = nc()
 
-handler.use(middleware)
-
 handler.get(async (req, res) => {
-  const items = await req.db
+  await db
     .collection('items')
-    .find()
-    .toArray()
-
-  if (items) {
-    res.status(201).json(items)
-  } else {
-    res.status(401).json({'error': `error getting items`})
-  }
+    .get()
+    .then((items) => {
+      let itemsArr = []
+      items.forEach(item => {
+        itemsArr.push(item.data())
+      })
+      res.status(201).json(itemsArr)
+    })
+    .catch((err) => res.status(401).send(`error getting items ${err.message}`))
 })
 
 handler.post(async (req, res) => {
-  const { uuid, prototype_uuid, bin_uuid, in_bin } = req.body
-
-  const item = await req.db
-    .collection('items')
-    .insertOne({ uuid, prototype_uuid, bin_uuid, in_bin })
-    .then(({ops}) => ops[0])
-
-  if (item) {
-    res.status(201).json(item)
-  } else {
-    res.status(401).json({'error': `error creating item with uuid ${uuid}`})
+  const item = {
+    uuid: req.body.uuid,
+    prototype_uuid: req.body.prototype_uuid,
+    bin_uuid: req.body.bin_uuid,
+    in_bin: req.body.in_bin
   }
+
+  await db
+    .collection('items')
+    .doc(item.uuid)
+    .set(item)
+    .then(() => res.status(201).send(`successfully added item ${item.uuid}`))
+    .catch((err) => res.status(401).send(`error adding item ${err.message}`))
 })
 
 export default handler
