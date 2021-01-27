@@ -1,7 +1,6 @@
 import admin from 'firebase-admin';
 
 if (!admin.apps.length) {
-  console.log('private key', process.env.PRIVATE_KEY)
   admin.initializeApp({
     // credential: admin.credential.applicationDefault(),
     credential: admin.credential.cert({
