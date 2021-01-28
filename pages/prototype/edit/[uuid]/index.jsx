@@ -235,8 +235,8 @@ const Index = ({prototype, image, categories, tags}) => {
                   value={new_trait}
                   onChange={e => set_new_trait(e.target.value)}/>
           <span className={styles.elementButtonsWrapper}>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTrait}>Add Trait</button>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={clearTraits}>Delete Traits</button>
+            <button className={`${styles.elementButton}`} onClick={clearTraits}>Delete Traits</button>
+            <button className={`${styles.elementButton}`} onClick={addNewTrait}>Add Trait</button>
           </span>
         </div>
         <div className={`${styles.elementEntryRow} ${styles.elementEntryWithDropdown}`}>
@@ -248,8 +248,8 @@ const Index = ({prototype, image, categories, tags}) => {
                   onChange={e => set_new_tag(e.target.value)}/>
 
         <span className={styles.elementButtonsWrapper}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTag}>Add Tag</button>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={clearTags}>Delete Tags</button>
+          <button className={`${styles.elementButton}`} onClick={clearTags}>Delete Tags</button>
+          <button className={`${styles.elementButton}`} onClick={addNewTag}>Add Tag</button>
         </span>
         </div>
         <div className={styles.elementEntryRow}>

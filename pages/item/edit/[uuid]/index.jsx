@@ -167,11 +167,11 @@ const ViewItem = ({item, bins}) => {
           <p>Item is in bin</p>
           <p>{check_in_out ? 'True' : 'False'}</p>
         </div>
-        <div className={styles.elementButtonsWrapper}>
+        <div className={styles.elementButtonsWrapperGrid}>
           <Link href='/item'>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={updateItem}>Update</button>
+            <button className={`${styles.elementButton}`} onClick={updateItem}>Update</button>
           </Link>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
+          <button className={`${styles.elementButton}`} onClick={deleteItem}>Delete</button>
         </div>
       </div>
     </section>
