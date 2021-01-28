@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
   const foundItems = []
   await db
     .collection('prototypes')
-    .where('uuid', '==', uuid)
+    .where('image_uuid', '==', uuid)
     .get()
     .then(results => {
       results.forEach(result => {
@@ -21,7 +21,7 @@ handler.get(async (req, res) => {
 
   await db
     .collection('bins')
-    .where('uuid', '==', uuid)
+    .where('image_uuid', '==', uuid)
     .get()
     .then(results => {
       results.forEach(result => {
