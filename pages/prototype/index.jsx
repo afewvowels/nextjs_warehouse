@@ -6,7 +6,7 @@ import { useLayoutEffect, useState, useCallback } from 'react'
 const Prototypes = ({prototypes, categories, tags, category}) => {
   return(<><div className={styles.elementWrapperColumn}>
     {prototypes.map((prototype, key) => {
-      if (key <= Math.floor(prototypes.length/2)) {
+      if (key < Math.floor(prototypes.length/2)) {
         if (category == 'all') {
           return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
         } else if (category == prototype.category_uuid) {
@@ -16,7 +16,7 @@ const Prototypes = ({prototypes, categories, tags, category}) => {
     })}
   </div><div className={styles.elementWrapperColumn}>
     {prototypes.map((prototype, key) => {
-      if (key > Math.floor(prototypes.length/2)) {
+      if (key >= Math.floor(prototypes.length/2)) {
         if (category == 'all') {
           return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
         } else if (category == prototype.category_uuid) {

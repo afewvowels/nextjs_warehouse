@@ -8,11 +8,11 @@ import styles from '@styles/elements.module.css'
 const Categories = ({categories, tags}) => {
   return(<><div className={styles.elementWrapperColumn}>
     {categories.map((category, key) => (
-      (key <= Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
+      (key < Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
     ))}
   </div><div className={styles.elementWrapperColumn}>
     {categories.map((category, key) => (
-      (key > Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
+      (key >= Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
     ))}
   </div></>)
 }
