@@ -9,14 +9,14 @@ const Bins = ({bins}) => {
   return(<>
     <div className={styles.elementWrapperColumn}>
     {bins.map((bin, key) => {
-      if (key < Math.floor(bins.length/2)){
+      if (key <= Math.floor(bins.length/2)){
         return <Bin bin={bin} key={key}/>
       }
     })}
     </div>
     <div className={styles.elementWrapperColumn}>
     {bins.map((bin, key) => {
-      if (key >= Math.floor(bins.length/2)){
+      if (key > Math.floor(bins.length/2)){
         return <Bin bin={bin} key={key}/>
       }
     })}

@@ -64,7 +64,7 @@ const Index = ({tag, categories}) => {
   }
 
   return(<>
-    <h2 className={styles.elementHeader}>Create Tag</h2>
+    <h2 className={styles.elementHeader}>Edit Tag</h2>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
         {error ? <p style={{color: 'red'}}>{error}</p> : null}

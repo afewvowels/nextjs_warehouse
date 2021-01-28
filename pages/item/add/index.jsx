@@ -75,6 +75,7 @@ const Index = ({prototypes, bins, categories}) => {
 
       if (itemRes.status == 201) {
         console.log('item created successfully')
+        set_error('created item successfully, ' + i + ' of ' + count)
       } else {
         console.error('error while creating item')
         set_error(await itemRes.text())

@@ -6,7 +6,7 @@ import styles from '@styles/elements.module.css'
 const Tags = ({tags, categories, category}) => {
   return(<><div className={styles.elementWrapperColumn}>
     {tags.map((tag, key) => {
-      if (key < Math.floor(tags.length/2)) {
+      if (key <= Math.floor(tags.length/2)) {
         if (category == 'all' || tag.category_uuid == category) {
           return <Tag tag={tag} categories={categories} key={key} />
         }
@@ -14,7 +14,7 @@ const Tags = ({tags, categories, category}) => {
     })}
   </div><div className={styles.elementWrapperColumn}>
     {tags.map((tag, key) => {
-      if (key >= Math.floor(tags.length/2)) {
+      if (key > Math.floor(tags.length/2)) {
         if (category == 'all' || tag.category_uuid == category) {
           return <Tag tag={tag} categories={categories} key={key} />
         }

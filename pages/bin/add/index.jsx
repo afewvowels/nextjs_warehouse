@@ -7,8 +7,6 @@ var TinyURL = require('tinyurl')
 import randomIcon from '@components/modules/random/icon/randomIcon'
 const readable = require('readable-url-names')
 import { v4 as uuidv4 } from 'uuid'
-// import webp from 'webp-converter'
-// webp.grant_permission()
 
 import styles from '@styles/elements.module.css'
 
@@ -58,7 +56,7 @@ const Index = () => {
 
     console.log('after image submission attempt')
 
-    
+
     const bin = {
       uuid: uuid,
       readable_name: readable_name,
@@ -71,7 +69,7 @@ const Index = () => {
     }
 
     console.log('before bin submission attempt')
-    
+
     const binRes = await fetch('/api/bin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -97,14 +95,6 @@ const Index = () => {
     fileReader = new FileReader()
     fileReader.onloadend = handleImageRead
     fileReader.readAsDataURL(image)
-    // fileReader.onloadend = function() {
-      // let base64 = fileReader.readAsDataURL(file)
-      // let resizedBase64 = ''
-      // resizedBase64 = resizeImage(base64)
-      // let webpBase64 = webp.str2webpstr(resizedBase64, 'jpg', '-q 65')
-      // let webpBase64 = webp.str2webpstr(base64, 'jpg', '-q 65')
-      // set_image_base64(base64)
-    // }
   }
 
   const resizeImage = (base64str, maxWidth = 500, maxHeight = 500) => {

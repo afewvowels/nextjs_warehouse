@@ -6,7 +6,7 @@ import { useLayoutEffect, useState, useCallback } from 'react'
 const Items = ({items, category, bin}) => {
   return(<><div className={styles.elementWrapperColumn}>
     {items.map((item, key) => {
-      if (key < Math.floor(items.length/2)){
+      if (key <= Math.floor(items.length/2)){
         if (category == 'all' && bin == 'all') {
           return <Item item={item} key={key}/>
         } else if (item.category_uuid == category || item.bin_uuid == bin) {
@@ -16,7 +16,7 @@ const Items = ({items, category, bin}) => {
     })}
   </div><div className={styles.elementWrapperColumn}>
     {items.map((item, key) => {
-      if (key >= Math.floor(items.length/2)){
+      if (key > Math.floor(items.length/2)){
         if (category == 'all' && bin == 'all') {
           return <Item item={item} key={key}/>
         } else if (item.category_uuid == category || item.bin_uuid == bin) {

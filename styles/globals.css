@@ -26,7 +26,6 @@ body {
   cursor: default;
   color: var(--foreground-color);
   background-color: var(--background-color);
-  /* overflow: hidden; */
   text-overflow: ellipsis;
 }
 
@@ -58,7 +57,7 @@ a {
   margin-top: 0.8rem;
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1080px) {
   #__next {
     width: 100%;
     padding: 0 1.25rem;

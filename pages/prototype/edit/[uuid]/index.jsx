@@ -186,7 +186,7 @@ const Index = ({prototype, image, categories, tags}) => {
   }
 
   return(<>
-    <h2 className={styles.elementHeader}>Create Prototype</h2>
+    <h2 className={styles.elementHeader}>Edit Prototype</h2>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
         {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}

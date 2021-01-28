@@ -37,7 +37,7 @@ const Item = ({item}) => {
     set_check_in_out(item.in_bin)
   }, [item])
 
-  
+
   const deleteItem = async () => {
     const delRes = await fetch('/api/item/' + item.uuid, {
       method: 'DELETE',
@@ -120,7 +120,7 @@ const Item = ({item}) => {
       </div>
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>
-        <p>{item.in_bin ? 'True' : 'False'}</p>
+        <p>{check_in_out ? 'True' : 'False'}</p>
       </div>
       <div className={styles.elementButtonsWrapperGrid}>
         <button className={`${styles.elementButton}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>

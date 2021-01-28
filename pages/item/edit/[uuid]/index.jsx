@@ -52,7 +52,7 @@ const ViewItem = ({item, bins}) => {
   const [error_msg, set_error_msg] = useState('')
   const [bin_uuid, set_bin_uuid] = useState(item.bin_uuid)
   const [tinyurl, set_tinyurl] = useState(item.tinyurl)
-  
+
   const deleteItem = async () => {
     const delRes = await fetch(`/api/item/${item.uuid}`, {
       method: 'DELETE',
@@ -127,7 +127,7 @@ const ViewItem = ({item, bins}) => {
   if (!bin || !prototype) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
 
   return(<>
-    <h2 className={styles.elementHeader}>Create Tag</h2>
+    <h2 className={styles.elementHeader}>Edit Item</h2>
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
         {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
