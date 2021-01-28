@@ -80,6 +80,10 @@ const Bin = ({bin}) => {
         <FontAwesomeIcon icon={['far', 'plus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
+        <p>Description</p>
+        <p>{bin.description}</p>
+      </div>
+      <div className={styles.elementInfoRow}>
         <p>Items</p>
         <ItemsList uuid={bin.uuid}/>
       </div>
@@ -117,14 +121,14 @@ const Bin = ({bin}) => {
       <p>Image UUID</p>
       <p>{bin.image_uuid}</p>
     </div> */}
-    <div className={styles.elementButtonsWrapper}>
+    <div className={styles.elementButtonsWrapperGrid}>
       <Link href={print_url}>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
       </Link>
       <Link href={edit_url}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
+        <button className={`${styles.elementButton}`}>Edit</button>
       </Link>
-      <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteBin}>Delete</button>
+      <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
     </div>
   </div>)
   }

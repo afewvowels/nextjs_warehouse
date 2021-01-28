@@ -134,11 +134,11 @@ const Prototype = ({prototype, categories, tags}) => {
         <p>Tags</p>
         <ul ref={tagsRef} className={styles.elementListCloud}></ul>
       </div>
-      <div className={styles.elementButtonsWrapper}>
+      <div className={styles.elementButtonsWrapperGrid}>
         <Link href={edit_url}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
+          <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deletePrototype}>Delete</button>
+        <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
       </div>
     </div>
   )}

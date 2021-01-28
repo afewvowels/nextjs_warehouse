@@ -12,20 +12,20 @@ function useImage(uuid) {
   return { image: data, isLoading: !error && !data, isError: error }
 }
 
-function BinImage({uuid}) {
+function BinImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
   if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
   if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
-  return <img src={image.base64} alt={uuid} />
+  return (<Link href={`/bin/${item.bin_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
 }
 
-function PrototypeImage({uuid}) {
+function PrototypeImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
   if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
   if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
-  return <img src={image.base64} alt={uuid}/>
+  return (<Link href={`/prototype/${item.prototype_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
 }
 
 const Item = ({item}) => {
@@ -109,28 +109,28 @@ const Item = ({item}) => {
         </span>
       </div>
       <div className={styles.elementInfoRow}>
-        <PrototypeImage uuid={item.prototype_image_uuid}/>
+        <PrototypeImage uuid={item.prototype_image_uuid} item={item}/>
       </div>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={item.bin_icon}/>
         <h3>{item.bin_name}</h3>
       </div>
       <div className={styles.elementInfoRow}>
-        <BinImage uuid={item.bin_image_uuid}/>
+        <BinImage uuid={item.bin_image_uuid} item={item}/>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>
         <p>{item.in_bin ? 'True' : 'False'}</p>
       </div>
-      <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
+      <div className={styles.elementButtonsWrapperGrid}>
+        <button className={`${styles.elementButton}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
         <Link href={`/item/print/${item.uuid}`}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
+          <button className={`${styles.elementButton}`}>Print</button>
         </Link>
         <Link href={`/item/edit/${item.uuid}`}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
+          <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
+        <button className={`${styles.elementButton}`} onClick={deleteItem}>Delete</button>
       </div>
     </div>
   )}

@@ -56,10 +56,15 @@
   display: grid;
   grid-template-columns: 1.5rem minmax(auto, 3fr) auto;
   grid-template-rows: auto;
-  grid-gap: 0.15rem;
+  grid-gap: 0.35rem;
   align-items: center;
   justify-content: space-between;
   min-width: 100%;
+}
+
+.elementHeaderRowCollapsible > svg:first-of-type {
+  align-self: center;
+  justify-self: center;
 }
 
 .elementHeaderRowItems {
@@ -109,11 +114,22 @@
   cursor: pointer;
 }
 
+.elementHeaderRowItems > span > h3 {
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .elementEntryRow, .elementInfoRow {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 0.35rem;
+}
+
+.elementInfoImage {
+  cursor: pointer;
 }
 
 .elementEntryRow > *, .elementInfoRow > * {
@@ -200,6 +216,13 @@
 .elementButtonWide {
   grid-column-start: 1;
   grid-column-end: 4;
+}
+
+.elementButtonsWrapperGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 0.5rem;
 }
 
 .elementButton {

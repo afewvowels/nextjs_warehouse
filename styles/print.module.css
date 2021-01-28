@@ -8,10 +8,20 @@
 .printTopWrapper > p {
   font-size: 2.25rem;
   font-weight: var(--font-weight-heavy);
+  margin: 0;
+}
+
+.printTopWrapper > p:first-of-type {
+  margin-top: 3.0rem;
+  margin-bottom: 0;
+  cursor: pointer;
+  padding: 0.65rem;
+  border: 3px solid var(--foreground-color);
+  border-radius: 0.333rem;
 }
 
 .printTopWrapper > * + * {
-  margin-top: 3rem;
+  margin-top: 1.0rem;
 }
 
 .printWrapper {
@@ -33,18 +43,19 @@
 }
 
 .printWrapper > * + * {
-  /* margin-top: 0.5rem; */
 }
 
 .printIcon > * {
-  display: none !important;
+  height: auto;
+  width: 6.5rem !important;
 }
 
 .printName {
   font-weight: var(--font-weight-heavy);
   font-size: 2.25rem;
   margin: 0;
+  margin-top: 0.5rem !important;
   padding: 0;
   word-wrap: break-word;
-  display: none;
+  width: 200px;
 }

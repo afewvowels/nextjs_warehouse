@@ -5,10 +5,10 @@ const runtimeCaching = require('next-pwa/cache')
 
 module.exports = withPlugins([
   [withImages],
-  [withPWA, {
-    pwa: {
-      dest: 'public',
-      runtimeCaching,
-    }
-  }]
+  // [withPWA, {
+  //   pwa: {
+  //     dest: 'public',
+  //     runtimeCaching,
+  //   }
+  // }]
 ])

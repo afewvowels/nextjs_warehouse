@@ -81,11 +81,11 @@ const Category = ({category, tags}) => {
         <p>Tag Names</p>
         <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
       </div>
-      <div className={styles.elementButtonsWrapper}>
+      <div className={styles.elementButtonsWrapperGrid}>
         <Link href={edit_url}>
-          <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Edit</button>
+          <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteCategory}>Delete</button>
+        <button className={`${styles.elementButton}`} onClick={deleteCategory}>Delete</button>
       </div>
     </div>
   )}
