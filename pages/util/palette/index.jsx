@@ -16,7 +16,7 @@ const Index = ({palettes}) => {
 
   const handleCreate = async () => {
     localStorage.setItem('palettes', undefined)
-    
+
     const newPalette = {
       uuid: uuidv4(),
       hex0: hex0,
@@ -89,10 +89,10 @@ const Index = ({palettes}) => {
   </>)
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const palettes = await fetcher(`${process.env.URL}api/palettes`)
 
-  return { props: { palettes } }
+  return { props: { palettes }, revalidate: 5 }
 }
 
 export default Index

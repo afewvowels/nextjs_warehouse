@@ -70,11 +70,11 @@ const Index = ({bins}) => {
   </>)
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let res = await fetch(process.env.URL + 'api/bin')
   let bins = await res.json()
 
-  return { props: { bins } }
+  return { props: { bins }, revalidate: 5 }
 }
 
 export default Index
