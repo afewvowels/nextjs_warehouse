@@ -89,7 +89,7 @@ const Item = ({item}) => {
           <FontAwesomeIcon icon={item.prototype_icon} />
           </span>
           <span onClick={openItem}>
-          <h3>{item.prototype_name}</h3>
+          <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
           <FontAwesomeIcon icon={['far', 'plus-square']} />
           </span>
         </div>
@@ -104,7 +104,7 @@ const Item = ({item}) => {
         <FontAwesomeIcon icon={item.prototype_icon}/>
         </span>
         <span onClick={closeItem}>
-        <h3>{item.prototype_name}</h3>
+        <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
         <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
         </span>
       </div>

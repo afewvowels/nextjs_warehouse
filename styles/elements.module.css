@@ -114,7 +114,7 @@
   cursor: pointer;
 }
 
-.elementHeaderRowItems > span > h3 {
+.elementHeaderRowItems > span > h3, .elementHeaderRowTitle {
   width: 80%;
   white-space: nowrap;
   overflow: hidden;

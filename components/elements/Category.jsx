@@ -57,7 +57,7 @@ const Category = ({category, tags}) => {
     <div className={styles.elementEntryRowsWrapper}>
       <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
         <FontAwesomeIcon icon={category.icon} />
-        <h3>{category.name}</h3>
+        <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
         <FontAwesomeIcon icon={['far', 'plus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
@@ -70,7 +70,7 @@ const Category = ({category, tags}) => {
     <div className={styles.elementEntryRowsWrapper}>
       <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
         <FontAwesomeIcon icon={category.icon} />
-        <h3>{category.name}</h3>
+        <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
         <FontAwesomeIcon icon={['far', 'minus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>

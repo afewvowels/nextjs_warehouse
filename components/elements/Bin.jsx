@@ -76,7 +76,7 @@ const Bin = ({bin}) => {
     <div className={styles.elementEntryRowsWrapper}>
       <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
         <FontAwesomeIcon icon={bin.icon}/>
-        <h3>{bin.name}</h3>
+        <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
         <FontAwesomeIcon icon={['far', 'plus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
@@ -93,7 +93,7 @@ const Bin = ({bin}) => {
   <div className={styles.elementEntryRowsWrapper}>
     <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
       <FontAwesomeIcon icon={bin.icon}/>
-      <h3>{bin.name}</h3>
+      <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
       <FontAwesomeIcon icon={['far', 'minus-square']}/>
     </div>
     <div className={styles.elementInfoRow}>

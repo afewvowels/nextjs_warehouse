@@ -45,7 +45,7 @@ const Tag = ({tag, categories}) => {
       <div className={styles.elementEntryRowsWrapper}>
         <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
           <FontAwesomeIcon icon={tag.icon} />
-          <h3>{tag.name}</h3>
+          <h3 className={styles.elementHeaderRowTitle}>{tag.name}</h3>
           <FontAwesomeIcon icon={['far', 'plus-square']}/>
         </div>
       </div>
@@ -54,7 +54,7 @@ const Tag = ({tag, categories}) => {
     <div className={styles.elementEntryRowsWrapper}>
       <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
         <FontAwesomeIcon icon={tag.icon} />
-        <h3>{tag.name}</h3>
+        <h3 className={styles.elementHeaderRowTitle}>{tag.name}</h3>
         <FontAwesomeIcon icon={['far', 'minus-square']}/>
       </div>
       <div className={styles.elementInfoRow}>
