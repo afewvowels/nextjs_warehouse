@@ -1,7 +1,31 @@
 import Title from '@templates/Title'
 import Prototype from '@components/elements/Prototype'
 import styles from '@styles/elements.module.css'
-import { useState, useCallback } from 'react'
+import { useLayoutEffect, useState, useCallback } from 'react'
+
+const Prototypes = ({prototypes, categories, tags, category}) => {
+  return(<><div className={styles.elementWrapperColumn}>
+    {prototypes.map((prototype, key) => {
+      if (key < Math.floor(prototypes.length/2)) {
+        if (category == 'all') {
+          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+        } else if (category == prototype.category_uuid) {
+          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+        }
+      }
+    })}
+  </div><div className={styles.elementWrapperColumn}>
+    {prototypes.map((prototype, key) => {
+      if (key >= Math.floor(prototypes.length/2)) {
+        if (category == 'all') {
+          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+        } else if (category == prototype.category_uuid) {
+          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+        }
+      }
+    })}
+  </div></>)
+}
 
 const Prototypes1 = ({prototypes, categories, tags, category}) => {
   return(<div className={styles.elementWrapperColumn}>
@@ -31,9 +55,24 @@ const Prototypes2 = ({prototypes, categories, tags, category}) => {
   </div>)
 }
 
+function useSize() {
+  const [size, set_size] = useState([0])
+
+  useLayoutEffect(() => {
+    function updateWindowSize() {
+      set_size([window.innerWidth])
+    }
+    window.addEventListener('resize', updateWindowSize)
+    updateWindowSize()
+    return () => window.removeEventListener('resize', updateWindowSize)
+  }, [])
+  return size
+}
+
 const Index = ({prototypes, categories, tags}) => {
   const [category, set_category] = useState('all')
   // const [tag, set_tag] = useState('all')
+  const [size] = useSize()
 
   const categoryRef = useCallback(node => {
     if (node != null) {
@@ -76,8 +115,8 @@ const Index = ({prototypes, categories, tags}) => {
       </span>
     </section> */}
     <section className={styles.elementWrapper}>
-      <Prototypes1 prototypes={prototypes} categories={categories} tags={tags} category={category} />
-      <Prototypes2 prototypes={prototypes} categories={categories} tags={tags} category={category} />
+      {(size > 666) ? <><Prototypes1 prototypes={prototypes} categories={categories} tags={tags} category={category} />
+      <Prototypes2 prototypes={prototypes} categories={categories} tags={tags} category={category} /></> : <Prototypes prototypes={prototypes} categories={categories} tags={tags} category={category} />}
     </section>
   </>)
 }

@@ -6,6 +6,7 @@ const handler = nc()
 handler.get(async (req, res) => {
   await db
     .collection('bins')
+    .orderBy('name')
     .get()
     .then((bins) => {
       let binsArr = []

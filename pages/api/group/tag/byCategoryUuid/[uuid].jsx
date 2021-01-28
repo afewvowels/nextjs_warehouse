@@ -11,6 +11,7 @@ handler.get(async (req, res) => {
   await db
     .collection('tags')
     .where('category_uuid', '==', uuid)
+    .orderBy('name')
     .get()
     .then((tags) => {
       let tagsArr = []

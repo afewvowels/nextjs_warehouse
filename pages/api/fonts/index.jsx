@@ -6,6 +6,7 @@ const handler = nc()
 handler.get(async (req, res) => {
   await db
     .collection('fonts')
+    .orderBy('name')
     .get()
     .then((fonts) => {
       let fontsArr = []

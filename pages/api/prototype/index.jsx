@@ -6,6 +6,7 @@ const handler = nc()
 handler.get(async (req, res) => {
   await db
     .collection('prototypes')
+    .orderBy('name')
     .get()
     .then((prototypes) => {
       let prototypesArr = []

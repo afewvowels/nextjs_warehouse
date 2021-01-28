@@ -24,6 +24,7 @@ handler.get(async (req, res) => {
   let prototypesNamesArr = []
   await db
     .collection('prototypes')
+    .orderBy('name')
     .get()
     .then((prototypes) => {
       prototypes.forEach(prototype => {

@@ -11,6 +11,7 @@ handler.get(async (req, res) => {
   await db
     .collection('prototypes')
     .where('bin_uuid', '==', uuid)
+    .orderBy('name')
     .get()
     .then((prototypes) => {
       let prototypesArr = []

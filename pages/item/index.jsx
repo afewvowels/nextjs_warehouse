@@ -1,8 +1,31 @@
 import Title from '@templates/Title'
 import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
-import { useState, useCallback } from 'react'
+import { useLayoutEffect, useState, useCallback } from 'react'
 
+const Items = ({items, category, bin}) => {
+  return(<><div className={styles.elementWrapperColumn}>
+    {items.map((item, key) => {
+      if (key < Math.floor(items.length/2)){
+        if (category == 'all' && bin == 'all') {
+          return <Item item={item} key={key}/>
+        } else if (item.category_uuid == category || item.bin_uuid == bin) {
+          return <Item item={item} key={key}/>
+        }
+      }
+    })}
+  </div><div className={styles.elementWrapperColumn}>
+    {items.map((item, key) => {
+      if (key >= Math.floor(items.length/2)){
+        if (category == 'all' && bin == 'all') {
+          return <Item item={item} key={key}/>
+        } else if (item.category_uuid == category || item.bin_uuid == bin) {
+          return <Item item={item} key={key}/>
+        }
+      }
+    })}
+  </div></>)
+}
 
 const Items1 = ({items, category, bin}) => {
   return(<div className={styles.elementWrapperColumn}>
@@ -32,9 +55,24 @@ const Items2 = ({items, category, bin}) => {
   </div>)
 }
 
+function useSize() {
+  const [size, set_size] = useState([0])
+
+  useLayoutEffect(() => {
+    function updateWindowSize() {
+      set_size([window.innerWidth])
+    }
+    window.addEventListener('resize', updateWindowSize)
+    updateWindowSize()
+    return () => window.removeEventListener('resize', updateWindowSize)
+  }, [])
+  return size
+}
+
 const Index = ({items, categories, bins}) => {
   const [category, set_category] = useState('all')
   const [bin, set_bin] = useState('all')
+  const [size] = useSize()
 
   const categoryRef = useCallback(node => {
     if (node != null) {
@@ -73,8 +111,8 @@ const Index = ({items, categories, bins}) => {
       </span>
     </section>
     <section className={styles.elementWrapper}>
-      <Items1 items={items} category={category} bin={bin}/>
-      <Items2 items={items} category={category} bin={bin}/>
+      {(size > 666) ? <><Items1 items={items} category={category} bin={bin}/>
+      <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin}/>}
     </section>
   </>)
 }
