@@ -115,7 +115,7 @@
 }
 
 .elementHeaderRowItems > span > h3, .elementHeaderRowTitle {
-  width: 80%;
+  width: 95%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
