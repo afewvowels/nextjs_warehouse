@@ -2,6 +2,7 @@ import styles from '@styles/elements.module.css'
 import Router from 'next/router'
 import useSWR from 'swr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -37,6 +38,8 @@ function ImageInUse({uuid}) {
 }
 
 const Image = ({image}) => {
+  const [collapsed, set_collapsed] = useState(true)
+
   const deleteImage = async () => {
     const delRes = await fetch('/api/image/' + image.uuid, {
       method: 'DELETE',
@@ -49,10 +52,27 @@ const Image = ({image}) => {
       console.error(`error while deleting image`)
     }
   }
-  
+
+  const openImage = () => {
+    set_collapsed(false)
+  }
+
+  const closeImage = () => {
+    set_collapsed(true)
+  }
+
+  if (collapsed) {
+    return(
+      <div className={styles.elementEntryRowsWrapper} onClick={openImage}>
+        <div style={{cursor: 'pointer'}} className={styles.elementImageRow}>
+          <ImageInUse uuid={image.uuid}/>
+          <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
+        </div>
+      </div>)
+  } else {
   return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={styles.elementImageRow}>
+    <div className={styles.elementEntryRowsWrapper} onClick={closeImage}>
+      <div style={{cursor: 'pointer'}} className={styles.elementImageRow}>
         <ImageInUse uuid={image.uuid}/>
         <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
       </div>
@@ -60,6 +80,7 @@ const Image = ({image}) => {
         <FoundImage uuid={image.uuid}/>
       </div>
     </div>)
+  }
 }
 
 export default Image

@@ -30,7 +30,7 @@ const Index = ({bin}) => {
       width = node.childNodes[0].childNodes[0].getBBox()['width']
       height = node.childNodes[0].childNodes[0].getBBox()['height']
 
-      let maxDim = 55
+      let maxDim = 50
 
       if (width > maxDim || height > maxDim) {
         if (width == height) {

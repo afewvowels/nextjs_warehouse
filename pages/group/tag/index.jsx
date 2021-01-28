@@ -92,14 +92,14 @@ const Index = ({categories, tags}) => {
   </>)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let categoryRes = await fetch(process.env.URL + 'api/group/category')
   let categories = await categoryRes.json()
 
   let tagRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagRes.json()
 
-  return { props: { categories, tags }, revalidate: 5 }
+  return { props: { categories, tags } }
 }
 
 export default Index

@@ -49,7 +49,7 @@ const Index = ({item}) => {
 
       // console.log('original width: ', width, ', height: ', height)
 
-      let maxDim = 55
+      let maxDim = 50
 
       if (width > maxDim || height > maxDim) {
         if (width == height) {

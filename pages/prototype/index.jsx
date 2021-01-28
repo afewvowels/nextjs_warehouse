@@ -121,7 +121,7 @@ const Index = ({prototypes, categories, tags}) => {
   </>)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let prototypesRes = await fetch(process.env.URL + 'api/prototype')
   let prototypes = await prototypesRes.json()
 
@@ -131,7 +131,7 @@ export async function getStaticProps() {
   let tagsRes = await fetch(process.env.URL + 'api/group/tag')
   let tags = await tagsRes.json()
 
-  return { props: { prototypes, categories, tags }, revalidate: 5 }
+  return { props: { prototypes, categories, tags } }
 }
 
 export default Index

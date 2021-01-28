@@ -3,14 +3,12 @@ import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 var TinyURL = require('tinyurl')
+import randomWords from '@components/modules/random/urls/randomWords'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
-const readable = require('readable-url-names')
 import { v4 as uuidv4 } from 'uuid'
 
 import styles from '@styles/elements.module.css'
-
-var generator = new readable()
 
 const Index = () => {
   let fileReader
@@ -127,7 +125,8 @@ const Index = () => {
   async function generateIdentifiers() {
     let newUuid = uuidv4()
     let icon = randomIcon()
-    let bin_name = generator.generate()
+    // let bin_name = generator.generate()
+    let bin_name = await randomWords(3)
     set_icon(icon)
     set_uuid(newUuid)
     set_readable_name(bin_name)

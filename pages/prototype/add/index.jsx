@@ -3,12 +3,10 @@ import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
-const readable = require('readable-url-names')
+import randomWords from '@components/modules/random/urls/randomWords'
 import { v4 as uuidv4 } from 'uuid'
 
 import styles from '@styles/elements.module.css'
-
-var generator = new readable()
 
 const Index = ({categories, tags}) => {
   let fileReader
@@ -88,10 +86,11 @@ const Index = ({categories, tags}) => {
     set_new_tag('')
   }
 
-  const generateIdentifiers = () => {
+  const generateIdentifiers = async () => {
+    let readable = await randomWords(3)
     set_icon(randomIcon())
     set_uuid(uuidv4())
-    set_readable_name(generator.generate())
+    set_readable_name(readable)
   }
 
   const handleImageRead = () => {
