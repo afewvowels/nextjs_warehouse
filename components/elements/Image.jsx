@@ -30,6 +30,7 @@ function ImageInUse({uuid}) {
 
   if (isLoading || inUseIsLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
   if (isError || inUseIsError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (image == undefined) return <p>Image undefined</p>
   if (inUse.in_use) {
     return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
    } else {
@@ -63,21 +64,21 @@ const Image = ({image}) => {
 
   if (collapsed) {
     return(
-      <div className={styles.elementEntryRowsWrapper} onClick={openImage}>
-        <div style={{cursor: 'pointer'}} className={styles.elementImageRow}>
+      <div className={styles.elementEntryRowsWrapper}>
+        <div onClick={openImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
           <ImageInUse uuid={image.uuid}/>
           <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
         </div>
       </div>)
   } else {
   return(
-    <div className={styles.elementEntryRowsWrapper} onClick={closeImage}>
-      <div style={{cursor: 'pointer'}} className={styles.elementImageRow}>
+    <div className={styles.elementEntryRowsWrapper}>
+      <div onClick={closeImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
         <ImageInUse uuid={image.uuid}/>
-        <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
       </div>
       <div className={styles.elementInfoRow}>
         <FoundImage uuid={image.uuid}/>
+        <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
       </div>
     </div>)
   }
