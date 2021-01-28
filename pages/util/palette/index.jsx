@@ -32,7 +32,11 @@ const Index = ({palettes}) => {
     })
 
     if (paletteRes.status == 201) {
-      set_error_msg(`palette created successfully`)
+      set_hex0('')
+      set_hex1('')
+      set_color0('')
+      set_color1('')
+      localStorage.setItem('palettes', undefined)
       Router.push('/util/palette')
     } else {
       console.error(`error while creating palette`)

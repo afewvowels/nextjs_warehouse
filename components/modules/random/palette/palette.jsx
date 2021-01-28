@@ -3,13 +3,10 @@ export function initialize() {
   palette = localStorage.getItem('palette')
   try {
     palette = palette.split(',')
-    // palette.forEach(item => console.log('palette item: ' + item))
     let root = document.documentElement
     root.style.setProperty('--background-color', palette[0])
     root.style.setProperty('--foreground-color', palette[1])
-    // console.log('updated css vars: ' + palette[0] + ', ' + palette[1])
   } catch {
-    // console.error('could not split palette array from localStorage')
     randomSet()
   }
 }
@@ -35,7 +32,6 @@ export async function randomSet() {
       } else if (index % 4 == 3) {
         tempPal[3] = item
         tempPalettesArr.push(tempPal)
-        console.log('pushed', tempPal)
         tempPal = new Array(4)
       }
     })
@@ -48,7 +44,6 @@ export async function randomSet() {
       .then(data => palettesRes = data)
   
     palettesRes.map(palette => {
-      // console.log('obj', palette)
       let pArr = new Array(4)
       pArr[0] = palette.hex0
       pArr[1] = palette.hex1
@@ -56,7 +51,6 @@ export async function randomSet() {
       pArr[3] = palette.color1
       palettesArr.push(pArr)
     })
-    // console.log('new palettesArr', palettesArr)
     localStorage.setItem('palettes', palettesArr)  
   }
 
