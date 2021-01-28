@@ -48,6 +48,8 @@
 .printIcon > * {
   height: auto;
   width: 6.5rem !important;
+  max-width: 60px;
+  max-height: 60px;
 }
 
 .printName {

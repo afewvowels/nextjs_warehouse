@@ -27,29 +27,26 @@ const Index = ({bin}) => {
     if (node != null) {
       set_icon_base64('data:image/svg+xml;utf8,' + node.innerHTML)
 
-      width = node.childNodes[0].clientWidth
-      height = node.childNodes[0].clientHeight
+      width = node.childNodes[0].childNodes[0].getBBox()['width']
+      height = node.childNodes[0].childNodes[0].getBBox()['height']
 
-      console.log('original width: ', width, ', height: ', height)
+      let maxDim = 55
 
-      let maxWidth = 60
-      let maxHeight = 60
-
-      if (width > maxWidth || height > maxHeight) {
+      if (width > maxDim || height > maxDim) {
         if (width == height) {
-          height = maxHeight
-          width = maxWidth
+          height = maxDim
+          width = maxDim
         } else if (width > height) {
-          height *= maxWidth / width
-          width = maxWidth
+          height /= width
+          height *= maxDim
+          width = maxDim
         } else {
-          height = maxHeight
-          width *= maxHeight / height
+          width /= height
+          width *= maxDim
+          height = maxDim
         }
       }
     }
-    console.log('new width: ', width, ', height: ', height)
-
     set_svg_width(width)
     set_svg_height(height)
   }, [bin])

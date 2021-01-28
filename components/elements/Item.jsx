@@ -86,7 +86,7 @@ const Item = ({item}) => {
         <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
           <span onClick={checkInOut}>
           {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
-          <FontAwesomeIcon icon={item.prototype_icon} />
+          <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype} icon={item.prototype_icon} />
           </span>
           <span onClick={openItem}>
           <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
@@ -101,7 +101,7 @@ const Item = ({item}) => {
       <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
         <span onClick={checkInOut}>
         {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
-        <FontAwesomeIcon icon={item.prototype_icon}/>
+        <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype}  icon={item.prototype_icon}/>
         </span>
         <span onClick={closeItem}>
         <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
