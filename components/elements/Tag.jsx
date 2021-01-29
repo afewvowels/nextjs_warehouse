@@ -18,7 +18,7 @@ const Tag = ({tag, categories}) => {
     })
     set_edit_url('/group/tag/edit/' + tag.uuid)
   }, [tag])
-  
+
   const deleteTag = async () => {
     const delRes = await fetch('/api/group/tag/' + tag.uuid, {
       method: 'DELETE',
@@ -66,10 +66,10 @@ const Tag = ({tag, categories}) => {
         <p>{tag.description}</p>
       </div>
       <div className={styles.elementButtonsWrapperGrid}>
+        <button className={`${styles.elementButton}`} onClick={deleteTag}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton}`} onClick={deleteTag}>Delete</button>
       </div>
     </div>
   )}

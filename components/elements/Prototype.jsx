@@ -70,7 +70,7 @@ const Prototype = ({prototype, categories, tags}) => {
       })
     }
   }, [prototype])
-  
+
   const deletePrototype = async () => {
     const delRes = await fetch('/api/prototype/' + prototype.uuid, {
       method: 'DELETE',
@@ -135,10 +135,10 @@ const Prototype = ({prototype, categories, tags}) => {
         <ul ref={tagsRef} className={styles.elementListCloud}></ul>
       </div>
       <div className={styles.elementButtonsWrapperGrid}>
+        <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
       </div>
     </div>
   )}

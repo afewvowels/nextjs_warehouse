@@ -49,7 +49,7 @@ const Bin = ({bin}) => {
     let printUrl = '/bin/print/' + bin.uuid
     set_print_url(printUrl)
   }, [bin])
-  
+
   const deleteBin = async () => {
     const delRes = await fetch('/api/bin/' + bin.uuid, {
       method: 'DELETE',
@@ -125,10 +125,10 @@ const Bin = ({bin}) => {
       <Link href={print_url}>
         <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
       </Link>
+      <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
       <Link href={edit_url}>
         <button className={`${styles.elementButton}`}>Edit</button>
       </Link>
-      <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
     </div>
   </div>)
   }
