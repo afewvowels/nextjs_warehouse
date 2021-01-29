@@ -1,12 +1,21 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSpring, animated } from 'react-spring'
 import styles from '@styles/index.module.css'
+import { useSpring, useTransition, animated } from 'react-spring'
+import { useState } from 'react'
 
 export default function Home() {
+  const [clicked, set_clicked] = useState(false)
+
   const iconProps = useSpring({from: {opacity: 0, transform: 'scale(0.5)'}, to: {opacity: 1, transform: 'scale(1.0)'}})
-  const welcomeProps = useSpring({from: {opacity: 0, transform: 'translateY(0) scale(0.9)'}, to: {opacity: 1, transform: 'translateY(0) scale(1)'}, delay: 450})
+
+  const transitions = useTransition(clicked, null, {
+    from: { position: 'absolute', opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  })
+
 
   return (
     <>
@@ -24,11 +33,17 @@ export default function Home() {
       </Head>
       <div className={styles.wrapper}>
         <Link href='/bin'>
-          <div className={styles.contentWrapper}>
+          <div className={styles.contentWrapper} onClick={() => set_clicked(clicked => true)}>
             <animated.span className={styles.iconWrapper} style={iconProps}>
               <FontAwesomeIcon icon={['fas', 'hand-receiving']} />
             </animated.span>
-            <animated.h1 style={welcomeProps}>Welcome</animated.h1>
+            <span>
+              {transitions.map(({item, key, props}) => (
+              item ?
+              <animated.h1 key={key} style={props}>Loading</animated.h1> :
+              <animated.h1 key={key} style={props}>Welcome</animated.h1>
+              ))}
+            </span>
           </div>
         </Link>
       </div>
