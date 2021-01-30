@@ -10,10 +10,16 @@ export default function Home() {
 
   const iconProps = useSpring({from: {opacity: 0, transform: 'scale(0.5)'}, to: {opacity: 1, transform: 'scale(1.0)'}})
 
+  const iconTransitions = useTransition(clicked, null, {
+    from: { position: 'absolute', opacity: 0, transform: 'scale(0.7)' },
+    enter: { opacity: 1, transform: 'scale(1.0)' },
+    leave: { opacity: 0, transform: 'scale(0.1)' },
+  })
+
   const transitions = useTransition(clicked, null, {
-    from: { position: 'absolute', opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    from: { position: 'absolute', opacity: 0, transform: 'translateY(-15px) scale(1)' },
+    enter: { opacity: 1, transform: 'translateY(0px) scale(1)' },
+    leave: { opacity: 0, transform: 'translateY(-5px) scale(0.1)' },
   })
 
 
@@ -34,9 +40,17 @@ export default function Home() {
       <div className={styles.wrapper}>
         <Link href='/bin'>
           <div className={styles.contentWrapper} onClick={() => set_clicked(clicked => true)}>
-            <animated.span className={styles.iconWrapper} style={iconProps}>
-              <FontAwesomeIcon icon={['fas', 'hand-receiving']} />
-            </animated.span>
+            <span className={styles.iconTopWrapper}>
+              {iconTransitions.map(({item, key, props}) => (
+                item ?
+                <animated.span key={key} className={`${styles.iconWrapperOut}`} style={props}>
+                  <FontAwesomeIcon icon={['fad', 'asterisk']} />
+                </animated.span> :
+                <animated.span key={key} className={`${styles.iconWrapper}`} style={props}>
+                  <FontAwesomeIcon icon={['fas', 'hand-receiving']} />
+                </animated.span>
+                ))}
+            </span>
             <span>
               {transitions.map(({item, key, props}) => (
               item ?
