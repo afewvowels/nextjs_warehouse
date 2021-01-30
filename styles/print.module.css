@@ -42,9 +42,6 @@
   align-self: center;
 }
 
-.printWrapper > * + * {
-}
-
 .printIcon > * {
   height: auto;
   width: 6.5rem !important;

@@ -85,7 +85,7 @@ const Index = ({category}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let categoryRes = await fetch(process.env.URL + 'api/group/category/' + params.uuid)
+  let categoryRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/group/category/' + params.uuid)
   let category = await categoryRes.json()
 
   return { props : { category } }

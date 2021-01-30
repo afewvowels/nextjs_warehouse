@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+
 import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/pro-solid-svg-icons'

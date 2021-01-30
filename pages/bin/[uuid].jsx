@@ -17,7 +17,7 @@ const Index = ({bin}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let res = await fetch(process.env.URL + 'api/bin/' + params.uuid)
+  let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/bin/' + params.uuid)
   let bin = await res.json()
 
   return { props: { bin } }

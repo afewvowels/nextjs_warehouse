@@ -34,7 +34,7 @@ const Index = ({images}) => {
 }
 
 export async function getStaticProps() {
-  let res = await fetch(process.env.URL + 'api/image/info')
+  let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/image/info')
   let images = await res.json()
 
   return { props: { images }, revalidate: 5 }

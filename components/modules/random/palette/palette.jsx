@@ -3,6 +3,7 @@ export function initialize() {
   palette = localStorage.getItem('palette')
   try {
     palette = palette.split(',')
+    if (palette.length != 4) throw new Error('localStorage palette not correct size...regenerating')
     let root = document.documentElement
     root.style.setProperty('--background-color', palette[0])
     root.style.setProperty('--foreground-color', palette[1])
@@ -42,7 +43,8 @@ export async function randomSet() {
     await fetch('/api/palettes')
       .then(res => res.json())
       .then(data => palettesRes = data)
-  
+
+    palettesArr = new Array(0)
     palettesRes.map(palette => {
       let pArr = new Array(4)
       pArr[0] = palette.hex0
@@ -51,7 +53,7 @@ export async function randomSet() {
       pArr[3] = palette.color1
       palettesArr.push(pArr)
     })
-    localStorage.setItem('palettes', palettesArr)  
+    localStorage.setItem('palettes', palettesArr)
   }
 
   let palette = new Array(4)
@@ -66,7 +68,7 @@ export async function randomSet() {
   palette[2] = palettesArr[index][fgIndex + 2]
   palette[3] = palettesArr[index][bgIndex + 2]
   localStorage.setItem('palette', palette)
-  
+
   let root = document.documentElement
   root.style.setProperty('--background-color', palette[0])
   root.style.setProperty('--foreground-color', palette[1])

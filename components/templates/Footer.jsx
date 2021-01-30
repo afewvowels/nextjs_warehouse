@@ -15,7 +15,6 @@ const Footer = () => {
     fetch('/api/fonts')
       .then(res => res.json())
       .then(data => set_fonts(data))
-    // fonts.map(font => console.log(font))
   }, [router.isReady])
 
   const selectRef = useCallback(node => {

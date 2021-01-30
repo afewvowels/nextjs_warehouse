@@ -30,7 +30,7 @@ const Category = ({category, tags}) => {
       })
     }
   }, [tag_names])
-  
+
   const deleteCategory = async () => {
     const delRes = await fetch('/api/group/category/' + category.uuid, {
       method: 'DELETE',
@@ -82,10 +82,10 @@ const Category = ({category, tags}) => {
         <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
       </div>
       <div className={styles.elementButtonsWrapperGrid}>
+        <button className={`${styles.elementButton}`} onClick={deleteCategory}>Delete</button>
         <Link href={edit_url}>
           <button className={`${styles.elementButton}`}>Edit</button>
         </Link>
-        <button className={`${styles.elementButton}`} onClick={deleteCategory}>Delete</button>
       </div>
     </div>
   )}

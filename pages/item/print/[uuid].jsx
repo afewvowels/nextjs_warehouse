@@ -108,7 +108,7 @@ const Index = ({item}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let itemRes = await fetch(process.env.URL + 'api/item/' + params.uuid)
+  let itemRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/item/' + params.uuid)
   let item = await itemRes.json()
 
   return { props: { item } }

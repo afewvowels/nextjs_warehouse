@@ -58,7 +58,7 @@ const Index = ({prototypes, bins, categories}) => {
   const handleCreate = async () => {
     for (var i = 0; i < count; i++) {
       let newUuid = uuidv4()
-      let tUrl = await TinyURL.shorten(`https://home-warehouse-inventory.afewvowels.vercel.app/item/${newUuid}`)
+      let tUrl = await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}item/${newUuid}`)
       const item = {
         uuid: newUuid,
         prototype_uuid: prototype_uuid,
