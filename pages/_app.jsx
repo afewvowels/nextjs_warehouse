@@ -1,6 +1,10 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+// import db from '@db/firebase'
+// import firebase from 'firebase'
+
 import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/pro-solid-svg-icons'
@@ -17,11 +21,37 @@ library.add(fas,far,fad,fal,fab)
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
+  const[signed_in, set_signed_in] = useState(false)
+
   useEffect(() => {
+    // this.unregisterAuthObserver = db.auth().onAuthStateChanged(
+    //   (user) => set_signed_in(!!user)
+    // )
     if (!router.pathname.includes('print')) {
       initialize()
     }
   }, [router.isReady])
+
+  const uiConfig = {
+    // signInFlow: 'popup',
+    // signInOptions: [
+    //   firebase.auth.EmailAuthProvider.PROVIDER_ID
+    // ],
+    // callbacks:{
+    //   signInSuccessWithAuthResult: () => false
+    // }
+  }
+
+  if (!signed_in) {
+    return(
+      <div>
+        <h1>My App</h1>
+        <p>Please sign-in:</p>
+        {/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={db.auth()}/> */}
+      </div>
+    )
+  }
+
 
   if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>);
 

@@ -28,8 +28,8 @@ function useBinItems(uuid) {
 function ItemsList({uuid}) {
   const { items, itemsLoading, itemsError } = useBinItems(uuid)
 
-  if (itemsLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
-  if (itemsError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (itemsLoading) return <p>Loading items in bin...</p>
+  if (itemsError) return <p>Error loading items</p>
 
   return (<>
     {items.map((item, key) => {

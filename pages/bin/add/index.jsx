@@ -131,7 +131,7 @@ const Index = () => {
     set_uuid(newUuid)
     set_readable_name(bin_name)
     set_name(bin_name)
-    await TinyURL.shorten(`https://home-warehouse-inventory.afewvowels.vercel.app/bin/${newUuid}`, function(res,err) {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${newUuid}`, function(res,err) {
       set_tinyurl(res)
     })
   }

@@ -118,16 +118,16 @@ const Index = ({items, categories, bins}) => {
 }
 
 export async function getServerSideProps() {
-  let itemsRes = await fetch(process.env.URL + 'api/item')
+  let itemsRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/item')
   let items = await itemsRes.json()
 
-  let prototypesRes = await fetch(process.env.URL + 'api/prototype')
+  let prototypesRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/prototype')
   let prototypes = await prototypesRes.json()
 
-  let binsRes = await fetch(process.env.URL + 'api/bin')
+  let binsRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/bin')
   let bins = await binsRes.json()
 
-  let categoriesRes = await fetch(process.env.URL + 'api/group/category')
+  let categoriesRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/group/category')
   let categories = await categoriesRes.json()
 
   items.forEach((item) => {

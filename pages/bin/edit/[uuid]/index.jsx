@@ -73,13 +73,13 @@ const Index = ({bin, image}) => {
         uuid: imageUuid,
         base64: image_base64
       }
-  
+
       const imgRes = await fetch('/api/image', {
         method: 'POST',
         headers: { 'Content-Type' : 'application/json' },
         body: JSON.stringify(image)
       })
-  
+
       if (imgRes.status == 201) {
         console.log(`image created successfully`)
       } else {
@@ -176,10 +176,10 @@ const Index = ({bin, image}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let binRes = await fetch(process.env.URL + 'api/bin/' + params.uuid)
+  let binRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/bin/' + params.uuid)
   let bin = await binRes.json()
 
-  let imageRes = await fetch(process.env.URL + 'api/image/' + bin.image_uuid)
+  let imageRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/image/' + bin.image_uuid)
   let image = await imageRes.json()
 
   return { props: { bin, image } }

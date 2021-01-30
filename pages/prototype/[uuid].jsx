@@ -13,13 +13,13 @@ const Index = ({prototype, categories, tags}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let res = await fetch(process.env.URL + 'api/prototype/' + params.uuid)
+  let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/prototype/' + params.uuid)
   let prototype = await res.json()
 
-  res = await fetch(process.env.URL + 'api/group/category')
+  res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/group/category')
   let categories = await res.json()
 
-  res = await fetch(process.env.URL + 'api/group/tag')
+  res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/group/tag')
   let tags = await res.json()
 
   return { props: { prototype, categories, tags } }
