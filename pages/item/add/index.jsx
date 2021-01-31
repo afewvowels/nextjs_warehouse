@@ -59,6 +59,7 @@ const Index = ({prototypes, bins, categories}) => {
     for (var i = 0; i < count; i++) {
       let newUuid = uuidv4()
       let tUrl = await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}item/${newUuid}`)
+      tUrl = tUrl.substring(8)
       const item = {
         uuid: newUuid,
         prototype_uuid: prototype_uuid,

@@ -1,8 +1,7 @@
-import admin from 'firebase-admin';
+import admin from 'firebase-admin'
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    // credential: admin.credential.applicationDefault(),
     credential: admin.credential.cert({
       type: process.env.TYPE,
       projectId: process.env.PROJECT_ID,
@@ -19,4 +18,4 @@ if (!admin.apps.length) {
   admin.firestore().settings({ ignoreUndefinedProperties: true })
 }
 
-export default admin.firestore();
+export default admin.firestore()

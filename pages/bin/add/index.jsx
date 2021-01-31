@@ -132,7 +132,7 @@ const Index = () => {
     set_readable_name(bin_name)
     set_name(bin_name)
     await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${newUuid}`, function(res,err) {
-      set_tinyurl(res)
+      set_tinyurl(res.substring(8))
     })
   }
 

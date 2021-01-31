@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import Link from 'next/link'
 import Router from 'next/router'
+var TinyURL = require('tinyurl')
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -87,6 +88,12 @@ const ViewItem = ({item, bins}) => {
     }
   }
 
+  const generateTinyUrl = async () => {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}item/${item.uuid}`, function(res,err) {
+      set_tinyurl(res.substring(8))
+    })
+  }
+
   const updateItem = async () => {
     let itemBody = {
       uuid: item.uuid,
@@ -124,7 +131,14 @@ const ViewItem = ({item, bins}) => {
     }
   }, [bins])
 
-  if (!bin || !prototype) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+  if (!bin || !prototype) return (<>
+    <h2 className={styles.elementHeader}>Edit Item</h2>
+    <section className={styles.elementWrapper}>
+      <div className={styles.elementEntryRowsWrapper}>
+        <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+      </div>
+    </section>
+  </>)
 
   return(<>
     <h2 className={styles.elementHeader}>Edit Item</h2>
@@ -163,6 +177,7 @@ const ViewItem = ({item, bins}) => {
                   readOnly={true}
                   onChange={e => set_tinyurl(e.target.value)}/>
         </div>
+          <button className={`${styles.elementButton}`} onClick={generateTinyUrl}>TinyURL</button>
         <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>
           <p>{check_in_out ? 'True' : 'False'}</p>

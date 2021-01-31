@@ -2,8 +2,6 @@ import { useTransition, useSpring, animated } from 'react-spring'
 import styles from '@styles/templates.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-//position: 'absolute',
-
 const Loading = ({loading}) => {
   const transitions = useTransition(loading, null, {
     from: { opacity: 0, transform: 'translateX(40px) scale(1.0)' },

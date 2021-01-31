@@ -4,12 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
-const readable = require('readable-url-names')
 import { v4 as uuidv4 } from 'uuid'
+var TinyURL = require('tinyurl')
 
 import styles from '@styles/elements.module.css'
-
-var generator = new readable()
 
 const Index = ({bin, image}) => {
   let fileReader
@@ -45,6 +43,12 @@ const Index = ({bin, image}) => {
   const generateIcon = () => {
     let newIcon = randomIcon()
     set_icon(newIcon)
+  }
+
+  const generateTinyUrl = async() => {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${uuid}`, function(res,err) {
+      set_tinyurl(res.substring(8))
+    })
   }
 
   const handleImageRead = () => {
@@ -125,8 +129,10 @@ const Index = ({bin, image}) => {
           {icon ? <FontAwesomeIcon icon={icon}/> : <></>}
         </div>
         <div className={styles.elementEntryRow}>
+          <label>Generate Identifiers</label>
           <span className={styles.elementButtonsWrapper}>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={generateIcon}>Generate Icon</button>
+            <button className={`${styles.elementButton}`} onClick={generateIcon}>Icon</button>
+            <button className={`${styles.elementButton}`} onClick={generateTinyUrl}>TinyURL</button>
           </span>
         </div>
         <div className={styles.elementEntryRow}>
