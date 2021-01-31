@@ -283,5 +283,6 @@
 
 .loadingWrapper > svg {
   animation: rotation 5s infinite linear;
-  color: var(--background-color) !important;
+  width: 3rem;
+  height: auto;
 }
