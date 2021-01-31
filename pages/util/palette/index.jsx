@@ -89,7 +89,7 @@ const Index = ({palettes}) => {
   </>)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const palettes = await fetcher(`${process.env.NEXT_PUBLIC_URL}api/palettes`)
 
   return { props: { palettes }, revalidate: 5 }

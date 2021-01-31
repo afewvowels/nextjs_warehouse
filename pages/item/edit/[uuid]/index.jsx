@@ -179,10 +179,10 @@ const ViewItem = ({item, bins}) => {
 }
 
 export async function getServerSideProps({params}) {
-  let itemRes = await fetch(`${process.env.URL}api/item/${params.uuid}`)
+  let itemRes = await fetch(`${process.env.NEXT_PUBLIC_URL}api/item/${params.uuid}`)
   let item = await itemRes.json()
 
-  let binsRes = await fetch(`${process.env.URL}api/bin`)
+  let binsRes = await fetch(`${process.env.NEXT_PUBLIC_URL}api/bin`)
   let bins = await binsRes.json()
 
   return { props: { item, bins } }

@@ -107,7 +107,7 @@ const Index = ({fonts}) => {
   </>)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const fonts = await fetcher(`${process.env.NEXT_PUBLIC_URL}api/fonts`)
 
   return { props: { fonts }, revalidate: 5 }

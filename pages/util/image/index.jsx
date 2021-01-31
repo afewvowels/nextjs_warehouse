@@ -33,7 +33,7 @@ const Index = ({images}) => {
   </>)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/image/info')
   let images = await res.json()
 
