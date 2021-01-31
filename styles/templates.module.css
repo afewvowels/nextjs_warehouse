@@ -254,3 +254,33 @@
   padding: 0.15rem 0 0 0.75rem;
   justify-self: flex-start;
 }
+
+.loadingWrapper {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  margin: 2.0rem !important;
+  border-radius: 0.333rem;
+  padding: 0.5rem;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.loadingWrapper > svg {
+  animation: rotation 5s infinite linear;
+}

@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import Router, { useRouter } from 'next/router'
 
 import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -12,11 +12,18 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 
 import '@styles/globals.css'
 import Layout from '@components/templates/Layout'
+import Loading from '@components/templates/Loading'
 
 library.add(fas,far,fad,fal,fab)
 
+
 function MyApp({ Component, pageProps }) {
+  const [loading, set_loading] = useState(false)
   const router = useRouter()
+
+  Router.events.on('routeChangeStart', () => set_loading(true))
+  Router.events.on('routeChangeComplete', () => set_loading(false))
+  Router.events.on('routeChangeError', () => set_loading(false))
 
   useEffect(() => {
     if (!router.pathname.includes('print')) {
@@ -41,6 +48,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="manifest" href='/manifest.json'/>
       </Head>
       <Component {...pageProps} />
+      <Loading loading={loading} />
     </Layout>)
 }
 

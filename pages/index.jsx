@@ -8,8 +8,6 @@ import { useState } from 'react'
 export default function Home() {
   const [clicked, set_clicked] = useState(false)
 
-  const iconProps = useSpring({from: {opacity: 0, transform: 'scale(0.5)'}, to: {opacity: 1, transform: 'scale(1.0)'}})
-
   const iconTransitions = useTransition(clicked, null, {
     from: { position: 'absolute', opacity: 0, transform: 'scale(0.7)' },
     enter: { opacity: 1, transform: 'scale(1.0)' },
@@ -21,7 +19,6 @@ export default function Home() {
     enter: { opacity: 1, transform: 'translateY(0px) scale(1)' },
     leave: { opacity: 0, transform: 'translateY(-5px) scale(0.1)' },
   })
-
 
   return (
     <>
@@ -53,9 +50,9 @@ export default function Home() {
             </span>
             <span>
               {transitions.map(({item, key, props}) => (
-              item ?
-              <animated.h1 key={key} style={props}>Loading</animated.h1> :
-              <animated.h1 key={key} style={props}>Welcome</animated.h1>
+                item ?
+                <animated.h1 key={key} style={props}>Loading</animated.h1> :
+                <animated.h1 key={key} style={props}>Welcome</animated.h1>
               ))}
             </span>
           </div>
