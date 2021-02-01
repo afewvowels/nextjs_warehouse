@@ -54,18 +54,18 @@ const Index = ({bin, image}) => {
 
   const handleImageRead = () => {
     const img = fileReader.result
-    console.log(img)
+    // console.log('result ', img.substring(0, 16))
     set_image_base64(img)
   }
 
   const handleImageUpload = (newImg) => {
     new Compressor(newImg, {
-      quality: 0.7,
-      mimeType: 'image/webp',
       maxWidth: 780,
       maxHeight: 780,
       minWidth: 100,
       minHeight: 100,
+      quality: 0.7,
+      mimeType: 'image/webp',
       success(result) {
         fileReader = new FileReader()
         fileReader.readAsDataURL(result)

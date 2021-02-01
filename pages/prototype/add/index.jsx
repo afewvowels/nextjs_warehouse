@@ -101,12 +101,12 @@ const Index = ({categories, tags}) => {
 
   const handleImageUpload = (image) => {
     new Compressor(image, {
-      quality: 0.7,
-      mimeType: 'image/webp',
       maxWidth: 780,
       maxHeight: 780,
       minWidth: 100,
       minHeight: 100,
+      quality: 0.7,
+      mimeType: 'image/webp',
       success(result) {
         fileReader = new FileReader()
         fileReader.readAsDataURL(result)
