@@ -16,8 +16,7 @@ import Loading from '@components/templates/Loading'
 
 library.add(fas,far,fad,fal,fab)
 
-
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   const [loading, set_loading] = useState(false)
   const router = useRouter()
 
@@ -44,7 +43,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="MobileOptimized" content="width"/>
 
         <link rel="apple-touch-icon" type="image/png" href={require('../public/icons/apple-touch-icon.png')}/>
-        <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} />
+        <link rel="icon" type="image/svg" href={require('../public/hand-receiving-solid.svg')} />
+        {/* <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} /> */}
         <link rel="manifest" href='/manifest.json'/>
       </Head>
       <Component {...pageProps} />

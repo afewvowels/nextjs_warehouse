@@ -257,17 +257,17 @@
 
 .loadingWrapper {
   position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 2rem;
-  height: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.333rem;
+  height: 2.333rem;
   background-color: var(--foreground-color);
   color: var(--background-color);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  margin: 2.0rem !important;
+  margin: 0 !important;
   border-radius: 0.333rem;
   padding: 0.5rem;
 }
