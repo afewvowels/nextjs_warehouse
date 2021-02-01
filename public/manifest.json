@@ -27,5 +27,6 @@
     "display": "fullscreen",
     "orientation": "portrait",
     "background_color": "#F95700",
-    "theme_color": "#FFF"
+    "theme_color": "#FFF",
+    "splash_pages": null
   }

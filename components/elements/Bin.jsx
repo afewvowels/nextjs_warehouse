@@ -15,8 +15,14 @@ function useImage(uuid) {
 function BinImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (isLoading) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} spin />
+    </span>)
+  if (isError) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'exclamation']} />
+    </span>)
   return <img src={image.base64} alt={uuid} />
 }
 

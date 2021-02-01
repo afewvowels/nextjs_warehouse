@@ -15,16 +15,28 @@ function useImage(uuid) {
 function BinImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+  if (isLoading) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+    </span>)
+  if (isError) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+    </span>)
   return (<Link href={`/bin/${item.bin_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
 }
 
 function PrototypeImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+  if (isLoading) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} spin />
+    </span>)
+  if (isError) return (
+    <span className={styles.statusIconWrapper}>
+      <FontAwesomeIcon icon={['far', 'exclamation']} />
+    </span>)
   return (<Link href={`/prototype/${item.prototype_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
 }
 

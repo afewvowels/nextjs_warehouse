@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const PageNotFound = () => {
   return(<>
     <Head>
-      <title>404 | Page not found</title>
+      <title>404 | Page not found | Inventory</title>
     </Head>
     <div className={styles.fourohfourTopWrapper}>
       <div className={styles.fourohfourWrapper}>
