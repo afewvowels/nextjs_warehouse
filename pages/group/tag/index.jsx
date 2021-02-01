@@ -55,8 +55,12 @@ function useSize() {
       set_size([window.innerWidth])
     }
     window.addEventListener('resize', updateWindowSize)
+    window.addEventListener('orientationchange', updateWindowSize)
     updateWindowSize()
-    return () => window.removeEventListener('resize', updateWindowSize)
+    return () => {
+      window.removeEventListener('resize', updateWindowSize)
+      window.removeEventListener('orientationchange', updateWindowSize)
+    }
   }, [])
   return size
 }

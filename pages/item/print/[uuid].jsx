@@ -1,6 +1,7 @@
 import QRCode from 'qrcode.react'
 import Head from 'next/head'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import { randomSet } from '@components/modules/random/palette/palette'
@@ -47,8 +48,6 @@ const Index = ({item}) => {
       width = node.childNodes[0].childNodes[0].getBBox()['width']
       height = node.childNodes[0].childNodes[0].getBBox()['height']
 
-      // console.log('original width: ', width, ', height: ', height)
-
       let maxDim = 50
 
       if (width > maxDim || height > maxDim) {
@@ -66,13 +65,13 @@ const Index = ({item}) => {
         }
       }
 
-    set_svg_width(width)
-    set_svg_height(height)
+      set_svg_width(width)
+      set_svg_height(height)
     }
   }, [item])
 
-  const goHome = () => {
-    randomSet()
+  const goHome = async() => {
+    await randomSet()
     Router.push('/item')
   }
 
@@ -81,31 +80,44 @@ const Index = ({item}) => {
   return(<>
     <Head>
       <title>Item | Print</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+      <meta name="HandheldFriendly" content="true"/>
+      <meta name="MobileOptimized" content="width"/>
+
+      <link rel="apple-touch-icon" type="image/png" href='/icons/apple-touch-icon.png'/>
+      <link rel="icon" type="image/svg" href='/hand-receiving-solid.svg' />
+      <link rel="manifest" href='/manifest.json'/>
     </Head>
     <>
-    <section className={styles.printTopWrapper}>
-    <div className={styles.printWrapper}>
-      <QRCode value={qr_url}
-              renderAs={'svg'}
-              size={206}
-              level={'M'}
-              includeMargin={false}
-              imageSettings={{
-                src:`${icon_base64}`,
-                excavate:true,
-                height:svg_height,
-                width:svg_width
-              }}/>
-    </div>
-    <p onClick={goHome}>Home</p>
-    <span className={styles.printIcon} ref={iconRef}>
-      <FontAwesomeIcon icon={bin.icon}/>
-    </span>
-    <p className={styles.printName}>{bin.name}</p>
-    </section>
+      <section className={styles.printTopWrapper}>
+        <div className={styles.printWrapper}>
+          <QRCode value={qr_url}
+            renderAs={'canvas'}
+            size={206}
+            level={'Q'}
+            includeMargin={false}
+            imageSettings={{
+              src:`${icon_base64}`,
+              excavate:true,
+              height:svg_height,
+              width:svg_width
+            }}/>
+        </div>
+        <p onClick={goHome}>Home</p>
+        <span className={styles.printIcon} ref={iconRef}>
+          <FontAwesomeIcon icon={bin.icon}/>
+        </span>
+        <p className={styles.printName}>{bin.name}</p>
+      </section>
     </>
   </>)
 }
+Index.PropTypes = {
+  item: PropTypes.any.isRequired
+}
+
 
 export async function getServerSideProps({params}) {
   let itemRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/item/' + params.uuid)

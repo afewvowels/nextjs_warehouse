@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Router, { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
 
 import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -30,7 +31,7 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, [router.isReady])
 
-  if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>);
+  if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>)
 
   return (
     <Layout>
@@ -42,14 +43,17 @@ const MyApp = ({ Component, pageProps }) => {
         <meta name="HandheldFriendly" content="true"/>
         <meta name="MobileOptimized" content="width"/>
 
-        <link rel="apple-touch-icon" type="image/png" href={require('../public/icons/apple-touch-icon.png')}/>
-        <link rel="icon" type="image/svg" href={require('../public/hand-receiving-solid.svg')} />
-        {/* <link rel="icon" type="image/png" sizes="32x32" href={require('../public/icons/favicon-32x32.png')} /> */}
+        <link rel="apple-touch-icon" type="image/png" href='/icons/apple-touch-icon.png'/>
+        <link rel="icon" type="image/svg" href='/hand-receiving-solid.svg' />
         <link rel="manifest" href='/manifest.json'/>
       </Head>
       <Component {...pageProps} />
       <Loading loading={loading} />
     </Layout>)
+}
+MyApp.propTypes = {
+  Component: PropTypes.any.isRequired,
+  pageProps: PropTypes.any.isRequired
 }
 
 export default MyApp

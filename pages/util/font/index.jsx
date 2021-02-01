@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import Router from 'next/router'
 import { v4 as uuidv4 } from 'uuid'
 import Font from '@components/elements/Font'
@@ -54,27 +55,30 @@ const Index = ({fonts}) => {
         {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
         <div className={styles.elementEntryRow}>
           <label>Font Name</label>
-          <input type='text'
-                  value={name}
-                  onChange={e => set_name(e.target.value)}/>
+          <input
+            type='text'
+            value={name}
+            onChange={e => set_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Link Import</label>
-          <input type='text'
-                  value={link}
-                  onChange={e => set_link(e.target.value)}/>
+          <input
+            type='text'
+            value={link}
+            onChange={e => set_link(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>CSS Rule</label>
-          <input type='text'
-                  value={css}
-                  onChange={e => set_css(e.target.value)}/>
+          <input
+            type='text'
+            value={css}
+            onChange={e => set_css(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Font Category</label>
           <select className={styles.elementSelectDropdown}
-                  value={category}
-                  onChange={e => set_category(e.target.value)}>
+            value={category}
+            onChange={e => set_category(e.target.value)}>
             <option value=''>Select a category</option>
             <option value='sans'>Sans-serif</option>
             <option value='serif'>Serif</option>
@@ -84,15 +88,17 @@ const Index = ({fonts}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>Weight 0</label>
-          <input type='text'
-                  value={weight0}
-                  onChange={e => set_weight0(e.target.value)}/>
+          <input
+            type='text'
+            value={weight0}
+            onChange={e => set_weight0(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Weight 1</label>
-          <input type='text'
-                  value={weight1}
-                  onChange={e => set_weight1(e.target.value)}/>
+          <input
+            type='text'
+            value={weight1}
+            onChange={e => set_weight1(e.target.value)}/>
         </div>
         <span className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>
@@ -105,6 +111,9 @@ const Index = ({fonts}) => {
       ))}
     </section>
   </>)
+}
+Index.PropTypes = {
+  fonts: PropTypes.any.isRequired
 }
 
 export async function getServerSideProps() {

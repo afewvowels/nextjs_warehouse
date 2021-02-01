@@ -99,7 +99,8 @@ const ViewItem = ({item, bins}) => {
       uuid: item.uuid,
       prototype_uuid: item.prototype_uuid,
       bin_uuid: bin_uuid,
-      itemStatus: check_in_out
+      itemStatus: check_in_out,
+      tinyurl: tinyurl
     }
 
     const itemRes = await fetch('/api/item/' + item.uuid, {
@@ -183,10 +184,8 @@ const ViewItem = ({item, bins}) => {
           <p>{check_in_out ? 'True' : 'False'}</p>
         </div>
         <div className={styles.elementButtonsWrapperGrid}>
-          <Link href='/item'>
-            <button className={`${styles.elementButton}`} onClick={updateItem}>Update</button>
-          </Link>
           <button className={`${styles.elementButton}`} onClick={deleteItem}>Delete</button>
+          <button className={`${styles.elementButton}`} onClick={updateItem}>Update</button>
         </div>
       </div>
     </section>

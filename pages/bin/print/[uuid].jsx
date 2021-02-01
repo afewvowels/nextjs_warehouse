@@ -1,6 +1,7 @@
 import QRCode from 'qrcode.react'
 import Head from 'next/head'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { randomSet } from '@components/modules/random/palette/palette'
 import Router from 'next/router'
@@ -51,40 +52,52 @@ const Index = ({bin}) => {
     set_svg_height(height)
   }, [bin])
 
-  const goHome = () => {
-    randomSet()
+  const goHome = async() => {
     Router.push('/bin')
+    await randomSet()
   }
 
   return(<>
     <Head>
       <title>Print | Bin | Inventory</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+      <meta name="HandheldFriendly" content="true"/>
+      <meta name="MobileOptimized" content="width"/>
+
+      <link rel="apple-touch-icon" type="image/png" href='/icons/apple-touch-icon.png'/>
+      <link rel="icon" type="image/svg" href='/hand-receiving-solid.svg' />
+      <link rel="manifest" href='/manifest.json'/>
     </Head>
     <>
-    <section className={styles.printTopWrapper}>
-    <div className={styles.printWrapper}>
-      <QRCode value={qr_url}
-              renderAs={'svg'}
-              size={205}
-              level={'M'}
-              includeMargin={false}
-              imageSettings={{
-                src:`${icon_base64}`,
-                excavate:true,
-                height:svg_height,
-                width:svg_width
-              }}/>
-    </div>
-    <p onClick={goHome}>Home</p>
-    <div>
-      <span className={styles.printIcon} ref={iconRef}>
-        <FontAwesomeIcon icon={bin.icon} />
-      </span>
-    </div>
-    <p className={styles.printName}>{bin.name}</p>
-    </section>
+      <section className={styles.printTopWrapper}>
+        <div className={styles.printWrapper}>
+          <QRCode value={qr_url}
+            renderAs={'canvas'}
+            size={205}
+            level={'Q'}
+            includeMargin={false}
+            imageSettings={{
+              src:`${icon_base64}`,
+              excavate:true,
+              height:svg_height,
+              width:svg_width
+            }}/>
+        </div>
+        <p onClick={goHome}>Home</p>
+        <div>
+          <span className={styles.printIcon} ref={iconRef}>
+            <FontAwesomeIcon icon={bin.icon} />
+          </span>
+        </div>
+        <p className={styles.printName}>{bin.name}</p>
+      </section>
     </>
   </>)
+}
+Index.PropTypes = {
+  bin: PropTypes.any.isRequired
 }
 
 export async function getServerSideProps({params}) {

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 import Palette from '@components/elements/Palette'
 import Head from 'next/head'
@@ -39,7 +40,7 @@ const Index = ({palettes}) => {
       localStorage.setItem('palettes', undefined)
       Router.push('/util/palette')
     } else {
-      console.error(`error while creating palette`)
+      console.error('error while creating palette')
       set_error_msg(await paletteRes.text())
     }
   }
@@ -55,26 +56,26 @@ const Index = ({palettes}) => {
         <div className={styles.elementEntryRow}>
           <label>Hex 0</label>
           <input type='text'
-                  value={hex0}
-                  onChange={e => set_hex0(e.target.value)}/>
+            value={hex0}
+            onChange={e => set_hex0(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Hex 1</label>
           <input type='text'
-                  value={hex1}
-                  onChange={e => set_hex1(e.target.value)}/>
+            value={hex1}
+            onChange={e => set_hex1(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Color 0</label>
           <input type='text'
-                  value={color0}
-                  onChange={e => set_color0(e.target.value)}/>
+            value={color0}
+            onChange={e => set_color0(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Color 1</label>
           <input type='text'
-                  value={color1}
-                  onChange={e => set_color1(e.target.value)}/>
+            value={color1}
+            onChange={e => set_color1(e.target.value)}/>
         </div>
         <span className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>
@@ -87,6 +88,10 @@ const Index = ({palettes}) => {
       ))}
     </section>
   </>)
+}
+
+Index.propTypes = {
+  palettes: PropTypes.any.isRequired
 }
 
 export async function getServerSideProps() {

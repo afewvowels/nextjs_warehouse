@@ -15,6 +15,9 @@
   --font-weight-heavy: 500;
 }
 
+::-moz-selection {background: default}
+::selection {background: default;}
+
 html,
 body {
   padding: 0;
