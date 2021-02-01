@@ -1,6 +1,6 @@
 import { randomSet } from '@components/modules/random/palette/palette'
 import styles from '@styles/templates.module.css'
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -20,9 +20,9 @@ const Footer = () => {
   const selectRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='null'>Select a font</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="null">Select a font</option>')
       fonts.forEach(font => {
-        node.insertAdjacentHTML(`beforeend`,`<option value='${font.uuid}'>${font.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value='${font.uuid}'>${font.name}</option>`)
       })
     }
   }, [fonts])
@@ -78,7 +78,7 @@ const Footer = () => {
       </span>
       <span className={styles.footerFontSelectWrapper}>
         <select className={styles.footerFontSelect} ref={selectRef}
-                onChange={e => setFont(e.target.value)}>
+          onChange={e => setFont(e.target.value)}>
         </select>
         <p>Aa</p>
       </span>

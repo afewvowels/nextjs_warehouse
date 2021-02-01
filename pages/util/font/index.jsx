@@ -35,10 +35,10 @@ const Index = ({fonts}) => {
     })
 
     if (fontRes.status == 201) {
-      console.log(`font added successfully`)
+      console.log('font added successfully')
       Router.push('/util/font')
     } else {
-      console.error(`error while adding font`)
+      console.error('error while adding font')
       set_error_msg(await fontRes.text())
     }
   }

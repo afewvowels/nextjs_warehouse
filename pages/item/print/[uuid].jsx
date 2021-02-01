@@ -16,14 +16,6 @@ function useBin(uuid) {
   return { bin: data, isLoading: !error && !data, isError: error }
 }
 
-function BinInfo({uuid}) {
-  const { bin, isLoading, isError } = useBin(uuid)
-
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
-  return <FontAwesomeIcon icon={bin.icon}/>
-}
-
 const Index = ({item}) => {
   const [qr_url, set_qr_url] = useState('')
   const [icon_base64, set_icon_base64] = useState('')
@@ -75,7 +67,7 @@ const Index = ({item}) => {
     Router.push('/item')
   }
 
-  if (!bin) return <FontAwesomeIcon icon={['far', 'exclamation']}/>
+  if (!bin || isLoading || isError) return <FontAwesomeIcon icon={['far', 'exclamation']}/>
 
   return(<>
     <Head>
@@ -117,7 +109,6 @@ const Index = ({item}) => {
 Index.PropTypes = {
   item: PropTypes.any.isRequired
 }
-
 
 export async function getServerSideProps({params}) {
   let itemRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/item/' + params.uuid)

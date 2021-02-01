@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { v4 as uuidv4 } from 'uuid'
 var TinyURL = require('tinyurl')
@@ -9,7 +9,6 @@ const Index = ({prototypes, bins, categories}) => {
   const [count, set_count] = useState(1)
   const [prototype_uuid, set_prototype_uuid] = useState('')
   const [bin_uuid, set_bin_uuid] = useState('')
-  const [in_bin, set_in_bin] = useState(true)
   const [error, set_error] = useState('')
   const [category_uuid, set_category_uuid] = useState('')
 
@@ -19,10 +18,9 @@ const Index = ({prototypes, bins, categories}) => {
       while (node.childCount > 0) {
         node.removeChild()
       }
-      node.insertAdjacentHTML(`beforeend`, `<option value='all
-      '>All</option>`)
+      node.insertAdjacentHTML('beforeend', '<option value="all">All</option>')
       categories.forEach(category => {
-        node.insertAdjacentHTML(`beforeend`, `<option value=${category.uuid}>${category.name}</option>`)
+        node.insertAdjacentHTML('beforeend', `<option value=${category.uuid}>${category.name}</option>`)
       })
     }
   }, [categories])
@@ -33,10 +31,10 @@ const Index = ({prototypes, bins, categories}) => {
       while (node.childCount > 0) {
         node.removeChild()
       }
-      node.insertAdjacentHTML(`beforeend`,`<option value='-1'>Select a prototype</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="-1">Select a prototype</option>')
       prototypes.forEach(prototype => {
         if (category_uuid == 'all' || category_uuid == prototype.category_uuid){
-          node.insertAdjacentHTML(`beforeend`,`<option value=${prototype.uuid}>${prototype.name}</option>`)
+          node.insertAdjacentHTML('beforeend',`<option value=${prototype.uuid}>${prototype.name}</option>`)
         }
       })
     }
@@ -48,9 +46,9 @@ const Index = ({prototypes, bins, categories}) => {
       while (node.childCount > 0) {
         node.removeChild()
       }
-      node.insertAdjacentHTML(`beforeend`,`<option value='-1'>Select a bin</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="-1">Select a bin</option>')
       bins.forEach(bin => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${bin.uuid}>${bin.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value=${bin.uuid}>${bin.name}</option>`)
       })
     }
   }, [bins])
@@ -64,7 +62,7 @@ const Index = ({prototypes, bins, categories}) => {
         uuid: newUuid,
         prototype_uuid: prototype_uuid,
         bin_uuid: bin_uuid,
-        in_bin: in_bin,
+        in_bin: true,
         tinyurl: tUrl
       }
 
@@ -95,32 +93,33 @@ const Index = ({prototypes, bins, categories}) => {
         <div className={styles.elementEntryRow}>
           <label>Category</label>
           <select className={styles.elementSelectDropdown}
-                  ref={categoriesRef}
-                  value={category_uuid}
-                  onChange={e => set_category_uuid(e.target.value)}>
+            ref={categoriesRef}
+            value={category_uuid}
+            onChange={e => set_category_uuid(e.target.value)}>
           </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Prototype</label>
           <select className={styles.elementSelectDropdown}
-                  ref={prototypesRef}
-                  value={prototype_uuid}
-                  onChange={e => set_prototype_uuid(e.target.value)}>
+            ref={prototypesRef}
+            value={prototype_uuid}
+            onChange={e => set_prototype_uuid(e.target.value)}>
           </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Bin</label>
           <select className={styles.elementSelectDropdown}
-                  ref={binsRef}
-                  value={bin_uuid}
-                  onChange={e => set_bin_uuid(e.target.value)}>
+            ref={binsRef}
+            value={bin_uuid}
+            onChange={e => set_bin_uuid(e.target.value)}>
           </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Number to create</label>
-          <input type='number'
-                  value={count}
-                  onChange={e => set_count(e.target.value)}/>
+          <input
+            type='number'
+            value={count}
+            onChange={e => set_count(e.target.value)}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>

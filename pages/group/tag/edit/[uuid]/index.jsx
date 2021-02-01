@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -25,12 +25,12 @@ const Index = ({tag, categories}) => {
   const categoriesRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`, `<option value='-1'>Select a category</option>`)
+      node.insertAdjacentHTML('beforeend', '<option value="-1">Select a category</option>')
       categories.forEach(category => {
         if (category.uuid == category_uuid) {
-          node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid} selected>${category.name}</option>`)
+          node.insertAdjacentHTML('beforeend',`<option value=${category.uuid} selected>${category.name}</option>`)
         } else {
-          node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid}>${category.name}</option>`)
+          node.insertAdjacentHTML('beforeend',`<option value=${category.uuid}>${category.name}</option>`)
         }
       })
     }
@@ -80,27 +80,30 @@ const Index = ({tag, categories}) => {
         <div className={styles.elementEntryRow}>
           <label>Category</label>
           <select className={styles.elementSelectDropdown}
-                  ref={categoriesRef}
-                  value={category_uuid}
-                  onChange={e => set_category_uuid(e.target.value)}>
+            ref={categoriesRef}
+            value={category_uuid}
+            onChange={e => set_category_uuid(e.target.value)}>
           </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>UUID</label>
-          <input type='text'
-                  value={uuid}
-                  readOnly={true}/>
+          <input
+            type='text'
+            value={uuid}
+            readOnly={true}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Name</label>
-          <input type='text'
-                  value={name}
-                  onChange={e => set_name(e.target.value)}/>
+          <input
+            type='text'
+            value={name}
+            onChange={e => set_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <textarea value={description}
-                    onChange={e => set_description(e.target.value)}/>
+          <textarea
+            value={description}
+            onChange={e => set_description(e.target.value)}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleUpdate}>Update</button>

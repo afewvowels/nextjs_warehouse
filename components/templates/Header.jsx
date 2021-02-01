@@ -1,3 +1,4 @@
+import React from 'react'
 import Navbar from '@templates/Navbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/templates.module.css'

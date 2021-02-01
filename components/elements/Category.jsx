@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
 import Router from 'next/router'
@@ -26,7 +26,7 @@ const Category = ({category, tags}) => {
         node.removeChild()
       }
       tag_names.forEach(name => {
-        node.insertAdjacentHTML(`beforeend`,`<li>${name}</li>`)
+        node.insertAdjacentHTML('beforeend',`<li>${name}</li>`)
       })
     }
   }, [tag_names])
@@ -37,10 +37,10 @@ const Category = ({category, tags}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/group/category')
     } else {
-      console.error(`error while deleting category`)
+      console.error('error while deleting category')
     }
   }
 
@@ -54,41 +54,41 @@ const Category = ({category, tags}) => {
 
   if (collapsed) {
     return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
-        <FontAwesomeIcon icon={category.icon} />
-        <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']}/>
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
+          <FontAwesomeIcon icon={category.icon} />
+          <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
+          <FontAwesomeIcon icon={['far', 'plus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Tag Names</p>
+          <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
+        </div>
       </div>
-      <div className={styles.elementInfoRow}>
-        <p>Tag Names</p>
-        <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
+    )} else {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
+          <FontAwesomeIcon icon={category.icon} />
+          <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
+          <FontAwesomeIcon icon={['far', 'minus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Description</p>
+          <p>{category.description}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Tag Names</p>
+          <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
+        </div>
+        <div className={styles.elementButtonsWrapperGrid}>
+          <button className={`${styles.elementButton}`} onClick={deleteCategory}>Delete</button>
+          <Link href={edit_url}>
+            <button className={`${styles.elementButton}`}>Edit</button>
+          </Link>
+        </div>
       </div>
-    </div>
-  )} else {
-  return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
-        <FontAwesomeIcon icon={category.icon} />
-        <h3 className={styles.elementHeaderRowTitle}>{category.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']}/>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Description</p>
-        <p>{category.description}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Tag Names</p>
-        <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
-      </div>
-      <div className={styles.elementButtonsWrapperGrid}>
-        <button className={`${styles.elementButton}`} onClick={deleteCategory}>Delete</button>
-        <Link href={edit_url}>
-          <button className={`${styles.elementButton}`}>Edit</button>
-        </Link>
-      </div>
-    </div>
-  )}
+    )}
 }
 
 export default Category

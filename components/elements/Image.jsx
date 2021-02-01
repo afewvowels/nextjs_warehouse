@@ -2,7 +2,7 @@ import styles from '@styles/elements.module.css'
 import Router from 'next/router'
 import useSWR from 'swr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -33,9 +33,9 @@ function ImageInUse({uuid}) {
   if (image == undefined) return <p>Image undefined</p>
   if (inUse.in_use) {
     return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
-   } else {
+  } else {
     return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Not in use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
-   }
+  }
 }
 
 const Image = ({image}) => {
@@ -47,10 +47,10 @@ const Image = ({image}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/util/image')
     } else {
-      console.error(`error while deleting image`)
+      console.error('error while deleting image')
     }
   }
 
@@ -71,16 +71,16 @@ const Image = ({image}) => {
         </div>
       </div>)
   } else {
-  return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div onClick={closeImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
-        <ImageInUse uuid={image.uuid}/>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <FoundImage uuid={image.uuid}/>
-        <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
-      </div>
-    </div>)
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div onClick={closeImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
+          <ImageInUse uuid={image.uuid}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <FoundImage uuid={image.uuid}/>
+          <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
+        </div>
+      </div>)
   }
 }
 

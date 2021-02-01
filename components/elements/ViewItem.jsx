@@ -1,8 +1,7 @@
 import styles from '@styles/elements.module.css'
-import { useState, useCallback, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
-import Link from 'next/link'
 import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -39,23 +38,23 @@ function PrototypeImage({uuid}) {
 }
 
 const ViewItem = ({item}) => {
-  const { bin, binIsLoading, binIsError } = useBin(item.bin_uuid)
-  const { prototype, prototypeIsLoading, prototypeIsError } = usePrototype(item.prototype_uuid)
+  const { bin } = useBin(item.bin_uuid)
+  const { prototype } = usePrototype(item.prototype_uuid)
 
 
   const [check_in_out, set_check_in_out] = useState(item.in_bin)
   const [error_msg, set_error_msg] = useState('')
-  
+
   const deleteItem = async () => {
     const delRes = await fetch(`/api/item/${item.uuid}`, {
       method: 'DELETE',
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/item')
     } else {
-      console.error(`error while deleting item`)
+      console.error('error while deleting item')
     }
   }
 
@@ -71,11 +70,11 @@ const ViewItem = ({item}) => {
     })
 
     if (checkRes.status == 201) {
-      console.log(`item status changed successfully`)
+      console.log('item status changed successfully')
       set_check_in_out(!check_in_out)
       set_error_msg('')
     } else {
-      console.error(`error while changing item status`)
+      console.error('error while changing item status')
       set_error_msg(checkRes.text())
     }
   }

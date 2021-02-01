@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -27,9 +27,9 @@ const Index = ({categories, tags}) => {
   const categoriesRef = useCallback(node => {
     if (node != null && categories != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='-1'>Select a category</option>`)
-      categories.forEach((category, index) => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid}>${category.name}</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="-1">Select a category</option>')
+      categories.forEach((category) => {
+        node.insertAdjacentHTML('beforeend',`<option value=${category.uuid}>${category.name}</option>`)
       })
     }
   }, [categories])
@@ -37,10 +37,10 @@ const Index = ({categories, tags}) => {
   const tagSelectRef = useCallback(node => {
     if (node != null && tags != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='-1'>Select a tag</option>`)
-      tags.forEach((tag, index) => {
+      node.insertAdjacentHTML('beforeend','<option value="-1">Select a tag</option>')
+      tags.forEach((tag) => {
         if (tag.category_uuid == category_uuid) {
-          node.insertAdjacentHTML(`beforeend`,`<option value=${tag.uuid}>${tag.name}</option>`)
+          node.insertAdjacentHTML('beforeend',`<option value=${tag.uuid}>${tag.name}</option>`)
         }
       })
     }
@@ -52,7 +52,7 @@ const Index = ({categories, tags}) => {
       tag_uuids.forEach(tag => {
         tags.forEach(propTag => {
           if (propTag.uuid == tag) {
-            node.insertAdjacentHTML(`beforeend`, `<li>${propTag.name}</li>`)
+            node.insertAdjacentHTML('beforeend', `<li>${propTag.name}</li>`)
             return
           }
         })
@@ -63,7 +63,7 @@ const Index = ({categories, tags}) => {
   const imageRef = useCallback(node => {
     if (node != null && image_base64 != '') {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<img src=${image_base64} alt=${name}/>`)
+      node.insertAdjacentHTML('beforeend',`<img src=${image_base64} alt=${name}/>`)
     }
   }, [image_base64])
 
@@ -71,7 +71,7 @@ const Index = ({categories, tags}) => {
     if (node != null && traits.length > 0) {
       node.innerHTML = ''
       traits.forEach(trait => {
-        node.insertAdjacentHTML(`beforeend`, `<li>${trait}</li>`)
+        node.insertAdjacentHTML('beforeend', `<li>${trait}</li>`)
       })
     }
   }, [traits])
@@ -119,9 +119,9 @@ const Index = ({categories, tags}) => {
     })
 
     if (imageRes.status == 201) {
-      console.log(`image created successfully`)
+      console.log('image created successfully')
     } else {
-      console.error(`error while creating image`)
+      console.error('error while creating image')
       set_error_msg(await imageRes.text())
       return
     }
@@ -145,10 +145,10 @@ const Index = ({categories, tags}) => {
     })
 
     if (prototypeRes.status == 201) {
-      console.log(`prototype created successfully`)
+      console.log('prototype created successfully')
       Router.replace('/prototype')
     } else {
-      console.error(`error while creating prototype`)
+      console.error('error while creating prototype')
       set_error_msg(await prototypeRes.text())
     }
   }
@@ -167,43 +167,47 @@ const Index = ({categories, tags}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>UUID</label>
-          <input type='text'
-                  value={uuid}
-                  readOnly={true}
-                  onChange={e => set_uuid(e.target.value)}/>
+          <input
+            type='text'
+            value={uuid}
+            readOnly={true}
+            onChange={e => set_uuid(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Readable Name</label>
-          <input type='text'
-                  value={readable_name}
-                  readOnly={true}
-                  onChange={e => set_readable_name(e.target.value)}/>
+          <input
+            type='text'
+            value={readable_name}
+            readOnly={true}
+            onChange={e => set_readable_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Category</label>
           <select className={styles.elementSelectDropdown}
-                  ref={categoriesRef}
-                  value={category_uuid}
-                  onChange={e => set_category_uuid(e.target.value)}>
+            ref={categoriesRef}
+            value={category_uuid}
+            onChange={e => set_category_uuid(e.target.value)}>
           </select>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Name</label>
-          <input type='text'
-                  value={name}
-                  onChange={e => set_name(e.target.value)}/>
+          <input
+            type='text'
+            value={name}
+            onChange={e => set_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <textarea value={description}
-                    onChange={e => set_description(e.target.value)}/>
+          <textarea
+            value={description}
+            onChange={e => set_description(e.target.value)}/>
         </div>
         <div className={`${styles.elementEntryRow} ${styles.elementEntryWithDropdown}`}>
           <label>Traits</label>
           <ul ref={traitsRef} className={styles.elementListBullets}></ul>
           <input type='text'
-                  value={new_trait}
-                  onChange={e => set_new_trait(e.target.value)}/>
+            value={new_trait}
+            onChange={e => set_new_trait(e.target.value)}/>
           <span className={styles.elementButtonsWrapper}>
             <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTrait}>Add Trait</button>
           </span>
@@ -212,9 +216,9 @@ const Index = ({categories, tags}) => {
           <label>Tags</label>
           <ul ref={tagsRef} className={styles.elementListCloud}></ul>
           <select className={styles.elementSelectDropdown}
-                  ref={tagSelectRef}
-                  value={new_tag}
-                  onChange={e => set_new_tag(e.target.value)}/>
+            ref={tagSelectRef}
+            value={new_tag}
+            onChange={e => set_new_tag(e.target.value)}/>
           <span className={styles.elementButtonsWrapper}>
             <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={addNewTag}>Add Tag</button>
           </span>
@@ -222,10 +226,11 @@ const Index = ({categories, tags}) => {
         <div className={styles.elementEntryRow}>
           <div ref={imageRef} className={styles.elementImageWrapper}></div>
           <label>Image</label>
-          <input type='file'
-                  multiple={false}
-                  accept='image/jpeg,image/webp,image/png'
-                  onChange={e => handleImageUpload(e.target.files[0])}/>
+          <input
+            type='file'
+            multiple={false}
+            accept='image/jpeg,image/webp,image/png'
+            onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <span className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleCreate}>Create</button>

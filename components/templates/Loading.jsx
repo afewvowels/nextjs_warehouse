@@ -1,4 +1,5 @@
-import { useTransition, useSpring, animated } from 'react-spring'
+import React from 'react'
+import { useTransition, animated } from 'react-spring'
 import styles from '@styles/templates.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -12,9 +13,9 @@ const Loading = ({loading}) => {
   return(<>
     {transitions.map(({item, key, props}) => (item &&
       <animated.span key={key} className={`${styles.loadingWrapper}`} style={props}>
-        <FontAwesomeIcon icon={['fad', 'asterisk']} />
+        <FontAwesomeIcon icon={['fas', 'asterisk']} />
       </animated.span>
-      ))}
+    ))}
   </>)
 }
 

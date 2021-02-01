@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
 import Link from 'next/link'
@@ -25,10 +25,10 @@ const Tag = ({tag, categories}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/group/tag')
     } else {
-      console.error(`error while deleting tag`)
+      console.error('error while deleting tag')
     }
   }
 
@@ -49,30 +49,30 @@ const Tag = ({tag, categories}) => {
           <FontAwesomeIcon icon={['far', 'plus-square']}/>
         </div>
       </div>
-  )} else {
-  return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
-        <FontAwesomeIcon icon={tag.icon} />
-        <h3 className={styles.elementHeaderRowTitle}>{tag.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']}/>
+    )} else {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
+          <FontAwesomeIcon icon={tag.icon} />
+          <h3 className={styles.elementHeaderRowTitle}>{tag.name}</h3>
+          <FontAwesomeIcon icon={['far', 'minus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Category</p>
+          <p>{category_name}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Description</p>
+          <p>{tag.description}</p>
+        </div>
+        <div className={styles.elementButtonsWrapperGrid}>
+          <button className={`${styles.elementButton}`} onClick={deleteTag}>Delete</button>
+          <Link href={edit_url}>
+            <button className={`${styles.elementButton}`}>Edit</button>
+          </Link>
+        </div>
       </div>
-      <div className={styles.elementInfoRow}>
-        <p>Category</p>
-        <p>{category_name}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Description</p>
-        <p>{tag.description}</p>
-      </div>
-      <div className={styles.elementButtonsWrapperGrid}>
-        <button className={`${styles.elementButton}`} onClick={deleteTag}>Delete</button>
-        <Link href={edit_url}>
-          <button className={`${styles.elementButton}`}>Edit</button>
-        </Link>
-      </div>
-    </div>
-  )}
+    )}
 }
 
 export default Tag

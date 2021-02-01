@@ -1,7 +1,7 @@
 import Title from '@templates/Title'
 import Category from '@components/elements/Category'
 import Head from 'next/head'
-import { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 import styles from '@styles/elements.module.css'
 

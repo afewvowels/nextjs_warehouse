@@ -1,7 +1,7 @@
 import Title from '@templates/Title'
 import Prototype from '@components/elements/Prototype'
 import styles from '@styles/elements.module.css'
-import { useLayoutEffect, useState, useCallback } from 'react'
+import React, { useLayoutEffect, useState, useCallback } from 'react'
 
 const Prototypes = ({prototypes, categories, tags, category}) => {
   return(<><div className={styles.elementWrapperColumn}>
@@ -81,9 +81,9 @@ const Index = ({prototypes, categories, tags}) => {
   const categoryRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="all">All</option>')
       categories.forEach(category => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid}>${category.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value=${category.uuid}>${category.name}</option>`)
       })
     }
   }, [categories])
@@ -106,8 +106,8 @@ const Index = ({prototypes, categories, tags}) => {
       <span>
         <h3>Category Select</h3>
         <select value={category}
-                onChange={e => set_category(e.target.value)}
-                ref={categoryRef}></select>
+          onChange={e => set_category(e.target.value)}
+          ref={categoryRef}></select>
       </span>
     </section>
     {/* <section className={styles.elementSelectWrapper}>
@@ -120,7 +120,7 @@ const Index = ({prototypes, categories, tags}) => {
     </section> */}
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Prototypes1 prototypes={prototypes} categories={categories} tags={tags} category={category} />
-      <Prototypes2 prototypes={prototypes} categories={categories} tags={tags} category={category} /></> : <Prototypes prototypes={prototypes} categories={categories} tags={tags} category={category} />}
+        <Prototypes2 prototypes={prototypes} categories={categories} tags={tags} category={category} /></> : <Prototypes prototypes={prototypes} categories={categories} tags={tags} category={category} />}
     </section>
   </>)
 }

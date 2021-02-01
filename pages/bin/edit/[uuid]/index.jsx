@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
@@ -36,7 +36,7 @@ const Index = ({bin, image}) => {
   const imageRef = useCallback(node => {
     if (node != null && image_base64 != '') {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`, `<img src=${image_base64} alt=${name}/>`)
+      node.insertAdjacentHTML('beforeend', `<img src=${image_base64} alt=${name}/>`)
     }
   }, [image_base64])
 
@@ -46,7 +46,7 @@ const Index = ({bin, image}) => {
   }
 
   const generateTinyUrl = async() => {
-    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${uuid}`, function(res,err) {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${uuid}`, function(res) {
       set_tinyurl(res.substring(8))
     })
   }
@@ -85,9 +85,9 @@ const Index = ({bin, image}) => {
       })
 
       if (imgRes.status == 201) {
-        console.log(`image created successfully`)
+        console.log('image created successfully')
       } else {
-        console.error(`error while creating image`)
+        console.error('error while creating image')
       }
     }
 
@@ -109,7 +109,7 @@ const Index = ({bin, image}) => {
     })
 
     if (binRes.status == 201) {
-      console.log(`bin created successfully`)
+      console.log('bin created successfully')
       Router.replace('/bin')
     } else {
       set_error_msg(await binRes.text())
@@ -137,41 +137,47 @@ const Index = ({bin, image}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>TinyURL</label>
-          <input type='text'
-                  value={tinyurl}
-                  readOnly={true}
-                  onChange={e => set_tinyurl(e.target.value)}/>
+          <input
+            type='text'
+            value={tinyurl}
+            readOnly={true}
+            onChange={e => set_tinyurl(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>UUID</label>
-          <input type='text'
-                  value={uuid}
-                  readOnly={true}/>
+          <input
+            type='text'
+            value={uuid}
+            readOnly={true}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Readable Name</label>
-          <input type='text'
-                  value={readable_name}
-                  readOnly={true}/>
+          <input
+            type='text'
+            value={readable_name}
+            readOnly={true}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Name</label>
-          <input type='text'
-                 value={name}
-                 onChange={e => set_name(e.target.value)}/>
+          <input
+            type='text'
+            value={name}
+            onChange={e => set_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <textarea value={description}
-                    onChange={e => set_description(e.target.value)}/>
+          <textarea
+            value={description}
+            onChange={e => set_description(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <div ref={imageRef} className={styles.elementImageWrapper}></div>
           <label>Image</label>
-          <input type='file'
-                  multiple={false}
-                  accept='image/jpeg,image/webp,image/png'
-                  onChange={e => handleImageUpload(e.target.files[0])}/>
+          <input
+            type='file'
+            multiple={false}
+            accept='image/jpeg,image/webp,image/png'
+            onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleUpdate}>Update</button>

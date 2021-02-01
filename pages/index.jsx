@@ -32,7 +32,7 @@ export default function Home() {
               {iconTransitions.map(({item, key, props}) => (
                 item ?
                   <animated.span key={key} className={`${styles.iconWrapperOut}`} style={props}>
-                    <FontAwesomeIcon icon={['fad', 'asterisk']} />
+                    <FontAwesomeIcon icon={['fas', 'asterisk']} />
                   </animated.span> :
                   <animated.span key={key} className={`${styles.iconWrapper}`} style={props}>
                     <FontAwesomeIcon icon={['fas', 'hand-receiving']} />

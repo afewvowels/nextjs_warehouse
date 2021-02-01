@@ -19,7 +19,7 @@ export async function randomSet() {
     palettesArr = palettesArr.split(',')
     if (palettesArr.length < 4) {
       palettesArr = []
-      throw new Error(`palettes array susiciously short`)
+      throw new Error('palettes array susiciously short')
     }
     let tempPalettesArr = []
     let tempPal = new Array(4)

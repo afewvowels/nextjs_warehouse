@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useCallback } from 'react'
+import React, { useLayoutEffect, useState, useCallback } from 'react'
 import Title from '@templates/Title'
 import Tag from '@components/elements/Tag'
 import styles from '@styles/elements.module.css'
@@ -72,9 +72,9 @@ const Index = ({categories, tags}) => {
   const categoryRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="all">All</option>')
       categories.forEach(category => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid}>${category.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value=${category.uuid}>${category.name}</option>`)
       })
     }
   }, [categories])
@@ -84,14 +84,15 @@ const Index = ({categories, tags}) => {
     <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Category Select</h3>
-        <select value={category}
-                onChange={e => set_category(e.target.value)}
-                ref={categoryRef}></select>
+        <select
+          value={category}
+          onChange={e => set_category(e.target.value)}
+          ref={categoryRef}></select>
       </span>
     </section>
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Tags1 tags={tags} categories={categories} category={category} />
-      <Tags2 tags={tags} categories={categories} category={category} /></> : <Tags tags={tags} categories={categories} category={category} />}
+        <Tags2 tags={tags} categories={categories} category={category} /></> : <Tags tags={tags} categories={categories} category={category} />}
     </section>
   </>)
 }

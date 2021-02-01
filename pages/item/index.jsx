@@ -1,7 +1,7 @@
 import Title from '@templates/Title'
 import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
-import { useLayoutEffect, useState, useCallback } from 'react'
+import React, { useLayoutEffect, useState, useCallback } from 'react'
 
 const Items = ({items, category, bin}) => {
   return(<><div className={styles.elementWrapperColumn}>
@@ -81,9 +81,9 @@ const Index = ({items, categories, bins}) => {
   const categoryRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="all">All</option>')
       categories.forEach(category => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${category.uuid}>${category.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value=${category.uuid}>${category.name}</option>`)
       })
     }
   }, [categories])
@@ -91,9 +91,9 @@ const Index = ({items, categories, bins}) => {
   const binsRef = useCallback(node => {
     if (node != null) {
       node.innerHTML = ''
-      node.insertAdjacentHTML(`beforeend`,`<option value='all'>All</option>`)
+      node.insertAdjacentHTML('beforeend','<option value="all">All</option>')
       bins.forEach(bin => {
-        node.insertAdjacentHTML(`beforeend`,`<option value=${bin.uuid}>${bin.name}</option>`)
+        node.insertAdjacentHTML('beforeend',`<option value=${bin.uuid}>${bin.name}</option>`)
       })
     }
   }, [bins])
@@ -103,20 +103,22 @@ const Index = ({items, categories, bins}) => {
     <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Category Select</h3>
-        <select value={category}
-                onChange={e => set_category(e.target.value)}
-                ref={categoryRef}></select>
+        <select
+          value={category}
+          onChange={e => set_category(e.target.value)}
+          ref={categoryRef}></select>
       </span>
       <span>
         <h3>Bin Select</h3>
-        <select value={bin}
-                onChange={e => set_bin(e.target.value)}
-                ref={binsRef}></select>
+        <select
+          value={bin}
+          onChange={e => set_bin(e.target.value)}
+          ref={binsRef}></select>
       </span>
     </section>
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Items1 items={items} category={category} bin={bin}/>
-      <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin}/>}
+        <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin}/>}
     </section>
   </>)
 }

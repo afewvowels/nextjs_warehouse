@@ -1,3 +1,4 @@
+import React from 'react'
 import SimpleTitle from '@templates/SimpleTitle'
 import styles from '@styles/elements.module.css'
 import Category from '@components/elements/Category'
@@ -10,13 +11,13 @@ const Index = ({categories, tags}) => {
     <section className={styles.elementWrapper}>
       {categories.map((category, key) => (
         <Category category={category} tags={tags} key={key} />
-        ))}
+      ))}
     </section>
     <SimpleTitle title='tags' link='group/tag'/>
     <section className={styles.elementWrapper}>
       {tags.map((tag, key) => (
         <Tag tag={tag} categories={categories} key={key} />
-        ))}
+      ))}
     </section>
   </>)
 }

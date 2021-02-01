@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Router from 'next/router'
 import styles from '@styles/elements.module.css'
 
@@ -11,10 +11,10 @@ const Index = ({palette}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete successful`)
+      console.log('delete successful')
       Router.push('/util/palette')
     } else {
-      console.error(`error while deleting palette`)
+      console.error('error while deleting palette')
       set_error_msg(await delRes.text())
     }
   }

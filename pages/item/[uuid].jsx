@@ -1,3 +1,4 @@
+import React from 'react'
 import SimpleTitle from '@templates/SimpleTitle'
 import ViewItem from '@components/elements/ViewItem'
 
@@ -5,9 +6,9 @@ import styles from '@styles/elements.module.css'
 
 const Index = ({item}) => {
   return (<>
-    <SimpleTitle title={`View Item`}/>
+    <SimpleTitle title='View Item'/>
     <section className={styles.elementWrapper}>
-        <ViewItem item={item}/>
+      <ViewItem item={item}/>
     </section>
   </>)
 }

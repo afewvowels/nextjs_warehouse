@@ -1,5 +1,5 @@
 import styles from '@styles/elements.module.css'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import Router from 'next/router'
@@ -56,10 +56,10 @@ const Bin = ({bin}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/bin')
     } else {
-      console.error(`error while deleting bin`)
+      console.error('error while deleting bin')
     }
   }
 
@@ -73,65 +73,52 @@ const Bin = ({bin}) => {
 
   if (collapsed) {
     return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
-        <FontAwesomeIcon icon={bin.icon}/>
-        <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']}/>
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
+          <FontAwesomeIcon icon={bin.icon}/>
+          <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
+          <FontAwesomeIcon icon={['far', 'plus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Description</p>
+          <p>{bin.description}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Items</p>
+          <ItemsList uuid={bin.uuid}/>
+        </div>
       </div>
-      <div className={styles.elementInfoRow}>
-        <p>Description</p>
-        <p>{bin.description}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Items</p>
-        <ItemsList uuid={bin.uuid}/>
-      </div>
-    </div>
-  )} else {
-  return(
-  <div className={styles.elementEntryRowsWrapper}>
-    <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
-      <FontAwesomeIcon icon={bin.icon}/>
-      <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
-      <FontAwesomeIcon icon={['far', 'minus-square']}/>
-    </div>
-    <div className={styles.elementInfoRow}>
-      <BinImage uuid={bin.image_uuid}/>
-    </div>
-    <div className={styles.elementInfoRow}>
-      <p>Description</p>
-      <p>{bin.description}</p>
-    </div>
-    <div className={styles.elementButtonsWrapper}>
-    </div>
-    <div className={styles.elementInfoRow}>
-      <p>Items</p>
-      <ItemsList uuid={bin.uuid}/>
-    </div>
-    {/* <div className={styles.elementInfoRow}>
-      <p>UUID</p>
-      <p>{bin.uuid}</p>
-    </div>
-    <div className={styles.elementInfoRow}>
-      <p>Readable Name</p>
-      <p>{bin.readable_name}</p>
-    </div>
-    <div className={styles.elementInfoRow}>
-      <p>Image UUID</p>
-      <p>{bin.image_uuid}</p>
-    </div> */}
-    <div className={styles.elementButtonsWrapperGrid}>
-      <Link href={print_url}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
-      </Link>
-      <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
-      <Link href={edit_url}>
-        <button className={`${styles.elementButton}`}>Edit</button>
-      </Link>
-    </div>
-  </div>)
-  }
+    )} else {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
+          <FontAwesomeIcon icon={bin.icon}/>
+          <h3 className={styles.elementHeaderRowTitle}>{bin.name}</h3>
+          <FontAwesomeIcon icon={['far', 'minus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <BinImage uuid={bin.image_uuid}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Description</p>
+          <p>{bin.description}</p>
+        </div>
+        <div className={styles.elementButtonsWrapper}>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Items</p>
+          <ItemsList uuid={bin.uuid}/>
+        </div>
+        <div className={styles.elementButtonsWrapperGrid}>
+          <Link href={print_url}>
+            <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
+          </Link>
+          <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
+          <Link href={edit_url}>
+            <button className={`${styles.elementButton}`}>Edit</button>
+          </Link>
+        </div>
+      </div>)}
 }
 
 export default Bin

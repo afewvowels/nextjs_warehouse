@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import randomIcon from '@components/modules/random/icon/randomIcon'
@@ -61,20 +61,23 @@ const Index = ({category}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <label>UUID</label>
-          <input type='text'
-                  value={uuid}
-                  readOnly={true}/>
+          <input
+            type='text'
+            value={uuid}
+            readOnly={true}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Name</label>
-          <input type='text'
-                  value={name}
-                  onChange={e => set_name(e.target.value)}/>
+          <input
+            type='text'
+            value={name}
+            onChange={e => set_name(e.target.value)}/>
         </div>
         <div className={styles.elementEntryRow}>
           <label>Description</label>
-          <textarea value={description}
-                    onChange={e => set_description(e.target.value)}/>
+          <textarea
+            value={description}
+            onChange={e => set_description(e.target.value)}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
           <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={handleUpdate}>Update</button>

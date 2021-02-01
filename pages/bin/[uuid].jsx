@@ -1,3 +1,4 @@
+import React from 'react'
 import SimpleTitle from '@templates/SimpleTitle'
 import Bin from '@components/elements/Bin'
 import Head from 'next/head'
@@ -9,9 +10,9 @@ const Index = ({bin}) => {
     <Head>
       <title>${bin.name} | Bin | Inventory</title>
     </Head>
-    <SimpleTitle title={`View Bin`}/>
+    <SimpleTitle title='View Bin'/>
     <section className={styles.elementWrapper}>
-        <Bin bin={bin}/>
+      <Bin bin={bin}/>
     </section>
   </>)
 }

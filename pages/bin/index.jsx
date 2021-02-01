@@ -1,45 +1,47 @@
 import Title from '@templates/Title'
 import Bin from '@components/elements/Bin'
 import Head from 'next/head'
-import { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 import styles from '@styles/elements.module.css'
 
 const Bins = ({bins}) => {
   return(<>
     <div className={styles.elementWrapperColumn}>
-    {bins.map((bin, key) => {
-      if (key < Math.floor(bins.length/2)){
-        return <Bin bin={bin} key={key}/>
-      }
-    })}
+      {bins.map((bin, key) => {
+        if (key < Math.floor(bins.length/2)){
+          return <Bin bin={bin} key={key}/>
+        }
+      })}
     </div>
     <div className={styles.elementWrapperColumn}>
-    {bins.map((bin, key) => {
-      if (key >= Math.floor(bins.length/2)){
-        return <Bin bin={bin} key={key}/>
-      }
-    })}
+      {bins.map((bin, key) => {
+        if (key >= Math.floor(bins.length/2)){
+          return <Bin bin={bin} key={key}/>
+        }
+      })}
     </div>
   </>)
 }
 
 const Bins1 = ({bins}) => {
   return(<div className={styles.elementWrapperColumn}>
-  {bins.map((bin, key) => {
-    if (key % 2 == 0) {
-      return <Bin bin={bin} key={key}/>
-    }
-  })}</div>)
+    {bins.map((bin, key) => {
+      if (key % 2 == 0) {
+        return <Bin bin={bin} key={key}/>
+      }
+    })}
+  </div>)
 }
 
 const Bins2 = ({bins}) => {
   return(<div className={styles.elementWrapperColumn}>
-  {bins.map((bin, key) => {
-    if (key % 2 == 1) {
-      return <Bin bin={bin} key={key}/>
-    }
-  })}</div>)
+    {bins.map((bin, key) => {
+      if (key % 2 == 1) {
+        return <Bin bin={bin} key={key}/>
+      }
+    })}
+  </div>)
 }
 
 function useSize() {
@@ -53,9 +55,9 @@ function useSize() {
     window.addEventListener('orientationchange', updateWindowSize)
     updateWindowSize()
     return () => {
-       window.removeEventListener('resize', updateWindowSize)
-       window.removeEventListener('orientationchange', updateWindowSize)
-      }
+      window.removeEventListener('resize', updateWindowSize)
+      window.removeEventListener('orientationchange', updateWindowSize)
+    }
   }, [])
   return size
 }

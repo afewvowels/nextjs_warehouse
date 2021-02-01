@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
 import Router from 'next/router'
@@ -21,7 +21,7 @@ function PrototypeImage({uuid}) {
 }
 
 const Prototype = ({prototype, categories, tags}) => {
-  const [tag_names, set_tag_names] = useState([]);
+  const [tag_names, set_tag_names] = useState([])
   const [category_name, set_category_name] = useState('')
   const [edit_url, set_edit_url] = useState('')
   const [collapsed, set_collapsed] = useState(true)
@@ -54,7 +54,7 @@ const Prototype = ({prototype, categories, tags}) => {
         node.removeChild()
       }
       tag_names.forEach(name => {
-        node.insertAdjacentHTML(`beforeend`, `<li>${name}</li>`)
+        node.insertAdjacentHTML('beforeend', `<li>${name}</li>`)
       })
     }
   }, [tag_names])
@@ -66,7 +66,7 @@ const Prototype = ({prototype, categories, tags}) => {
         node.removeChild()
       }
       prototype.traits.forEach(trait => {
-        node.insertAdjacentHTML(`beforeend`, `<li>${trait}</li>`)
+        node.insertAdjacentHTML('beforeend', `<li>${trait}</li>`)
       })
     }
   }, [prototype])
@@ -77,10 +77,10 @@ const Prototype = ({prototype, categories, tags}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/prototype')
     } else {
-      console.error(`error while deleting prototype`)
+      console.error('error while deleting prototype')
     }
   }
 
@@ -98,50 +98,48 @@ const Prototype = ({prototype, categories, tags}) => {
         <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
           <FontAwesomeIcon icon={prototype.icon} />
           <h3 className={styles.elementHeaderRowTitle}>{prototype.name}</h3>
-        <FontAwesomeIcon icon={['far', 'plus-square']}/>
+          <FontAwesomeIcon icon={['far', 'plus-square']}/>
         </div>
       </div>
-  )} else {
-  return(
-    <div className={styles.elementEntryRowsWrapper}>
-      <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
-        <FontAwesomeIcon icon={prototype.icon} />
-        <h3 className={styles.elementHeaderRowTitle}>{prototype.name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']}/>
+    )} else {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
+          <FontAwesomeIcon icon={prototype.icon} />
+          <h3 className={styles.elementHeaderRowTitle}>{prototype.name}</h3>
+          <FontAwesomeIcon icon={['far', 'minus-square']}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <PrototypeImage uuid={prototype.image_uuid} />
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Category</p>
+          <p>{category_name}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Name</p>
+          <p>{prototype.name}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Description</p>
+          <p>{prototype.description}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Traits</p>
+          <ul ref={traitsRef} className={styles.elementListBullets}></ul>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Tags</p>
+          <ul ref={tagsRef} className={styles.elementListCloud}></ul>
+        </div>
+        <div className={styles.elementButtonsWrapperGrid}>
+          <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
+          <Link href={edit_url}>
+            <button className={`${styles.elementButton}`}>Edit</button>
+          </Link>
+        </div>
       </div>
-      {/* <div className={styles.elementInfoRow} ref={imageRef}>
-      </div> */}
-      <div className={styles.elementInfoRow}>
-        <PrototypeImage uuid={prototype.image_uuid} />
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Category</p>
-        <p>{category_name}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Name</p>
-        <p>{prototype.name}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Description</p>
-        <p>{prototype.description}</p>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Traits</p>
-        <ul ref={traitsRef} className={styles.elementListBullets}></ul>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Tags</p>
-        <ul ref={tagsRef} className={styles.elementListCloud}></ul>
-      </div>
-      <div className={styles.elementButtonsWrapperGrid}>
-        <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
-        <Link href={edit_url}>
-          <button className={`${styles.elementButton}`}>Edit</button>
-        </Link>
-      </div>
-    </div>
-  )}
+    )}
 }
 
 export default Prototype

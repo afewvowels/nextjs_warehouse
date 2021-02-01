@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
 import Link from 'next/link'
 import Router from 'next/router'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -44,10 +44,10 @@ const Item = ({item}) => {
     })
 
     if (delRes.status == 201) {
-      console.log(`delete sucessful`)
+      console.log('delete sucessful')
       Router.push('/item')
     } else {
-      console.error(`error while deleting item`)
+      console.error('error while deleting item')
     }
   }
 
@@ -63,11 +63,11 @@ const Item = ({item}) => {
     })
 
     if (checkRes.status == 201) {
-      console.log(`item status changed successfully`)
+      console.log('item status changed successfully')
       set_check_in_out(!check_in_out)
       set_error_msg('')
     } else {
-      console.error(`error while changing item status`)
+      console.error('error while changing item status')
       set_error_msg(checkRes.text())
     }
   }
@@ -85,55 +85,55 @@ const Item = ({item}) => {
       <div className={styles.elementEntryRowsWrapper}>
         <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
           <span onClick={checkInOut}>
-          {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
-          <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype} icon={item.prototype_icon} />
+            {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+            <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype} icon={item.prototype_icon} />
           </span>
           <span onClick={openItem}>
-          <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
-          <FontAwesomeIcon icon={['far', 'plus-square']} />
+            <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
+            <FontAwesomeIcon icon={['far', 'plus-square']} />
           </span>
         </div>
       </div>
-  )} else {
-  return(
-    <div className={styles.elementEntryRowsWrapper}>
-      {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
-      <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
-        <span onClick={checkInOut}>
-        {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
-        <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype}  icon={item.prototype_icon}/>
-        </span>
-        <span onClick={closeItem}>
-        <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
-        <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
-        </span>
+    )} else {
+    return(
+      <div className={styles.elementEntryRowsWrapper}>
+        {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
+        <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
+          <span onClick={checkInOut}>
+            {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+            <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype}  icon={item.prototype_icon}/>
+          </span>
+          <span onClick={closeItem}>
+            <h3 className={styles.elementHeaderRowTitle}>{item.prototype_name}</h3>
+            <FontAwesomeIcon icon={['far', 'minus-square']} onClick={closeItem} />
+          </span>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <PrototypeImage uuid={item.prototype_image_uuid} item={item}/>
+        </div>
+        <div className={styles.elementHeaderRow}>
+          <FontAwesomeIcon icon={item.bin_icon}/>
+          <h3>{item.bin_name}</h3>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <BinImage uuid={item.bin_image_uuid} item={item}/>
+        </div>
+        <div className={styles.elementInfoRow}>
+          <p>Item is in bin</p>
+          <p>{check_in_out ? 'True' : 'False'}</p>
+        </div>
+        <div className={styles.elementButtonsWrapperGrid}>
+          <button className={`${styles.elementButton}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
+          <Link href={`/item/print/${item.uuid}`}>
+            <button className={`${styles.elementButton}`}>Print</button>
+          </Link>
+          <button className={`${styles.elementButton}`} onClick={deleteItem}>Delete</button>
+          <Link href={`/item/edit/${item.uuid}`}>
+            <button className={`${styles.elementButton}`}>Edit</button>
+          </Link>
+        </div>
       </div>
-      <div className={styles.elementInfoRow}>
-        <PrototypeImage uuid={item.prototype_image_uuid} item={item}/>
-      </div>
-      <div className={styles.elementHeaderRow}>
-        <FontAwesomeIcon icon={item.bin_icon}/>
-        <h3>{item.bin_name}</h3>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <BinImage uuid={item.bin_image_uuid} item={item}/>
-      </div>
-      <div className={styles.elementInfoRow}>
-        <p>Item is in bin</p>
-        <p>{check_in_out ? 'True' : 'False'}</p>
-      </div>
-      <div className={styles.elementButtonsWrapperGrid}>
-        <button className={`${styles.elementButton}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
-        <Link href={`/item/print/${item.uuid}`}>
-          <button className={`${styles.elementButton}`}>Print</button>
-        </Link>
-        <button className={`${styles.elementButton}`} onClick={deleteItem}>Delete</button>
-        <Link href={`/item/edit/${item.uuid}`}>
-          <button className={`${styles.elementButton}`}>Edit</button>
-        </Link>
-      </div>
-    </div>
-  )}
+    )}
 }
 
 export default Item
