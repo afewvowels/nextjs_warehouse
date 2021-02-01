@@ -273,7 +273,7 @@ const Index = ({prototype, image, categories, tags}) => {
           <label>Image</label>
           <input type='file'
             multiple={false}
-            accept='image/*'
+            accept='image/jpeg,image/png,image/tiff,image/svg+xml,image/bmp'
             onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <span className={styles.elementButtonsWrapper}>

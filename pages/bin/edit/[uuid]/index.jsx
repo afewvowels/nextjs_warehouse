@@ -189,7 +189,7 @@ const Index = ({bin, image}) => {
             name='imageUpload'
             type='file'
             multiple={false}
-            accept='image/*'
+            accept='image/jpeg,image/png,image/tiff,image/svg+xml,image/bmp'
             onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
