@@ -67,7 +67,9 @@ const Image = ({image}) => {
       <div className={styles.elementEntryRowsWrapper}>
         <div onClick={openImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
           <ImageInUse uuid={image.uuid}/>
-          <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
+          <span>
+            <FontAwesomeIcon icon={['far', 'plus-square']} />
+          </span>
         </div>
       </div>)
   } else {
@@ -75,10 +77,15 @@ const Image = ({image}) => {
       <div className={styles.elementEntryRowsWrapper}>
         <div onClick={closeImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
           <ImageInUse uuid={image.uuid}/>
+          <span>
+            <FontAwesomeIcon icon={['far', 'minus-square']} />
+          </span>
         </div>
         <div className={styles.elementInfoRow}>
+          <div className={styles.elementButtonsWrapperGrid}>
+            <button style={{width: '100%', marginTop: '0.333rem', marginBottom: '0.5rem'}} className={`${styles.elementButton} ${styles.elementButtonWide} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
+          </div>
           <FoundImage uuid={image.uuid}/>
-          <button className={`${styles.elementButton} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
         </div>
       </div>)
   }

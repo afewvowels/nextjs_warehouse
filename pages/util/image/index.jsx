@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import SimpleTitle from '@templates/SimpleTitle'
 import Image from '@components/elements/Image'
 
@@ -14,9 +13,6 @@ const Images1 = ({images}) => {
     })}
   </div>)
 }
-Images1.PropTypes = {
-  images: PropTypes.any.isRequired
-}
 
 const Images2 = ({images}) => {
   return(<div className={styles.elementWrapperColumn}>
@@ -27,9 +23,6 @@ const Images2 = ({images}) => {
     })}
   </div>)
 }
-Images2.PropTypes = {
-  images: PropTypes.any.isRequired
-}
 
 const Index = ({images}) => {
   return (<>
@@ -39,9 +32,6 @@ const Index = ({images}) => {
       <Images2 images={images} />
     </section>
   </>)
-}
-Index.PropTypes = {
-  images: PropTypes.any.isRequired
 }
 
 export async function getServerSideProps() {

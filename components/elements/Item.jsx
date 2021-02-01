@@ -112,7 +112,7 @@ const Item = ({item}) => {
         {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
         <div className={`${styles.elementHeaderRowItems} ${styles.elementHeaderRowCollapsible}`}>
           <span onClick={checkInOut}>
-            {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> :<FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
+            {check_in_out ? <FontAwesomeIcon icon={['fas', 'toggle-on']}  onClick={checkInOut} /> : <FontAwesomeIcon icon={['fas', 'toggle-off']} onClick={checkInOut} />}
             <FontAwesomeIcon className={styles.elementHeaderRowItemIconPrototype}  icon={item.prototype_icon}/>
           </span>
           <span onClick={closeItem}>
