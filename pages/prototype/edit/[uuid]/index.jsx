@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
 import { v4 as uuidv4 } from 'uuid'
+import Compressor from 'compressorjs'
 
 import styles from '@styles/elements.module.css'
 
@@ -117,9 +118,19 @@ const Index = ({prototype, image, categories, tags}) => {
   }
 
   const handleImageUpload = (image) => {
-    fileReader = new FileReader()
-    fileReader.onloadend = handleImageRead
-    fileReader.readAsDataURL(image)
+    new Compressor(image, {
+      quality: 0.7,
+      mimeType: 'image/webp',
+      maxWidth: 780,
+      maxHeight: 780,
+      minWidth: 100,
+      minHeight: 100,
+      success(result) {
+        fileReader = new FileReader()
+        fileReader.readAsDataURL(result)
+        fileReader.onloadend = handleImageRead
+      }
+    })
   }
 
   const clearTags = () => {
@@ -262,7 +273,7 @@ const Index = ({prototype, image, categories, tags}) => {
           <label>Image</label>
           <input type='file'
             multiple={false}
-            accept='image/jpeg,image/webp,image/png'
+            accept='image/*'
             onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <span className={styles.elementButtonsWrapper}>

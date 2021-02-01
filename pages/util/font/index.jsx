@@ -119,7 +119,7 @@ Index.PropTypes = {
 export async function getServerSideProps() {
   const fonts = await fetcher(`${process.env.NEXT_PUBLIC_URL}api/fonts`)
 
-  return { props: { fonts }, revalidate: 5 }
+  return { props: { fonts } }
 }
 
 export default Index

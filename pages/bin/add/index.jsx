@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 var TinyURL = require('tinyurl')
+import Compressor from 'compressorjs'
 import randomWords from '@components/modules/random/urls/randomWords'
 
 import randomIcon from '@components/modules/random/icon/randomIcon'
@@ -89,9 +90,19 @@ const Index = () => {
   }
 
   const handleImageUpload = (image) => {
-    fileReader = new FileReader()
-    fileReader.onloadend = handleImageRead
-    fileReader.readAsDataURL(image)
+    new Compressor(image, {
+      quality: 0.7,
+      mimeType: 'image/webp',
+      maxWidth: 780,
+      maxHeight: 780,
+      minWidth: 100,
+      minHeight: 100,
+      success(result) {
+        fileReader = new FileReader()
+        fileReader.readAsDataURL(result)
+        fileReader.onloadend = handleImageRead
+      }
+    })
   }
 
   async function generateIdentifiers() {
@@ -168,7 +179,7 @@ const Index = () => {
             <input
               type='file'
               multiple={false}
-              accept='image/jpeg'
+              accept='image/*'
               onChange={e => handleImageUpload(e.target.files[0])}/>
           </div>
           <div className={styles.elementButtonsWrapper}>

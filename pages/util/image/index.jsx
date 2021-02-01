@@ -48,7 +48,7 @@ export async function getServerSideProps() {
   let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/image/info')
   let images = await res.json()
 
-  return { props: { images }, revalidate: 5 }
+  return { props: { images } }
 }
 
 export default Index

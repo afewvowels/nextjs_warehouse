@@ -6,6 +6,7 @@ import Head from 'next/head'
 import randomIcon from '@components/modules/random/icon/randomIcon'
 import { v4 as uuidv4 } from 'uuid'
 var TinyURL = require('tinyurl')
+import Compressor from 'compressorjs'
 
 import styles from '@styles/elements.module.css'
 
@@ -58,9 +59,19 @@ const Index = ({bin, image}) => {
   }
 
   const handleImageUpload = (newImg) => {
-    fileReader = new FileReader()
-    fileReader.onloadend = handleImageRead
-    fileReader.readAsDataURL(newImg)
+    new Compressor(newImg, {
+      quality: 0.7,
+      mimeType: 'image/webp',
+      maxWidth: 780,
+      maxHeight: 780,
+      minWidth: 100,
+      minHeight: 100,
+      success(result) {
+        fileReader = new FileReader()
+        fileReader.readAsDataURL(result)
+        fileReader.onloadend = handleImageRead
+      }
+    })
   }
 
   const handleUpdate = async () => {
@@ -178,7 +189,7 @@ const Index = ({bin, image}) => {
             name='imageUpload'
             type='file'
             multiple={false}
-            accept='image/jpeg,image/webp,image/png'
+            accept='image/*'
             onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <div className={styles.elementButtonsWrapper}>
