@@ -16,8 +16,8 @@ function BinImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
   if (isLoading) return (
-    <span className={styles.statusIconWrapper}>
-      <FontAwesomeIcon icon={['far', 'atom-alt']} spin />
+    <span className={`${styles.statusIconWrapper} ${styles.statusIconWrapperAnimated}`}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} />
     </span>)
   if (isError) return (
     <span className={styles.statusIconWrapper}>

@@ -16,12 +16,12 @@ function BinImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
   if (isLoading) return (
-    <span className={styles.statusIconWrapper}>
-      <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
+    <span className={`${styles.statusIconWrapper} ${styles.statusIconWrapperAnimated}`}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} />
     </span>)
   if (isError) return (
     <span className={styles.statusIconWrapper}>
-      <FontAwesomeIcon icon={['far', 'exclamation']} size='sm' />
+      <FontAwesomeIcon icon={['far', 'exclamation']} />
     </span>)
   return (<Link href={`/bin/${item.bin_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
 }
@@ -30,8 +30,8 @@ function PrototypeImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
 
   if (isLoading) return (
-    <span className={styles.statusIconWrapper}>
-      <FontAwesomeIcon icon={['far', 'atom-alt']} spin />
+    <span className={`${styles.statusIconWrapper} ${styles.statusIconWrapperAnimated}`}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} />
     </span>)
   if (isError) return (
     <span className={styles.statusIconWrapper}>
