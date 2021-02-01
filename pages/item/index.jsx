@@ -8,7 +8,7 @@ const Items = ({items, category, bin}) => {
     {items.map((item, key) => {
       if (key < Math.floor(items.length/2)){
         if (category == 'all' && bin == 'all') {
-          return <Item item={item} key={key}/>
+          return null
         } else if (item.category_uuid == category || item.bin_uuid == bin) {
           return <Item item={item} key={key}/>
         }
@@ -18,7 +18,7 @@ const Items = ({items, category, bin}) => {
     {items.map((item, key) => {
       if (key >= Math.floor(items.length/2)){
         if (category == 'all' && bin == 'all') {
-          return <Item item={item} key={key}/>
+          return null
         } else if (item.category_uuid == category || item.bin_uuid == bin) {
           return <Item item={item} key={key}/>
         }
@@ -32,7 +32,7 @@ const Items1 = ({items, category, bin}) => {
     {items.map((item, key) => {
       if (key % 2 == 0){
         if (category == 'all' && bin == 'all') {
-          return <Item item={item} key={key}/>
+          return null
         } else if (item.category_uuid == category || item.bin_uuid == bin) {
           return <Item item={item} key={key}/>
         }
@@ -46,7 +46,7 @@ const Items2 = ({items, category, bin}) => {
     {items.map((item, key) => {
       if (key % 2 == 1){
         if (category == 'all' && bin == 'all') {
-          return <Item item={item} key={key}/>
+          return  null
         } else if (item.category_uuid == category || item.bin_uuid == bin) {
           return <Item item={item} key={key}/>
         }
@@ -105,18 +105,28 @@ const Index = ({items, categories, bins}) => {
         <h3>Category Select</h3>
         <select
           value={category}
-          onChange={e => set_category(e.target.value)}
+          onChange={e => {
+            set_category(e.target.value)
+            set_bin('all')
+          }}
           ref={categoryRef}></select>
       </span>
       <span>
         <h3>Bin Select</h3>
         <select
           value={bin}
-          onChange={e => set_bin(e.target.value)}
+          onChange={e => {
+            set_bin(e.target.value)
+            set_category('all')
+          }}
           ref={binsRef}></select>
       </span>
     </section>
     <section className={styles.elementWrapper}>
+      {(bin == 'all' && category == 'all') ? (
+        <div style={{gridColumn: '1/3'}}>
+          <h3 style={{textAlign: 'center', fontSize: '2.0rem'}}>Select a Bin or Category</h3>
+        </div>) : null}
       {(size > 666) ? <><Items1 items={items} category={category} bin={bin}/>
         <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin}/>}
     </section>

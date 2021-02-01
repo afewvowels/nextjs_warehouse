@@ -441,6 +441,10 @@
   }
 }
 
+.statusIconWrapperAnimated {
+  width: 100%;
+}
+
 .statusIconWrapperAnimated > svg {
   animation: rotation 2.5s infinite linear;
 }

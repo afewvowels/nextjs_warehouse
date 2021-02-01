@@ -172,8 +172,10 @@ const Index = ({bin, image}) => {
         </div>
         <div className={styles.elementEntryRow}>
           <div ref={imageRef} className={styles.elementImageWrapper}></div>
-          <label>Image</label>
+          <label htmlFor='imageUpload'>Image</label>
           <input
+            id='imageUpload'
+            name='imageUpload'
             type='file'
             multiple={false}
             accept='image/jpeg,image/webp,image/png'

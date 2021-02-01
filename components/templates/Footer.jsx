@@ -55,11 +55,8 @@ const Footer = () => {
     palette = localStorage.getItem('palette')
     try {
       palette = palette.split(',')
-      let newPalette = new Array(4)
-      palette.forEach((item, key) =>(
-        newPalette[key] = item
-      ))
-      set_palette(newPalette)
+      if (palette.length != 4) throw new Error
+      set_palette(palette)
     } catch {
       console.log('error getting palette')
     }
