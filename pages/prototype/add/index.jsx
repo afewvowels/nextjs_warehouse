@@ -6,6 +6,7 @@ import randomIcon from '@components/modules/random/icon/randomIcon'
 import randomWords from '@components/modules/random/urls/randomWords'
 import { v4 as uuidv4 } from 'uuid'
 import Compressor from 'compressorjs'
+import { isMobile } from 'react-device-detect'
 
 import styles from '@styles/elements.module.css'
 
@@ -100,13 +101,14 @@ const Index = ({categories, tags}) => {
   }
 
   const handleImageUpload = (image) => {
+    const mime = (isMobile) ? 'image/jpeg' : 'image/webp'
     new Compressor(image, {
       maxWidth: 780,
       maxHeight: 780,
       minWidth: 100,
       minHeight: 100,
       quality: 0.7,
-      mimeType: 'image/webp',
+      mimeType: mime,
       success(result) {
         fileReader = new FileReader()
         fileReader.readAsDataURL(result)
@@ -240,7 +242,7 @@ const Index = ({categories, tags}) => {
           <input
             type='file'
             multiple={false}
-            accept='image/jpeg,image/png,image/tiff,image/svg+xml,image/bmp'
+            accept='image/*'
             onChange={e => handleImageUpload(e.target.files[0])}/>
         </div>
         <span className={styles.elementButtonsWrapper}>
