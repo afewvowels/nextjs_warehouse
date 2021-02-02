@@ -14,8 +14,14 @@ function useImage(uuid) {
 function FoundImage({uuid}) {
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
-  if (isError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (isLoading) return (
+    <span className={styles.statusIconWrapperSmall}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} />
+    </span>)
+  if (isError) return (
+    <span className={styles.statusIconWrapperSmall}>
+      <FontAwesomeIcon icon={['far', 'exclamation']} />
+    </span>)
   return <><img src={image.base64} alt={uuid} /></>
 }
 
@@ -28,8 +34,14 @@ function ImageInUse({uuid}) {
   const { inUse, inUseIsLoading, inUseIsError } = useImageInUse(uuid)
   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading || inUseIsLoading) return <FontAwesomeIcon icon={['far', 'atom-alt']} />
-  if (isError || inUseIsError) return <FontAwesomeIcon icon={['far', 'exclamation']} />
+  if (isLoading || inUseIsLoading) return (
+    <span className={styles.statusIconWrapperSmall}>
+      <FontAwesomeIcon icon={['far', 'atom-alt']} />
+    </span>)
+  if (isError || inUseIsError) return (
+    <span className={styles.statusIconWrapperSmall}>
+      <FontAwesomeIcon icon={['far', 'exclamation']} />
+    </span>)
   if (image == undefined) return <p>Image undefined</p>
   if (inUse.in_use) {
     return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
@@ -48,6 +60,7 @@ const Image = ({image}) => {
 
     if (delRes.status == 201) {
       console.log('delete sucessful')
+      set_collapsed(true)
       Router.push('/util/image')
     } else {
       console.error('error while deleting image')

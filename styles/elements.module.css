@@ -448,3 +448,9 @@
 .statusIconWrapperAnimated > svg {
   animation: rotation 2.5s infinite linear;
 }
+
+.statusIconWrapperSmall > svg {
+  width: 1.1rem !important;
+  height: auto;
+  animation: rotation 2.5s infinite linear;
+}
