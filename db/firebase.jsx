@@ -14,7 +14,7 @@ if (!admin.apps.length) {
       clientX509CertUrl: process.env.CLIENT_X509_CERT_URL
     }),
     databaseURL: 'https://inventory-aac80.firebaseio.com'
-  });
+  })
   admin.firestore().settings({ ignoreUndefinedProperties: true })
 }
 

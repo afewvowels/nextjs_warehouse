@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 import Router, { useRouter } from 'next/router'
-import PropTypes from 'prop-types'
+import { GTMPageView } from '@utils/gtm.ts'
 
 import { initialize } from '@components/modules/random/palette/palette'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -21,15 +21,22 @@ const MyApp = ({ Component, pageProps }) => {
   const [loading, set_loading] = useState(false)
   const router = useRouter()
 
-  Router.events.on('routeChangeStart', () => set_loading(true))
-  Router.events.on('routeChangeComplete', () => set_loading(false))
-  Router.events.on('routeChangeError', () => set_loading(false))
-
   useEffect(() => {
+    const handleRouteChange = (url) => GTMPageView(url)
+
+    Router.events.on('routeChangeStart', () => {
+      set_loading(true)
+    })
+    Router.events.on('routeChangeComplete', () => {
+      set_loading(false)
+      handleRouteChange
+    })
+    Router.events.on('routeChangeError', () => set_loading(false))
     if (!router.pathname.includes('print')) {
       initialize()
     }
-  }, [router.isReady])
+    return Router.events.off('routeChangeComplete', handleRouteChange)
+  }, [])
 
   if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>)
 
@@ -51,10 +58,6 @@ const MyApp = ({ Component, pageProps }) => {
       <Component {...pageProps} />
       <Loading loading={loading} />
     </Layout>)
-}
-MyApp.propTypes = {
-  Component: PropTypes.any.isRequired,
-  pageProps: PropTypes.any.isRequired
 }
 
 export default MyApp

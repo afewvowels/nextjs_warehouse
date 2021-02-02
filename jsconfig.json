@@ -10,7 +10,7 @@
             "@random/*": ["components/modules/random/*"],
             "@middlewares/*": ["_archive/middlewares/*"],
             "@lib/*": ["lib/*"],
-            "@util/*": ["util/*"]
+            "@utils/*": ["utils/*"]
         }
     }
 }
