@@ -48,7 +48,7 @@ const Index = ({bin, image}) => {
   }
 
   const generateTinyUrl = async() => {
-    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${uuid}`, function(res) {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/viewItems/${uuid}`, function(res) {
       set_tinyurl(res.substring(8))
     })
   }

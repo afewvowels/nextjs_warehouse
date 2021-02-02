@@ -117,7 +117,10 @@ const Bin = ({bin}) => {
         </div>
         <div className={styles.elementButtonsWrapperGrid}>
           <Link href={print_url}>
-            <button className={`${styles.elementButton} ${styles.elementButtonWide}`}>Print</button>
+            <button className={`${styles.elementButton}`}>Print</button>
+          </Link>
+          <Link href={`/bin/viewItems/${bin.uuid}`}>
+            <button className={`${styles.elementButton}`}>Items</button>
           </Link>
           <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
           <Link href={edit_url}>

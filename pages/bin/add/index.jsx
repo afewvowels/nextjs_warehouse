@@ -115,7 +115,7 @@ const Index = () => {
     set_uuid(newUuid)
     set_readable_name(bin_name)
     set_name(bin_name)
-    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/${newUuid}`, function(res) {
+    await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}bin/viewItems/${newUuid}`, function(res) {
       set_tinyurl(res.substring(8))
     })
   }

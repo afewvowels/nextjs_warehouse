@@ -9,7 +9,7 @@ handler.get(async (req, res) => {
     .get()
     .then(async (items) => {
       let itemsArr = []
-      items.forEach(async (item, key) => {
+      items.forEach(async (item) => {
         itemsArr.push(item.data())
       })
       res.status(201).json(itemsArr)
