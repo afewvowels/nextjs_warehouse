@@ -68,8 +68,7 @@
 }
 
 .elementHeaderRowItems {
-  grid-template-columns: 3.4rem minmax(auto, 3fr);
-  grid-gap: 0.5rem;
+  grid-template-columns: 3.4rem 1fr;
   cursor: pointer;
 }
 
@@ -83,14 +82,16 @@
 }
 
 .elementHeaderRowItems > span:last-of-type {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1.5rem;
+  grid-template-rows: 1fr;
+  grid-gap: 0.333rem;
   align-items: center;
-  justify-content: space-between;
 }
 
 .elementHeaderRow > h3, .elementHeaderRowItems > span > h3 {
   justify-self: flex-start;
+  width: 100%;
 }
 
 .elementHeaderRowItemIconPrototype {

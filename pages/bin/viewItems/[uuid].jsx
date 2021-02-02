@@ -49,11 +49,11 @@ function useSize() {
   return size
 }
 
-const Index = ({items}) => {
+const Index = ({items, name}) => {
   const [size] = useSize()
 
   return(<>
-    <SimpleTitle title='Items' link='bin' />
+    <SimpleTitle title={`${name} | Items List`} link='bin' />
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Items1 items={items} />
         <Items2 items={items} /></> : <Items items={items} />}
@@ -71,6 +71,8 @@ export async function getServerSideProps({params}) {
   let binsRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/bin')
   let bins = await binsRes.json()
 
+  let name = ''
+
   items.forEach((item) => {
     prototypes.forEach((prototype) => {
       if (prototype.uuid == item.prototype_uuid) {
@@ -84,6 +86,7 @@ export async function getServerSideProps({params}) {
 
     bins.forEach((bin) => {
       if (bin.uuid == item.bin_uuid) {
+        name = bin.name
         item.bin_name = bin.name
         item.bin_image_uuid = bin.image_uuid
         item.bin_icon = bin.icon
@@ -92,7 +95,9 @@ export async function getServerSideProps({params}) {
     })
   })
 
-  return { props: { items } }
+  items.sort((a, b) => (a.prototype_name > b.prototype_name) ? 1 : -1)
+
+  return { props: { items, name } }
 }
 
 export default Index

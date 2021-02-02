@@ -167,6 +167,8 @@ export async function getServerSideProps() {
     })
   })
 
+  items.sort((a, b) => (a.prototype_name > b.prototype_name) ? 1 : -1)
+
   return { props: { items, categories, bins } }
 }
 
