@@ -29,13 +29,13 @@ const MyApp = ({ Component, pageProps }) => {
     })
     Router.events.on('routeChangeComplete', () => {
       set_loading(false)
-      handleRouteChange
+      handleRouteChange(router.pathname)
     })
     Router.events.on('routeChangeError', () => set_loading(false))
     if (!router.pathname.includes('print')) {
       initialize()
     }
-    return Router.events.off('routeChangeComplete', handleRouteChange)
+    return Router.events.off('routeChangeComplete', handleRouteChange(router.pathname))
   }, [])
 
   if (router.pathname == '/' || router.pathname.includes('print')) return (<Component {...pageProps}></Component>)
