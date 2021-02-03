@@ -77,8 +77,16 @@ const Category = ({category, tags}) => {
           <p>Description</p>
           <p>{category.description}</p>
         </div>
-        <div className={styles.elementInfoRow}>
-          <p>Tag Names</p>
+        <div className={`${styles.elementInfoRow} ${styles.elementInfoRowIncrement}`}>
+          <span>
+            <p>Tag Names</p>
+            <Link href='/group/tag/add'>
+              <span className={styles.elementIncrementWrapper}>
+                <FontAwesomeIcon icon={['fas', 'plus']}/>
+                <FontAwesomeIcon icon={['fas', 'plus']}/>
+              </span>
+            </Link>
+          </span>
           <ul ref={tagNamesRef} className={styles.elementListCloud}></ul>
         </div>
         <div className={styles.elementButtonsWrapperGrid}>

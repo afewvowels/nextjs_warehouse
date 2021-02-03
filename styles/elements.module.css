@@ -133,16 +133,22 @@
   grid-gap: 0.35rem;
 }
 
+.elementInfoRowIncrement > span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .elementInfoImage {
   cursor: pointer;
 }
 
-.elementEntryRow > *, .elementInfoRow > * {
+.elementEntryRow > *, .elementInfoRow > *, .elementInfoRow > span > p {
   margin: 0;
   padding: 0;
 }
 
-.elementInfoRow > p:first-child {
+.elementInfoRow > p:first-child, .elementInfoRow > span > p {
   font-weight: var(--font-weight-heavy);
   font-size: var(--font-size);
   text-decoration: underline;
@@ -455,4 +461,17 @@
   width: 1.1rem !important;
   height: auto;
   animation: rotation 2.5s infinite linear;
+}
+
+.elementIncrementWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.08rem;
+  cursor: pointer;
+}
+
+.elementIncrementWrapper > svg {
+  width: 0.65rem;
+  height: auto;
+  margin-left: 0.1rem;
 }

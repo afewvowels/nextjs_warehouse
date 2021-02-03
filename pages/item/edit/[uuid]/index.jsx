@@ -187,6 +187,7 @@ const ViewItem = ({item, bins}) => {
             readOnly={true}
             onChange={e => set_tinyurl(e.target.value)}/>
         </div>
+        <button className={`${styles.elementButton}`} onClick={generateTinyUrl}>TinyURL</button>
         <div className={styles.elementEntryRow}>
           <label>Notes</label>
           <input
@@ -194,7 +195,6 @@ const ViewItem = ({item, bins}) => {
             value={notes}
             onChange={e => set_notes(e.target.value)}/>
         </div>
-        <button className={`${styles.elementButton}`} onClick={generateTinyUrl}>TinyURL</button>
         <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>
           <p>{check_in_out ? 'True' : 'False'}</p>

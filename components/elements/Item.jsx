@@ -132,7 +132,7 @@ const Item = ({item}) => {
         </div>
         <div className={styles.elementInfoRow}>
           <p>Notes</p>
-          <p>{(item.notes == '') ? 'None' : item.notes}</p>
+          <p>{(item.notes) ? (item.notes == '') ? 'None' : item.notes : 'None' }</p>
         </div>
         <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>

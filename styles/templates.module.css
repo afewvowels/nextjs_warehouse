@@ -79,6 +79,7 @@
   .navbarMain > ul {
     justify-self: center;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .navbarMain > ul > li {
