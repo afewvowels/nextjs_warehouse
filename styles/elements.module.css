@@ -143,7 +143,7 @@
   cursor: pointer;
 }
 
-.elementEntryRow > *, .elementInfoRow > *, .elementInfoRow > span > p {
+.elementEntryRow > *, .elementInfoRow > *, .elementInfoRow > span > * {
   margin: 0;
   padding: 0;
 }
@@ -472,6 +472,6 @@
 
 .elementIncrementWrapper > svg {
   width: 0.65rem;
-  height: auto;
-  margin-left: 0.1rem;
+  height: 0.65rem;
+  margin-left: 0.07rem;
 }

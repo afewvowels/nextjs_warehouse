@@ -4,6 +4,9 @@ import Item from '@components/elements/Item'
 import React, { useLayoutEffect, useState, useCallback } from 'react'
 import { useTrail, animated } from 'react-spring'
 import { trailSet } from '@utils/springParams'
+// import useSWR from 'swr'
+
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
 const Items = ({items, category, bin}) => {
