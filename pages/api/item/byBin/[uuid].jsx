@@ -58,13 +58,15 @@ handler.get(async (req, res) => {
   })
 
   let outputArr = []
-  for (const [key, value] of Object.entries(count)) {
-    let inBin = 0
-    try {
+  for (const [key, value] of Object.entries(countAll)) {
+    let inBin
+
+    if (count[key]) {
       inBin = count[key]
-    } catch {
-      console.log(`no items for ${key} found in bin ${uuid}`)
+    } else {
+      inBin = 0
     }
+
     outputArr.push([`${key}`, `${inBin}`, `${value}`])
   }
 

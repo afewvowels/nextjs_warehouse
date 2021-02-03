@@ -241,7 +241,7 @@
   font-size: var(--font-size-small);
 }
 
-.elementButton:hover {
+.elementButton:active {
   background-color: var(--foreground-color);
   color: var(--background-color);
 }
