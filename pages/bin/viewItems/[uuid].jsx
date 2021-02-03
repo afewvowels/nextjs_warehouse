@@ -17,7 +17,7 @@ const Items = ({items}) => {
     {trail.map((props,index) => {
       if (index < Math.floor(items.length/2)) {
         set(trailSet.endSimple)
-        return <animated.span style={props}><Item item={items[index]} key={index}/></animated.span>
+        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
       }
     })}
   </div><div className={styles.elementWrapperColumn}>
@@ -25,7 +25,7 @@ const Items = ({items}) => {
     {trail.map((props,index) => {
       if (index >= Math.floor(items.length/2)) {
         set(trailSet.endSimple)
-        return <animated.span style={props}><Item item={items[index]} key={index}/></animated.span>
+        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
       }
     })}
   </div></>)
@@ -43,7 +43,7 @@ const Items1 = ({items}) => {
     {trail.map((props,index) => {
       if (index % 2 == 0) {
         set(trailSet.endLR)
-        return <animated.span style={props}><Item item={items[index]} key={index}/></animated.span>
+        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
       }
     })}
   </div>)
@@ -61,7 +61,7 @@ const Items2 = ({items}) => {
     {trail.map((props,index) => {
       if (index % 2 == 1) {
         set(trailSet.endLR)
-        return <animated.span style={props}><Item item={items[index]} key={index}/></animated.span>
+        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
       }
     })}
   </div>)
