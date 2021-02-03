@@ -9,7 +9,7 @@ const trailParams = {
 export const trailSet = {
   configLR: {
     mass: 2,
-    tension: 250,
+    tension: 300,
     friction: 30,
     velocity: 0,
     precision: 0.01,
