@@ -89,7 +89,7 @@ const Index = ({items, name}) => {
   const [size] = useSize()
 
   return(<>
-    <SimpleTitle title={`${name} | Items List`} link='bin' />
+    <SimpleTitle title={`${name}`} link='bin' />
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Items1 items={items} />
         <Items2 items={items} /></> : <Items items={items} />}
