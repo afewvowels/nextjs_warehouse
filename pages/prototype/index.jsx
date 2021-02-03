@@ -2,25 +2,39 @@ import Title from '@templates/Title'
 import Prototype from '@components/elements/Prototype'
 import styles from '@styles/elements.module.css'
 import React, { useLayoutEffect, useState, useCallback } from 'react'
+import { useTrail, animated } from 'react-spring'
+import { trailSet } from '@utils/springParams'
 
 const Prototypes = ({prototypes, categories, tags, category}) => {
+  const [trail, set] = useTrail(prototypes.length, () => ({
+    config: trailSet.configSimple,
+    from: trailSet.fromSimple,
+    to: trailSet.endSimple
+  }))
+
   return(<><div className={styles.elementWrapperColumn}>
-    {prototypes.map((prototype, key) => {
-      if (key < Math.floor(prototypes.length/2)) {
+    {set(trailSet.fromSimple)}
+    {trail.map((props,index) => {
+      if (index < Math.floor(prototypes.length/2)) {
         if (category == 'all') {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
-        } else if (category == prototype.category_uuid) {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+          set(trailSet.endSimple)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
+        } else if (category == prototypes[index].category_uuid) {
+          set(trailSet.endSimple)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
       }
     })}
   </div><div className={styles.elementWrapperColumn}>
-    {prototypes.map((prototype, key) => {
-      if (key >= Math.floor(prototypes.length/2)) {
+    {set(trailSet.fromSimple)}
+    {trail.map((props,index) => {
+      if (index >= Math.floor(prototypes.length/2)) {
         if (category == 'all') {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
-        } else if (category == prototype.category_uuid) {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+          set(trailSet.endSimple)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
+        } else if (category == prototypes[index].category_uuid) {
+          set(trailSet.endSimple)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
       }
     })}
@@ -28,13 +42,22 @@ const Prototypes = ({prototypes, categories, tags, category}) => {
 }
 
 const Prototypes1 = ({prototypes, categories, tags, category}) => {
+  const [trail, set] = useTrail(prototypes.length, () => ({
+    config: trailSet.configLR,
+    from: trailSet.fromLeft,
+    to: trailSet.endLR
+  }))
+
   return(<div className={styles.elementWrapperColumn}>
-    {prototypes.map((prototype, key) => {
-      if (key % 2 == 0) {
+    {set(trailSet.fromLeft)}
+    {trail.map((props,index) => {
+      if (index % 2 == 0) {
         if (category == 'all') {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
-        } else if (category == prototype.category_uuid) {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+          set(trailSet.endLR)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
+        } else if (category == prototypes[index].category_uuid) {
+          set(trailSet.endLR)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
       }
     })}
@@ -42,13 +65,22 @@ const Prototypes1 = ({prototypes, categories, tags, category}) => {
 }
 
 const Prototypes2 = ({prototypes, categories, tags, category}) => {
+  const [trail, set] = useTrail(prototypes.length, () => ({
+    config: trailSet.configLR,
+    from: trailSet.fromRight,
+    to: trailSet.endLR
+  }))
+
   return(<div className={styles.elementWrapperColumn}>
-    {prototypes.map((prototype, key) => {
-      if (key % 2 == 1) {
+    {set(trailSet.fromRight)}
+    {trail.map((props,index) => {
+      if (index % 2 == 1) {
         if (category == 'all') {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
-        } else if (category == prototype.category_uuid) {
-          return <Prototype prototype={prototype} categories={categories} tags={tags} key={key}/>
+          set(trailSet.endLR)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
+        } else if (category == prototypes[index].category_uuid) {
+          set(trailSet.endLR)
+          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
       }
     })}

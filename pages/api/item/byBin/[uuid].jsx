@@ -22,6 +22,8 @@ handler.get(async (req, res) => {
 
   let prototypesArr = []
   let prototypesNamesArr = []
+  let prototypesNamesTotalArr = []
+
   await db
     .collection('prototypes')
     .orderBy('name')
@@ -34,20 +36,36 @@ handler.get(async (req, res) => {
     .catch((err) => res.status(401).send(`error getting prototype names ${err.message}`))
 
   itemsArr.forEach(item => {
-    if (item.in_bin && item.bin_uuid == uuid) {
-      prototypesArr.forEach(prototype => {
-        if (prototype.uuid == item.prototype_uuid) {
+    prototypesArr.forEach(prototype => {
+      if (item.prototype_uuid == prototype.uuid) {
+        prototypesNamesTotalArr.push(prototype.name)
+        if (item.in_bin) {
           prototypesNamesArr.push(prototype.name)
         }
-      })
-    }
+        return
+      }
+    })
   })
 
   let count = {}
-  prototypesNamesArr.forEach(function(i) { count[i] = (count[i] || 0 ) + 1})
+  prototypesNamesArr.forEach(function(i) {
+    count[i] = (count[i] || 0 ) + 1
+  })
+
+  let countAll = {}
+  prototypesNamesTotalArr.forEach(function(i) {
+    countAll[i] = (countAll[i] || 0 ) + 1
+  })
+
   let outputArr = []
   for (const [key, value] of Object.entries(count)) {
-    outputArr.push(`${key} | ${value}`)
+    let inBin = 0
+    try {
+      inBin = count[key]
+    } catch {
+      console.log(`no items for ${key} found in bin ${uuid}`)
+    }
+    outputArr.push([`${key}`, `${inBin}`, `${value}`])
   }
 
   if (outputArr.length < 1) {

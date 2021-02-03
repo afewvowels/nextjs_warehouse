@@ -26,11 +26,11 @@ function PrototypeImage({uuid}) {
   return <img src={image.base64} alt={uuid}/>
 }
 
-const Prototype = ({prototype, categories, tags}) => {
+const Prototype = ({prototype, categories, tags, startOpen}) => {
   const [tag_names, set_tag_names] = useState([])
   const [category_name, set_category_name] = useState('')
   const [edit_url, set_edit_url] = useState('')
-  const [collapsed, set_collapsed] = useState(true)
+  const [collapsed, set_collapsed] = useState((startOpen) ? false : true)
 
   useEffect(() => {
     set_tag_names([])

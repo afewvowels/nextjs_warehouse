@@ -2,34 +2,70 @@ import Title from '@templates/Title'
 import Category from '@components/elements/Category'
 import Head from 'next/head'
 import React, { useLayoutEffect, useState } from 'react'
+import { useTrail, animated } from 'react-spring'
+import { trailSet } from '@utils/springParams'
 
 import styles from '@styles/elements.module.css'
 
 const Categories = ({categories, tags}) => {
+  const [trail, set] = useTrail(categories.length, () => ({
+    config: trailSet.configSimple,
+    from: trailSet.fromSimple,
+    to: trailSet.endSimple
+  }))
+
   return(<><div className={styles.elementWrapperColumn}>
-    {categories.map((category, key) => (
-      (key < Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
-    ))}
+    {set(trailSet.fromSimple)}
+    {trail.map((props,index) => {
+      if (index < Math.floor(categories.length/2)) {
+        set(trailSet.endSimple)
+        return <animated.span style={props} key={index}><Category category={categories[index]} tags={tags} /></animated.span>
+      }
+    })}
   </div><div className={styles.elementWrapperColumn}>
-    {categories.map((category, key) => (
-      (key >= Math.floor(categories.length/2)) ? <Category category={category} tags={tags} key={key} /> : null
-    ))}
+    {set(trailSet.fromSimple)}
+    {trail.map((props,index) => {
+      if (index >= Math.floor(categories.length/2)) {
+        set(trailSet.endSimple)
+        return <animated.span style={props} key={index}><Category category={categories[index]} tags={tags} /></animated.span>
+      }
+    })}
   </div></>)
 }
 
 const Categories1 = ({categories, tags}) => {
+  const [trail, set] = useTrail(categories.length, () => ({
+    config: trailSet.configLR,
+    from: trailSet.fromLeft,
+    to: trailSet.endLR
+  }))
+
   return(<div className={styles.elementWrapperColumn}>
-    {categories.map((category, key) => (
-      (key % 2 == 0) ? <Category category={category} tags={tags} key={key} /> : null
-    ))}
+    {set(trailSet.fromLeft)}
+    {trail.map((props,index) => {
+      if (index % 2 == 0) {
+        set(trailSet.endLR)
+        return <animated.span style={props} key={index}><Category category={categories[index]} tags={tags} /></animated.span>
+      }
+    })}
   </div>)
 }
 
 const Categories2 = ({categories, tags}) => {
+  const [trail, set] = useTrail(categories.length, () => ({
+    config: trailSet.configLR,
+    from: trailSet.fromRight,
+    to: trailSet.endLR
+  }))
+
   return(<div className={styles.elementWrapperColumn}>
-    {categories.map((category, key) => (
-      (key % 2 == 1) ? <Category category={category} tags={tags} key={key} /> : null
-    ))}
+    {set(trailSet.fromRight)}
+    {trail.map((props,index) => {
+      if (index % 2 == 1) {
+        set(trailSet.endLR)
+        return <animated.span style={props} key={index}><Category category={categories[index]} tags={tags} /></animated.span>
+      }
+    })}
   </div>)
 }
 

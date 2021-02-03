@@ -37,9 +37,15 @@ function ItemsList({uuid}) {
   if (itemsLoading) return <p>Loading items in bin...</p>
   if (itemsError) return <p>Error loading items</p>
 
+  items.sort()
+
   return (<>
     {items.map((item, key) => {
-      return <p key={key}>{item}</p>
+      {if (item.length == 3) {
+        return <p key={key}><span style={{fontWeight: 'bold'}}>{item[1]}/{item[2]}</span> - {item[0]}</p>
+      } else {
+        return <p key={key}>{item}</p>
+      }}
     })}
   </>)
 }

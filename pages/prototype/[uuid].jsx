@@ -8,7 +8,7 @@ const Index = ({prototype, categories, tags}) => {
   return (<>
     <SimpleTitle title='View Prototype'/>
     <section className={styles.elementWrapper}>
-      <Prototype prototype={prototype} categories={categories} tags={tags}/>
+      <Prototype prototype={prototype} categories={categories} tags={tags} startOpen={true}/>
     </section>
   </>)
 }
