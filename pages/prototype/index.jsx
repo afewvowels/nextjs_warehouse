@@ -15,11 +15,8 @@ const Prototypes = ({prototypes, categories, tags, category}) => {
   return(<><div className={styles.elementWrapperColumn}>
     {set(trailSet.fromSimple)}
     {trail.map((props,index) => {
-      if (index < Math.floor(prototypes.length/2)) {
-        if (category == 'all') {
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
-        } else if (category == prototypes[index].category_uuid) {
+      if (index <= Math.floor(prototypes.length/2)) {
+        if (category == 'all' || category == prototypes[index].category_uuid) {
           set(trailSet.endSimple)
           return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
@@ -28,11 +25,8 @@ const Prototypes = ({prototypes, categories, tags, category}) => {
   </div><div className={styles.elementWrapperColumn}>
     {set(trailSet.fromSimple)}
     {trail.map((props,index) => {
-      if (index >= Math.floor(prototypes.length/2)) {
-        if (category == 'all') {
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
-        } else if (category == prototypes[index].category_uuid) {
+      if (index > Math.floor(prototypes.length/2)) {
+        if (category == 'all' || category == prototypes[index].category_uuid) {
           set(trailSet.endSimple)
           return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
@@ -52,10 +46,7 @@ const Prototypes1 = ({prototypes, categories, tags, category}) => {
     {set(trailSet.fromLeft)}
     {trail.map((props,index) => {
       if (index % 2 == 0) {
-        if (category == 'all') {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
-        } else if (category == prototypes[index].category_uuid) {
+        if (category == 'all' || category == prototypes[index].category_uuid) {
           set(trailSet.endLR)
           return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }
@@ -75,10 +66,7 @@ const Prototypes2 = ({prototypes, categories, tags, category}) => {
     {set(trailSet.fromRight)}
     {trail.map((props,index) => {
       if (index % 2 == 1) {
-        if (category == 'all') {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
-        } else if (category == prototypes[index].category_uuid) {
+        if (category == 'all' || category == prototypes[index].category_uuid) {
           set(trailSet.endLR)
           return <animated.span style={props} key={index}><Prototype prototype={prototypes[index]} categories={categories} tags={tags}/></animated.span>
         }

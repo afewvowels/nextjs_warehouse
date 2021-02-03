@@ -107,7 +107,10 @@ export async function getServerSideProps({params}) {
   let binsRes = await fetch(process.env.NEXT_PUBLIC_URL + 'api/bin')
   let bins = await binsRes.json()
 
-  let name = ''
+  let binNameRes = await fetch(`${process.env.NEXT_PUBLIC_URL}api/bin/${params.uuid}`)
+  let binName = await binNameRes.json()
+
+  let name = binName.name
 
   items.forEach((item) => {
     prototypes.forEach((prototype) => {
@@ -122,7 +125,6 @@ export async function getServerSideProps({params}) {
 
     bins.forEach((bin) => {
       if (bin.uuid == item.bin_uuid) {
-        name = bin.name
         item.bin_name = bin.name
         item.bin_image_uuid = bin.image_uuid
         item.bin_icon = bin.icon
