@@ -57,6 +57,7 @@ const ViewItem = ({item, bins}) => {
   const [check_in_out, set_check_in_out] = useState(item.in_bin)
   const [error_msg, set_error_msg] = useState('')
   const [bin_uuid, set_bin_uuid] = useState(item.bin_uuid)
+  const [notes, set_notes] = useState(item.notes)
   const [tinyurl, set_tinyurl] = useState(item.tinyurl)
 
   const deleteItem = async () => {
@@ -185,6 +186,13 @@ const ViewItem = ({item, bins}) => {
             value={tinyurl}
             readOnly={true}
             onChange={e => set_tinyurl(e.target.value)}/>
+        </div>
+        <div className={styles.elementEntryRow}>
+          <label>Notes</label>
+          <input
+            type='text'
+            value={notes}
+            onChange={e => set_notes(e.target.value)}/>
         </div>
         <button className={`${styles.elementButton}`} onClick={generateTinyUrl}>TinyURL</button>
         <div className={styles.elementInfoRow}>

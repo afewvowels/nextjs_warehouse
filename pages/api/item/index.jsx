@@ -23,6 +23,7 @@ handler.post(async (req, res) => {
     prototype_uuid: req.body.prototype_uuid,
     bin_uuid: req.body.bin_uuid,
     in_bin: req.body.in_bin,
+    notes: req.body.notes,
     tinyurl: req.body.tinyurl
   }
 

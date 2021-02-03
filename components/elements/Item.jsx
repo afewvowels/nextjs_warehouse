@@ -131,6 +131,10 @@ const Item = ({item}) => {
           <BinImage uuid={item.bin_image_uuid} item={item}/>
         </div>
         <div className={styles.elementInfoRow}>
+          <p>Notes</p>
+          <p>{(item.notes == '') ? 'None' : item.notes}</p>
+        </div>
+        <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>
           <p>{check_in_out ? 'True' : 'False'}</p>
         </div>

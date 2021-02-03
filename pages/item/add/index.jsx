@@ -9,8 +9,9 @@ const Index = ({prototypes, bins, categories}) => {
   const [count, set_count] = useState(1)
   const [prototype_uuid, set_prototype_uuid] = useState('')
   const [bin_uuid, set_bin_uuid] = useState('')
-  const [error, set_error] = useState('')
   const [category_uuid, set_category_uuid] = useState('')
+  const [error, set_error] = useState('')
+  const [status, set_status] = useState('')
 
   const categoriesRef = useCallback(node => {
     if (node != null) {
@@ -55,6 +56,7 @@ const Index = ({prototypes, bins, categories}) => {
 
   const handleCreate = async () => {
     for (var i = 0; i < count; i++) {
+      set_status('Creating item, ' + (i + 1) + ' of ' + count)
       let newUuid = uuidv4()
       let tUrl = await TinyURL.shorten(`${process.env.NEXT_PUBLIC_URL}item/${newUuid}`)
       tUrl = tUrl.substring(8)
@@ -63,6 +65,7 @@ const Index = ({prototypes, bins, categories}) => {
         prototype_uuid: prototype_uuid,
         bin_uuid: bin_uuid,
         in_bin: true,
+        notes: '',
         tinyurl: tUrl
       }
 
@@ -74,7 +77,7 @@ const Index = ({prototypes, bins, categories}) => {
 
       if (itemRes.status == 201) {
         console.log('item created successfully')
-        set_error('Created item successfully, ' + (i + 1) + ' of ' + count)
+        set_status('Created item successfully, ' + (i + 1) + ' of ' + count)
       } else {
         console.error('error while creating item')
         set_error(await itemRes.text())
@@ -90,6 +93,7 @@ const Index = ({prototypes, bins, categories}) => {
     <section className={styles.elementWrapper}>
       <div className={styles.elementEntryRowsWrapper}>
         {error ? <p style={{color: 'red'}}>{error}</p> : null}
+        {status ? <p style={{color: 'green'}}>{status}</p> : null}
         <div className={styles.elementEntryRow}>
           <label>Category</label>
           <select className={styles.elementSelectDropdown}

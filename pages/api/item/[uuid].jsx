@@ -26,12 +26,13 @@ handler.post(async (req, res) => {
   const {
     query: { uuid }
   } = req
-  
+
   const item = {
     uuid: req.body.uuid,
     prototype_uuid: req.body.prototype_uuid,
     bin_uuid: req.body.bin_uuid,
     in_bin: req.body.in_bin,
+    notes: req.body.notes,
     tinyurl: req.body.tinyurl
   }
 

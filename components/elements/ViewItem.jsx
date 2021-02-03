@@ -66,7 +66,7 @@ const ViewItem = ({item}) => {
       console.log('delete sucessful')
       Router.push('/item')
     } else {
-      console.error('error while deleting item')
+      set_error_msg('Error deleting item')
     }
   }
 
@@ -82,11 +82,9 @@ const ViewItem = ({item}) => {
     })
 
     if (checkRes.status == 201) {
-      console.log('item status changed successfully')
       set_check_in_out(!check_in_out)
       set_error_msg('')
     } else {
-      console.error('error while changing item status')
       set_error_msg(checkRes.text())
     }
   }
@@ -112,6 +110,10 @@ const ViewItem = ({item}) => {
       </div>
       <div className={styles.elementInfoRow}>
         <PrototypeImage uuid={prototype.image_uuid}/>
+      </div>
+      <div className={styles.elementInfoRow}>
+        <p>Notes</p>
+        <p>{(item.notes == '') ? 'None' : item.notes}</p>
       </div>
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>
