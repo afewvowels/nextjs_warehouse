@@ -9,66 +9,60 @@ import styles from '@styles/elements.module.css'
 
 
 const Bins = ({bins}) => {
-  const [trail, set] = useTrail(bins.length, () => ({
+  const [trail] = useTrail(bins.length, () => ({
     config: trailSet.configSimple,
     from: trailSet.fromSimple,
     to: trailSet.endSimple
   }))
 
-  return(<>
+  return(
     <div className={styles.elementWrapperColumn}>
-      {set(trailSet.fromSimple)}
       {trail.map((props,index) => {
-        if (index < Math.floor(bins.length/2)){
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Bin bin={bins[index]}/></animated.span>
-        }
+        return <animated.span style={props} key={index}><Bin bin={bins[index]}/></animated.span>
       })}
-    </div>
-    <div className={styles.elementWrapperColumn}>
-      {set(trailSet.fromSimple)}
-      {trail.map((props,index) => {
-        if (index >= Math.floor(bins.length/2)){
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Bin bin={bins[index]}/></animated.span>
-        }
-      })}
-    </div>
-  </>)
+    </div>)
 }
 
 const Bins1 = ({bins}) => {
-  const [trail, set] = useTrail(bins.length, () => ({
+  let binsArr = []
+
+  bins.map((bin, index) => {
+    if (index % 2 == 0) {
+      binsArr.push(bin)
+    }
+  })
+
+  const [trail] = useTrail(binsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromLeft,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromLeft)}
     {trail.map((props,index) => {
-      if (index % 2 == 0) {
-        set(trailSet.endLR)
-        return <animated.span style={props} key={index}><Bin bin={bins[index]}/></animated.span>
-      }
+      return <animated.span style={props} key={index}><Bin bin={binsArr[index]}/></animated.span>
     })}
   </div>)
 }
 
 const Bins2 = ({bins}) => {
-  const [trail, set] = useTrail(bins.length, () => ({
+  let binsArr = []
+
+  bins.map((bin, index) => {
+    if (index % 2 == 1) {
+      binsArr.push(bin)
+    }
+  })
+
+  const [trail] = useTrail(binsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromRight,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromRight)}
     {trail.map((props,index) => {
-      if (index % 2 == 1) {
-        set(trailSet.endLR)
-        return <animated.span style={props} key={index}><Bin bin={bins[index]}/></animated.span>
-      }
+      return <animated.span style={props} key={index}><Bin bin={binsArr[index]}/></animated.span>
     })}
   </div>)
 }

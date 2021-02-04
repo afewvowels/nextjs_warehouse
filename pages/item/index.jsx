@@ -4,97 +4,87 @@ import Item from '@components/elements/Item'
 import React, { useLayoutEffect, useState, useCallback } from 'react'
 import { useTrail, animated } from 'react-spring'
 import { trailSet } from '@utils/springParams'
+
 // import useSWR from 'swr'
 
 // const fetcher = (...args) => fetch(...args).then(res => res.json())
 
+// const useItemsByCategory = (uuid) => {
+//   const { data, error } = useSWR(`/api/item/byCategory/${uuid}`, fetcher)
+//   return { items: data, isLoading: !error && !data, isError: error}
+// }
+
+// const useItemsByBin = (uuid) => {
+//   const { data, error } = useSWR(`/api/item/byBin/${uuid}`, fetcher)
+//   return { items: data, isLoading: !error && !data, isError: error }
+// }
 
 const Items = ({items, category, bin}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+  let itemsArr = []
+
+  items.map((item,index) => {
+    if (category == item.category_uuid || bin == item.bin_uuid) {
+      itemsArr.push(items[index])
+    }
+  })
+
+  const [trail] = useTrail(itemsArr.length, () => ({
     config: trailSet.configSimple,
     from: trailSet.fromSimple,
     to: trailSet.endSimple
   }))
 
   return(<><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
     {trail.map((props,index) => {
-      if (index < Math.floor(items.length/2)){
-        if (category == 'all' && bin == 'all') {
-          return null
-        } else if (items[index].category_uuid == category || items[index].bin_uuid == bin) {
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-        }
-      }
-    })}
-  </div><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
-    {trail.map((props,index) => {
-      if (index >= Math.floor(items.length/2)){
-        if (category == 'all' && bin == 'all') {
-          return null
-        } else if (items[index].category_uuid == category || items[index].bin_uuid == bin) {
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div></>)
 }
 
 const Items1 = ({items, category, bin}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+  let itemsArr = []
+
+  items.map((item,index) => {
+    if (index % 2 == 0) {
+      if (category == item.category_uuid || bin == item.bin_uuid) {
+        itemsArr.push(items[index])
+      }
+    }
+  })
+
+  const [trail] = useTrail(itemsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromLeft,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromLeft)}
     {trail.map((props,index) => {
-      if (index % 2 == 0){
-        if (category == 'all' && bin == 'all') {
-          return null
-        } else if (items[index].category_uuid == category || items[index].bin_uuid == bin) {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
     })}
   </div>)
-
-  // return(<div className={styles.elementWrapperColumn}>
-  //   {items.map((item, key) => {
-  //     if (key % 2 == 0){
-  //       if (category == 'all' && bin == 'all') {
-  //         return null
-  //       } else if (item.category_uuid == category || item.bin_uuid == bin) {
-  //         return <Item item={item} key={key}/>
-  //       }
-  //     }
-  //   })}
-  // </div>)
 }
 
 const Items2 = ({items, category, bin}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+  let itemsArr = []
+
+  items.map((item,index) => {
+    if (index % 2 == 0) {
+      if (category == item.category_uuid || bin == item.bin_uuid) {
+        itemsArr.push(items[index])
+      }
+    }
+  })
+
+  const [trail] = useTrail(itemsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromRight,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromRight)}
     {trail.map((props,index) => {
-      if (index % 2 == 1){
-        if (category == 'all' && bin == 'all') {
-          return  null
-        } else if (items[index].category_uuid == category || items[index].bin_uuid == bin) {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
     })}
   </div>)
 }

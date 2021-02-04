@@ -1,68 +1,70 @@
 import SimpleTitle from '@templates/SimpleTitle'
 import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
+import Bin from '@components/elements/Bin'
 import React, { useLayoutEffect, useState } from 'react'
 import { useTrail, animated } from 'react-spring'
 import { trailSet } from '@utils/springParams'
 
-const Items = ({items}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+const Items = ({items, bin}) => {
+
+  const [trail] = useTrail(items.length, () => ({
     config: trailSet.configSimple,
     from: trailSet.fromSimple,
     to: trailSet.endSimple
   }))
 
-  return(<><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
+  return(<div className={styles.elementWrapperColumn}>
+    <Bin bin={bin}/>
     {trail.map((props,index) => {
-      if (index < Math.floor(items.length/2)) {
-        set(trailSet.endSimple)
-        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-      }
+      return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
     })}
-  </div><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
-    {trail.map((props,index) => {
-      if (index >= Math.floor(items.length/2)) {
-        set(trailSet.endSimple)
-        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-      }
-    })}
-  </div></>)
+  </div>)
 }
 
-const Items1 = ({items}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+const Items1 = ({items, bin}) => {
+  let itemsArr = []
+
+  items.map((item,index) => {
+    if (index > 3 && index % 2 == 0) {
+      itemsArr.push(item)
+    }
+  })
+
+  const [trail] = useTrail(itemsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromLeft,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromLeft)}
+    <Bin bin={bin}/>
     {trail.map((props,index) => {
-      if (index % 2 == 0) {
-        set(trailSet.endLR)
-        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-      }
+      return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div>)
 }
 
 const Items2 = ({items}) => {
-  const [trail, set] = useTrail(items.length, () => ({
+  let itemsArr = []
+
+  items.map((item,index) => {
+    if (index <= 3) {
+      itemsArr.push(item)
+    } else if (index % 2 == 1) {
+      itemsArr.push(item)
+    }
+  })
+
+  const [trail] = useTrail(itemsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromRight,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromRight)}
     {trail.map((props,index) => {
-      if (index % 2 == 1) {
-        set(trailSet.endLR)
-        return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
-      }
+      return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div>)
 }
@@ -85,14 +87,14 @@ function useSize() {
   return size
 }
 
-const Index = ({items, name}) => {
+const Index = ({items, bin, name}) => {
   const [size] = useSize()
 
   return(<>
     <SimpleTitle title={`${name}`} link='bin' />
     <section className={styles.elementWrapper}>
-      {(size > 666) ? <><Items1 items={items} />
-        <Items2 items={items} /></> : <Items items={items} />}
+      {(size > 666) ? <><Items1 items={items} bin={bin} />
+        <Items2 items={items} /></> : <Items items={items} bin={bin} />}
     </section>
   </>)
 }
@@ -135,7 +137,7 @@ export async function getServerSideProps({params}) {
 
   items.sort((a, b) => (a.prototype_name > b.prototype_name) ? 1 : -1)
 
-  return { props: { items, name } }
+  return { props: { items, bin: binName, name } }
 }
 
 export default Index

@@ -6,71 +6,71 @@ import { useTrail, animated } from 'react-spring'
 import { trailSet } from '@utils/springParams'
 
 const Tags = ({tags, categories, category}) => {
-  const [trail, set] = useTrail(tags.length, () => ({
+  let tagsArr = []
+
+  tags.map((tag, index) => {
+    if (category == 'all' || tag.category_uuid == category) {
+      tagsArr.push(tags[index])
+    }
+  })
+
+  const [trail] = useTrail(tagsArr.length, () => ({
     config: trailSet.configSimple,
     from: trailSet.fromSimple,
     to: trailSet.endSimple
   }))
 
-  return(<><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
+  return(<div className={styles.elementWrapperColumn}>
     {trail.map((props,index) => {
-      if (index < Math.floor(tags.length/2)) {
-        if (category == 'all' || tags[index].category_uuid == category) {
-          set(trailSet.endSimple)
-          return <animated.span style={props} key={index}><Tag tag={tags[index]} categories={categories} /></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Tag tag={tagsArr[index]} categories={categories} /></animated.span>
     })}
-  </div><div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromSimple)}
-    {trail.map((props,index) => {
-      if (index >= Math.floor(tags.length/2)) {
-        if (category == 'all' || tags[index].category_uuid == category) {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Tag tag={tags[index]} categories={categories} /></animated.span>
-        }
-      }
-    })}
-  </div></>)
+  </div>)
 }
 
 const Tags1 = ({tags, categories, category}) => {
-  const [trail, set] = useTrail(tags.length, () => ({
+  let tagsArr = []
+
+  tags.map((tag, index) => {
+    if (index % 2 == 0) {
+      if (category == 'all' || tag.category_uuid == category) {
+        tagsArr.push(tags[index])
+      }
+    }
+  })
+
+  const [trail] = useTrail(tagsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromLeft,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromLeft)}
     {trail.map((props,index) => {
-      if (index % 2 == 0) {
-        if (category == 'all' || tags[index].category_uuid == category) {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Tag tag={tags[index]} categories={categories} /></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Tag tag={tagsArr[index]} categories={categories} /></animated.span>
     })}
   </div>)
 }
 
 const Tags2 = ({tags, categories, category}) => {
-  const [trail, set] = useTrail(tags.length, () => ({
+  let tagsArr = []
+
+  tags.map((tag, index) => {
+    if (index % 2 == 0) {
+      if (category == 'all' || tag.category_uuid == category) {
+        tagsArr.push(tags[index])
+      }
+    }
+  })
+
+  const [trail] = useTrail(tagsArr.length, () => ({
     config: trailSet.configLR,
     from: trailSet.fromRight,
     to: trailSet.endLR
   }))
 
   return(<div className={styles.elementWrapperColumn}>
-    {set(trailSet.fromRight)}
     {trail.map((props,index) => {
-      if (index % 2 == 1) {
-        if (category == 'all' || tags[index].category_uuid == category) {
-          set(trailSet.endLR)
-          return <animated.span style={props} key={index}><Tag tag={tags[index]} categories={categories} /></animated.span>
-        }
-      }
+      return <animated.span style={props} key={index}><Tag tag={tagsArr[index]} categories={categories} /></animated.span>
     })}
   </div>)
 }
