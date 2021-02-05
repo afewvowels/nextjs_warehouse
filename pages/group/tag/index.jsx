@@ -55,7 +55,7 @@ const Tags2 = ({tags, categories, category}) => {
   let tagsArr = []
 
   tags.map((tag, index) => {
-    if (index % 2 == 0) {
+    if (index % 2 == 1) {
       if (category == 'all' || tag.category_uuid == category) {
         tagsArr.push(tags[index])
       }

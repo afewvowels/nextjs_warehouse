@@ -1,6 +1,7 @@
 import Title from '@templates/Title'
 import styles from '@styles/elements.module.css'
 import Item from '@components/elements/Item'
+import Bin from '@components/elements/Bin'
 import React, { useLayoutEffect, useState, useCallback } from 'react'
 import { useTrail, animated } from 'react-spring'
 import { trailSet } from '@utils/springParams'
@@ -19,7 +20,7 @@ import { trailSet } from '@utils/springParams'
 //   return { items: data, isLoading: !error && !data, isError: error }
 // }
 
-const Items = ({items, category, bin}) => {
+const Items = ({items, category, bin, bin_obj}) => {
   let itemsArr = []
 
   items.map((item,index) => {
@@ -35,13 +36,14 @@ const Items = ({items, category, bin}) => {
   }))
 
   return(<><div className={styles.elementWrapperColumn}>
+    {(bin != 'all') ? <Bin bin={bin_obj}/> : null}
     {trail.map((props,index) => {
       return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div></>)
 }
 
-const Items1 = ({items, category, bin}) => {
+const Items1 = ({items, category, bin, bin_obj}) => {
   let itemsArr = []
 
   items.map((item,index) => {
@@ -59,8 +61,9 @@ const Items1 = ({items, category, bin}) => {
   }))
 
   return(<div className={styles.elementWrapperColumn}>
+    {(bin != 'all') ? <Bin bin={bin_obj}/> : null}
     {trail.map((props,index) => {
-      return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
+      return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div>)
 }
@@ -69,7 +72,7 @@ const Items2 = ({items, category, bin}) => {
   let itemsArr = []
 
   items.map((item,index) => {
-    if (index % 2 == 0) {
+    if (index % 2 == 1) {
       if (category == item.category_uuid || bin == item.bin_uuid) {
         itemsArr.push(items[index])
       }
@@ -84,7 +87,7 @@ const Items2 = ({items, category, bin}) => {
 
   return(<div className={styles.elementWrapperColumn}>
     {trail.map((props,index) => {
-      return <animated.span style={props} key={index}><Item item={items[index]}/></animated.span>
+      return <animated.span style={props} key={index}><Item item={itemsArr[index]}/></animated.span>
     })}
   </div>)
 }
@@ -110,6 +113,7 @@ function useSize() {
 const Index = ({items, categories, bins}) => {
   const [category, set_category] = useState('all')
   const [bin, set_bin] = useState('all')
+  const [bin_obj, set_bin_obj] = useState({})
   const [size] = useSize()
 
   const categoryRef = useCallback(node => {
@@ -132,6 +136,15 @@ const Index = ({items, categories, bins}) => {
     }
   }, [bins])
 
+  const findSelectedBin = (uuid) => {
+    bins.forEach(bin => {
+      if (bin.uuid == uuid) {
+        set_bin_obj(bin)
+        return
+      }
+    })
+  }
+
   return(<>
     <Title title='items' addUrl='/item/add' />
     <section className={styles.elementSelectWrapper}>
@@ -142,6 +155,7 @@ const Index = ({items, categories, bins}) => {
           onChange={e => {
             set_category(e.target.value)
             set_bin('all')
+            set_bin_obj({})
           }}
           ref={categoryRef}></select>
       </span>
@@ -152,6 +166,7 @@ const Index = ({items, categories, bins}) => {
           onChange={e => {
             set_bin(e.target.value)
             set_category('all')
+            findSelectedBin(e.target.value)
           }}
           ref={binsRef}></select>
       </span>
@@ -161,8 +176,8 @@ const Index = ({items, categories, bins}) => {
         <div style={{gridColumn: '1/3'}}>
           <h3 style={{textAlign: 'center', fontSize: '2.0rem'}}>Select a Bin or Category</h3>
         </div>) : null}
-      {(size > 666) ? <><Items1 items={items} category={category} bin={bin}/>
-        <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin}/>}
+      {(size > 666) ? <><Items1 items={items} category={category} bin={bin} bin_obj={bin_obj} />
+        <Items2 items={items} category={category} bin={bin}/></> : <Items items={items} category={category} bin={bin} bin_obj={bin_obj} />}
     </section>
   </>)
 }

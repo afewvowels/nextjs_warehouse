@@ -3,7 +3,7 @@ import { easePolyInOut } from 'd3-ease'
 const trailParams = {
   'horizontal': -250,
   'translate': '100px',
-  'blur': '0',
+  'blur': '3px',
 }
 
 export const trailSet = {
@@ -16,9 +16,9 @@ export const trailSet = {
     easing: easePolyInOut(3.0)
   },
   configSimple: {
-    mass: 1,
-    tension: 250,
-    friction: 20,
+    mass: 2,
+    tension: 500,
+    friction: 45,
     velocity: 0,
     precision: 0.01,
     easing: easePolyInOut(3.0)
@@ -38,7 +38,7 @@ export const trailSet = {
   fromSimple: {
     width: '100%',
     opacity: 0,
-    transform: `translate3d(-${trailParams.translate}, 0, 0)`,
+    transform: `translate3d(0, ${trailParams.translate}, 0)`,
     filter: `blur(${trailParams.blur})`
   },
   endLR: {
