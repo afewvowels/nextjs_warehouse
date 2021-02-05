@@ -1,204 +1,63 @@
-.elementHeader {
-  margin: 0;
-  padding: 0;
-}
-
-.elementWrapper {
+.elementButtonsWrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
-  grid-gap: 0.666rem;
-}
+  grid-gap: 0.5rem; }
 
-.elementWrapperPalettes {
-  grid-template-columns: 1fr;
-}
-
-.elementWrapperWide {
-  grid-template-columns: 1fr;
-}
-
-.elementWrapperColumn {
+.elementButtonsWrapperGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
-  grid-row-gap: 0.666rem;
-  align-items: flex-start;
-  justify-items: center;
-  width: 100%;
-  height: fit-content;
-}
+  grid-gap: 0.5rem; }
 
-.elementRowWrapperAnimated {
-  width: 100%;
-  height: fit-content;
-}
-
-@media only screen and (max-width: 666px) {
-  .elementWrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.elementHeaderRowCollapsible {
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.elementHeaderRow, .elementHeaderRowItems {
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start; */
-  display: grid;
-  grid-template-columns: 1.5rem minmax(auto, 3fr) auto;
-  grid-template-rows: auto;
-  grid-gap: 0.35rem;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 100%;
-}
-
-.elementHeaderRowCollapsible > svg:first-of-type {
-  align-self: center;
-  justify-self: center;
-}
-
-.elementHeaderRowItems {
-  grid-template-columns: 3.4rem 1fr;
-  cursor: pointer;
-}
-
-.elementHeaderRowItems > span:first-of-type {
-  display: grid;
-  grid-template-columns: repeat(2, 1.5rem);
-  grid-template-rows: 1fr;
-  align-items: center;
-  justify-items: center;
-  grid-gap: 0.333rem;
-}
-
-.elementHeaderRowItems > span:last-of-type {
-  display: grid;
-  grid-template-columns: 1fr 1.5rem;
-  grid-template-rows: 1fr;
-  grid-gap: 0.333rem;
-  align-items: center;
-}
-
-.elementHeaderRow > h3, .elementHeaderRowItems > span > h3 {
-  justify-self: flex-start;
-  width: 100%;
-}
-
-.elementHeaderRowItemIconPrototype {
-  justify-self: center !important;
-}
-
-.elementHeaderRow > svg:last-child, .elementHeaderRowItems > span > svg:last-child {
-  justify-self: flex-end;
-  cursor: pointer;
-}
-
-.elementHeaderRow > *, .elementHeaderRowItems > span > * {
-  margin: 0;
-  padding: 0;
-}
-
-.elementHeaderRow > svg, .elementHeaderRowItems > span > svg {
-  width: auto;
-  height: 1.25rem;
-}
-
-.elementHeaderRowItems > span > svg:first-of-type {
-  width: auto;
-  height: 1.0rem;
-  cursor: pointer;
-}
-
-.elementHeaderRowItems > span > h3, .elementHeaderRowTitle {
-  width: 95%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.elementEntryRow, .elementInfoRow {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 0.35rem;
-}
-
-.elementInfoRowIncrement > span {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.elementInfoImage {
-  cursor: pointer;
-}
-
-.elementEntryRow > *, .elementInfoRow > *, .elementInfoRow > span > * {
-  margin: 0;
-  padding: 0;
-}
-
-.elementInfoRow > p:first-child, .elementInfoRow > span > p {
-  font-weight: var(--font-weight-heavy);
-  font-size: var(--font-size);
-  text-decoration: underline;
-}
-
-.elementInfoRow > p:last-child {
-  font-size: var(--font-size);
-}
-
-.elementInfoRow > img {
-  width: 100%;
-  height: auto;
-}
-
-.elementInfoRow > svg {
-  width: 3.5rem;
-  height: auto;
-  align-self: center;
-  justify-self: center;
-}
-
-.elementEntryRow > svg {
-  width: auto;
-  height: 1.5rem;
-}
-
-.elementEntryRow > label {
-  font-weight: var(--font-weight-heavy);
-  text-decoration: underline;
-  font-size: var(--font-size);
-}
-
-.elementEntryRow > input, .elementEntryRow > textarea {
-  border: 1px solid var(--foreground-color);
-  color: var(--foreground-color);
+.elementButton {
   background-color: var(--background-color);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  font-size: var(--font-size);
-  width: 100%;
-  outline: none;
-}
+  color: var(--foreground-color);
+  border: 1px solid var(--foreground-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: var(--font-size-small); }
+  .elementButton:active {
+    background-color: var(--foreground-color);
+    color: var(--background-color); }
 
-.elementEntryRow > input:focus, .elementEntryRow > textarea:focus, .elementSelectDropdown:focus {
-  border: 2px solid var(--foreground-color);
-}
+.elementButtonImageDelete {
+  width: 5rem; }
 
-.elementEntryRow > textarea {
-  resize: none;
-}
+.elementButtonWide {
+  grid-column-start: 1;
+  grid-column-end: 3; }
+
+.elementEntryRow,
+.elementInfoRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 0.35rem; }
+  .elementEntryRow > svg {
+    width: auto;
+    height: 1.5rem; }
+  .elementEntryRow > label {
+    font-weight: var(--font-weight-heavy);
+    text-decoration: underline;
+    font-size: var(--font-size); }
+  .elementEntryRow > input,
+  .elementEntryRow > textarea {
+    border: 1px solid var(--foreground-color);
+    color: var(--foreground-color);
+    background-color: var(--background-color);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: var(--font-size);
+    width: 100%;
+    outline: none; }
+  .elementEntryRow > input:focus,
+  .elementEntryRow > textarea:focus,
+  .elementSelectDropdown:focus {
+    border: 2px solid var(--foreground-color); }
+  .elementEntryRow > textarea {
+    resize: none; }
 
 .elementEntryRowsWrapper {
   width: 100%;
@@ -210,268 +69,307 @@
   background-color: var(--background-color);
   border-radius: 0.5rem;
   padding: 1rem;
-  height: fit-content;
-}
-
-.elementImageWrapper > img {
-  width: 100%;
-  height: auto;
-}
-
-.elementButtonsWrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 0.5rem;
-}
-
-.elementButtonWide {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-
-.elementButtonsWrapperGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 0.5rem;
-}
-
-.elementButton {
-  background-color: var(--background-color);
-  color: var(--foreground-color);
-  border: 1px solid var(--foreground-color);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  font-size: var(--font-size-small);
-}
-
-.elementButton:active {
-  background-color: var(--foreground-color);
-  color: var(--background-color);
-}
-
-.elementButtonImageDelete {
-  width: 5rem;
-}
-
-.elementSelectWrapper {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
-  grid-gap: 0.666rem;
-}
-
-.elementSelectWrapper > span {
-  border: 1px solid var(--foreground-color);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  width: 100%;
-  height: 100%;
-}
-
-.elementSelectWrapper > span > h3 {
-  margin: 0 0 0.5rem;
-  padding: 0;
-}
-
-.elementSelectWrapper > span > select, .elementSelectDropdown {
-  width: 100%;
-  background-color: var(--background-color);
-  color: var(--foreground-color);
-  padding: 0.5rem;
-  --webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: var(--font-size);
-  outline: none;
-  border: 1px solid var(--foreground-color);
-  border-radius: 0.25rem;
-}
-
-.elementEntryWithDropdown {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 0.5rem;
-}
-
-.elementListBullets > * + * {
-  margin-top: 0.25rem;
-}
-
-.elementListBullets > li {
-  margin-left: 1.25rem;
-  font-size: var(--font-size);
-}
-
-.elementListCloud {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.elementListCloud > li {
-  list-style: none;
-  width: auto;
-  height: auto;
-  text-align: center;
-  font-size: var(--font-size);
-  padding: 0.25rem 0.45rem;
-}
-
-.elementStatusIcon {
-  width: 5rem;
-  height: auto;
-}
-
-.elementImageRow {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto;
-}
-
-.elementImageRow > span {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.elementImageRow > span > * + * {
-  margin-left: 0.5rem;
-}
-
-.elementImageRow > span > svg {
-  width: 1.25rem;
-  height: auto;
-}
+  height: fit-content; }
 
 .elementFontWrapper {
   display: grid;
   grid-template-columns: 2fr repeat(3, 1fr) 2fr;
   grid-template-rows: 1fr;
   align-items: center;
-  justify-items: flex-start;
+  justify-items: flex-start; }
+  .elementFontWrapper > * + * {
+    border-left: 1px solid var(--foreground-color);
+    padding-left: 1rem; }
+  .elementFontWrapper > span {
+    width: 100%; }
+  .elementFontWrapper > span > button {
+    align-self: center;
+    justify-self: center;
+    padding: 0.333rem 0;
+    width: 100%; }
+
+.elementHeader {
+  margin: 0;
+  padding: 0;
 }
 
-.elementFontWrapper > * + * {
-  border-left: 1px solid var(--foreground-color);
-  padding-left: 1rem;
-}
+.elementHeaderRowCollapsible {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .elementHeaderRowCollapsible > svg:first-of-type {
+    align-self: center;
+    justify-self: center; }
 
-.elementFontWrapper > span {
+.elementHeaderRow,
+.elementHeaderRowItems {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(auto, 3fr) auto;
+  grid-template-rows: auto;
+  grid-gap: 0.35rem;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%; }
+
+.elementHeaderRowItems {
+  grid-template-columns: 3.4rem 1fr;
+  cursor: pointer; }
+.elementHeaderRowItems > span:first-of-type {
+  display: grid;
+  grid-template-columns: repeat(2, 1.5rem);
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  grid-gap: 0.333rem; }
+.elementHeaderRowItems > span:last-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1.5rem;
+  grid-template-rows: 1fr;
+  grid-gap: 0.333rem;
+  align-items: center; }
+.elementHeaderRow > h3,
+.elementHeaderRowItems > span > h3 {
+  justify-self: flex-start;
+  width: 100%; }
+
+.elementHeaderRowItemIconPrototype {
+  justify-self: center !important; }
+
+.elementHeaderRow > svg:last-child,
+.elementHeaderRowItems > span > svg:last-child {
+  justify-self: flex-end;
+  cursor: pointer; }
+
+.elementHeaderRow > *,
+.elementHeaderRowItems > span > * {
+  margin: 0;
+  padding: 0; }
+
+.elementHeaderRow > svg,
+.elementHeaderRowItems > span > svg {
+  width: auto;
+  height: 1.25rem; }
+
+.elementHeaderRowItems > span > svg:first-of-type {
+  width: auto;
+  height: 1.0rem;
+  cursor: pointer; }
+
+.elementHeaderRowItems > span > h3,
+.elementHeaderRowTitle {
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.elementInfoRowIncrement > span {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.elementInfoImage {
+  cursor: pointer; }
+
+.elementEntryRow > *,
+.elementInfoRow > *,
+.elementInfoRow > span > * {
+  margin: 0;
+  padding: 0; }
+.elementInfoRow > p:first-child,
+.elementInfoRow > span > p {
+  font-weight: var(--font-weight-heavy);
+  font-size: var(--font-size);
+  text-decoration: underline; }
+.elementInfoRow > p:last-child {
+  font-size: var(--font-size); }
+.elementInfoRow > img {
   width: 100%;
-}
-
-.elementFontWrapper > span > button {
+  height: auto; }
+.elementInfoRow > svg {
+  width: 3.5rem;
+  height: auto;
   align-self: center;
-  justify-self: center;
-  padding: 0.333rem 0;
+  justify-self: center; }
+
+.elementImageWrapper > img {
   width: 100%;
-}
+  height: auto; }
+
+.elementSelectWrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 0.666rem; }
+  .elementSelectWrapper > span {
+    border: 1px solid var(--foreground-color);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+    height: 100%; }
+  .elementSelectWrapper > span > h3 {
+    margin: 0 0 0.5rem;
+    padding: 0; }
+  .elementSelectWrapper > span > select,
+  .elementSelectDropdown {
+    width: 100%;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    padding: 0.5rem;
+    --webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: var(--font-size);
+    outline: none;
+    border: 1px solid var(--foreground-color);
+    border-radius: 0.25rem; }
+
+.elementEntryWithDropdown {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 0.5rem; }
+
+.elementIncrementWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.08rem;
+  cursor: pointer; }
+  .elementIncrementWrapper > svg {
+    width: 0.65rem;
+    height: 0.65rem;
+    margin-left: 0.07rem; }
+
+.elementListBullets > * + * {
+  margin-top: 0.25rem; }
+.elementListBullets > li {
+  margin-left: 1.25rem;
+  font-size: var(--font-size); }
+
+.elementListCloud {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; }
+  .elementListCloud > li {
+    list-style: none;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-size: var(--font-size);
+    padding: 0.25rem 0.45rem; }
+
+.elementStatusIcon {
+  width: 5rem;
+  height: auto; }
+
+.elementImageRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto; }
+  .elementImageRow > span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start; }
+  .elementImageRow > span > * + * {
+    margin-left: 0.5rem; }
+  .elementImageRow > span > svg {
+    width: 1.25rem;
+    height: auto; }
 
 .elementPaletteWrapper {
   display: grid;
   grid-template-columns: repeat(2, 2fr) 1fr;
   grid-template-rows: 1fr;
   align-items: center;
-  justify-items: flex-start;
-}
-
-.elementPaletteWrapper > span:last-of-type, .elementPaletteWrapper > span > button {
-  width: 100%;
-}
+  justify-items: flex-start; }
+  .elementPaletteWrapper > span:last-of-type,
+  .elementPaletteWrapper > span > button {
+    width: 100%; }
 
 .elementPaletteSwatch {
   display: grid;
   grid-template-areas: "swatch hex"
                        "swatch color";
   grid-template-columns: 3.0rem auto;
-  grid-template-rows: repeat(2, 1.5rem);
-}
+  grid-template-rows: repeat(2, 1.5rem); }
+  .elementPaletteSwatch > div {
+    grid-area: swatch; }
+  .elementPaletteSwatch > p {
+    margin: 0;
+    padding: 0 0 0 0.5rem;
+    align-self: center; }
+  .elementPaletteSwatch > p:first-of-type {
+    grid-area: hex; }
+  .elementPaletteSwatch > p:last-of-type {
+    grid-area: color; }
 
-.elementPaletteSwatch > div {
-  grid-area: swatch;
-}
-
-.elementPaletteSwatch > p {
-  margin: 0;
-  padding: 0 0 0 0.5rem;
-  align-self: center;
-}
-
-.elementPaletteSwatch > p:first-of-type {
-  grid-area: hex;
-}
-
-.elementPaletteSwatch > p:last-of-type {
-  grid-area: color;
-}
-
-.elementTitleWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: fit-content;
-}
+.elementRowWrapperAnimated {
+  width: 100%;
+  height: fit-content; }
 
 .elementTitle {
   margin: 0;
   padding: 0;
   font-size: 1.55rem;
   text-transform: capitalize;
-  width: 10rem;
-}
+  width: 10rem; }
+
+.elementTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content; }
+
+.elementWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 0.666rem; }
+  @media only screen and (max-width: 666px) {
+    .elementWrapper {
+      grid-template-columns: 1fr;
+    } }
+
+.elementWrapperPalettes {
+  grid-template-columns: 1fr; }
+
+.elementWrapperWide {
+  grid-template-columns: 1fr; }
+
+.elementWrapperColumn {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-row-gap: 0.666rem;
+  align-items: flex-start;
+  justify-items: center;
+  width: 100%;
+  height: fit-content; }
+
+@keyframes rotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(359deg); } }
 
 .statusIconWrapper {
   width: 100%;
   height: 5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.statusIconWrapper > svg {
-  width: 2.5rem !important;
-  height: auto;
-}
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
+  justify-content: center; }
+  .statusIconWrapper > svg {
+    width: 2.5rem !important;
+    height: auto; }
 
 .statusIconWrapperAnimated {
-  width: 100%;
-}
-
-.statusIconWrapperAnimated > svg {
-  animation: rotation 2.5s infinite linear;
-}
+  width: 100%; }
+  .statusIconWrapperAnimated > svg {
+    animation: rotation 2.5s infinite linear; }
 
 .statusIconWrapperSmall > svg {
   width: 1.1rem !important;
   height: auto;
-  animation: rotation 2.5s infinite linear;
-}
-
-.elementIncrementWrapper {
-  display: flex;
-  flex-direction: row;
-  margin-top: 0.08rem;
-  cursor: pointer;
-}
-
-.elementIncrementWrapper > svg {
-  width: 0.65rem;
-  height: 0.65rem;
-  margin-left: 0.07rem;
-}
+  animation: rotation 2.5s infinite linear; }
