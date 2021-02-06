@@ -38,6 +38,8 @@ export async function getServerSideProps() {
   let res = await fetch(process.env.NEXT_PUBLIC_URL + 'api/image/info')
   let images = await res.json()
 
+  images.sort((a, b) => a.hasImage - b.hasImage)
+
   return { props: { images } }
 }
 

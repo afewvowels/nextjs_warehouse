@@ -84,6 +84,7 @@ const Prototype = ({prototype, categories, tags, startOpen}) => {
 
     if (delRes.status == 201) {
       console.log('delete sucessful')
+      set_collapsed(true)
       Router.push('/prototype')
     } else {
       console.error('error while deleting prototype')

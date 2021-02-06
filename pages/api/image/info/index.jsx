@@ -10,9 +10,14 @@ handler.get(async (req, res) => {
     .get()
     .then(results => {
       results.forEach(result => {
+        let hasImage = false
+        if (result.data().base64) {
+          hasImage = true
+        }
         images.push({
           _id: result.id,
-          uuid: result.data().uuid
+          uuid: result.data().uuid,
+          hasImage: hasImage
         })
       })
       res.status(201).json(images)

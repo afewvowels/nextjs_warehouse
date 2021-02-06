@@ -1,5 +1,4 @@
 import styles from '@styles/elements.module.css'
-import Router from 'next/router'
 import useSWR from 'swr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
@@ -30,7 +29,7 @@ function useImageInUse(uuid) {
   return { inUse: data, inUseIsLoading: !error && !data, inUseIsError: error }
 }
 
-function ImageInUse({uuid}) {
+function ImageInUse({uuid, deleted}) {
   const { inUse, inUseIsLoading, inUseIsError } = useImageInUse(uuid)
   const { image, isLoading, isError } = useImage(uuid)
 
@@ -42,16 +41,19 @@ function ImageInUse({uuid}) {
     <span className={styles.statusIconWrapperSmall}>
       <FontAwesomeIcon icon={['far', 'exclamation']} />
     </span>)
-  if (image == undefined) return <p>Image undefined</p>
+  if (image == undefined || image.base64 == undefined) return <p>Image undefined</p>
   if (inUse.in_use) {
     return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+  } else if (deleted) {
+    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Deleted | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
   } else {
-    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Not in use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span style={{fontWeight: 'bold', color: 'red', textDecoration: 'underline'}}>Not in use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
   }
 }
 
 const Image = ({image}) => {
   const [collapsed, set_collapsed] = useState(true)
+  const [deleted, set_deleted] = useState(false)
 
   const deleteImage = async () => {
     const delRes = await fetch('/api/image/' + image.uuid, {
@@ -61,7 +63,8 @@ const Image = ({image}) => {
     if (delRes.status == 201) {
       console.log('delete sucessful')
       set_collapsed(true)
-      Router.push('/util/image')
+      set_deleted(true)
+      // Router.push('/util/image')
     } else {
       console.error('error while deleting image')
     }
@@ -79,7 +82,7 @@ const Image = ({image}) => {
     return(
       <div className={styles.elementEntryRowsWrapper}>
         <div onClick={openImage} style={{cursor: 'pointer'}} className={styles.elementImageRow}>
-          <ImageInUse uuid={image.uuid}/>
+          <ImageInUse uuid={image.uuid} deleted={deleted}/>
           <span>
             <FontAwesomeIcon icon={['far', 'plus-square']} />
           </span>
