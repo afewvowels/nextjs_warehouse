@@ -45,9 +45,9 @@ function ImageInUse({uuid, deleted}) {
   if (inUse.in_use) {
     return (<span><FontAwesomeIcon icon={['fas', 'check-square']} /><span>In use</span> | <span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
   } else if (deleted) {
-    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Deleted | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span>Deleted</span> | <span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
   } else {
-    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span style={{fontWeight: 'bold', color: 'red', textDecoration: 'underline'}}>Not in use | </span><span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
+    return (<span><FontAwesomeIcon icon={['fas', 'times-square']} /><span style={{fontWeight: 'bold', color: 'red', textDecoration: 'underline'}}>Not in use</span> | <span>{(parseFloat(image.base64.toString().length) * .001 * 0.75).toFixed(2)} KB</span></span>)
   }
 }
 
