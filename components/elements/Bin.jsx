@@ -83,7 +83,7 @@ const Bin = ({bin}) => {
     set_collapsed(true)
   }
 
-  if (collapsed) {
+  const collapsedHtml = () => {
     return(
       <div className={styles.elementEntryRowsWrapper}>
         <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={openItem} >
@@ -100,7 +100,10 @@ const Bin = ({bin}) => {
           <ItemsList uuid={bin.uuid}/>
         </div>
       </div>
-    )} else {
+    )
+  }
+
+  const openHtml = () => {
     return(
       <div className={styles.elementEntryRowsWrapper}>
         <div className={`${styles.elementHeaderRow} ${styles.elementHeaderRowCollapsible}`} onClick={closeItem} >
@@ -133,7 +136,10 @@ const Bin = ({bin}) => {
             <button className={`${styles.elementButton}`}>Edit</button>
           </Link>
         </div>
-      </div>)}
+      </div>)
+  }
+
+  return (collapsed) ? collapsedHtml() : openHtml()
 }
 
 export default Bin

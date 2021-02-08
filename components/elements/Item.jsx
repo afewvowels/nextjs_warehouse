@@ -12,19 +12,19 @@ function useImage(uuid) {
   return { image: data, isLoading: !error && !data, isError: error }
 }
 
-function BinImage({uuid, item}) {
-  const { image, isLoading, isError } = useImage(uuid)
+// function BinImage({uuid, item}) {
+//   const { image, isLoading, isError } = useImage(uuid)
 
-  if (isLoading) return (
-    <span className={`${styles.statusIconWrapper} ${styles.statusIconWrapperAnimated}`}>
-      <FontAwesomeIcon icon={['far', 'atom-alt']} />
-    </span>)
-  if (isError) return (
-    <span className={styles.statusIconWrapper}>
-      <FontAwesomeIcon icon={['far', 'exclamation']} />
-    </span>)
-  return (<Link href={`/bin/${item.bin_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
-}
+//   if (isLoading) return (
+//     <span className={`${styles.statusIconWrapper} ${styles.statusIconWrapperAnimated}`}>
+//       <FontAwesomeIcon icon={['far', 'atom-alt']} />
+//     </span>)
+//   if (isError) return (
+//     <span className={styles.statusIconWrapper}>
+//       <FontAwesomeIcon icon={['far', 'exclamation']} />
+//     </span>)
+//   return (<Link href={`/bin/${item.bin_uuid}`}><img src={image.base64} alt={uuid} className={styles.elementInfoImage}/></Link>)
+// }
 
 function PrototypeImage({uuid, item}) {
   const { image, isLoading, isError } = useImage(uuid)
@@ -123,7 +123,11 @@ const Item = ({item}) => {
         <div className={styles.elementInfoRow}>
           <PrototypeImage uuid={item.prototype_image_uuid} item={item}/>
         </div>
-        <div className={styles.elementHeaderRow}>
+        <div className={styles.elementInfoRow}>
+          <p>Notes</p>
+          <p>{(item.notes) ? (item.notes == '') ? 'None' : item.notes : 'None' }</p>
+        </div>
+        {/* <div className={styles.elementHeaderRow}>
           <FontAwesomeIcon icon={item.bin_icon}/>
           <h3>{item.bin_name}</h3>
         </div>
@@ -131,13 +135,9 @@ const Item = ({item}) => {
           <BinImage uuid={item.bin_image_uuid} item={item}/>
         </div>
         <div className={styles.elementInfoRow}>
-          <p>Notes</p>
-          <p>{(item.notes) ? (item.notes == '') ? 'None' : item.notes : 'None' }</p>
-        </div>
-        <div className={styles.elementInfoRow}>
           <p>Item is in bin</p>
           <p>{check_in_out ? 'True' : 'False'}</p>
-        </div>
+        </div> */}
         <div className={styles.elementButtonsWrapperGrid}>
           <button className={`${styles.elementButton}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
           <Link href={`/item/print/${item.uuid}`}>

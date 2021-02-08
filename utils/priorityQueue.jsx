@@ -62,6 +62,7 @@ export default class PriorityQueue {
         leftChildNode = this.values[leftChildIndex]
         if (leftChildNode.priority > currentNode.priority) swap = leftChildIndex
       }
+
       if (rightChildIndex < length) {
         rightChildNode = this.values[rightChildIndex]
         if (
@@ -74,6 +75,7 @@ export default class PriorityQueue {
         isTrue = false
         break
       }
+
       this.values[index] = this.values[swap]
       this.values[swap] = currentNode
       index = swap

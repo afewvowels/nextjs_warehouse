@@ -55,7 +55,6 @@ const Index = () => {
 
     console.log('after image submission attempt')
 
-
     const bin = {
       uuid: uuid,
       readable_name: readable_name,
